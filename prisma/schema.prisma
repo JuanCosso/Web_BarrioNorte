@@ -1,0 +1,44 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client"
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+
+  status        String   @default("draft") // draft | paid | cancelled
+  currency      String   @default("ARS")
+
+  buyerName     String
+  buyerPhone    String
+  buyerEmail    String?
+
+  delivery      String   // retiro | envio
+
+  subtotal      Int
+  shippingCost  Int
+  total         Int
+
+  paymentProvider String?
+  paymentStatus   String? // approved | pending | rejected | etc
+  paymentId       String?
+  preferenceId    String?
+
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  order     Order  @relation(fields: [orderId], references: [id])
+
+  productId   String
+  name        String
+  unitPrice   Int
+  quantity    Int
+  variantJson String?
+}

@@ -1,0 +1,43 @@
+[
+    {
+      "round": "Fecha 1",
+      "dateISO": "2026-01-21",
+      "time": "21:00",
+      "home": "Barrio Norte",
+      "away": "La Academia",
+      "venue": "Estadio Pocha Badaracco",
+      "homeLogo": "/escudos/BarrioNorte_V1.png",
+      "awayLogo": "/escudos/LaAcademia.png"
+    },
+    {
+      "round": "Fecha 3",
+      "dateISO": "2026-02-04",
+      "time": "23:00",
+      "home": "Gualeguay Central",
+      "away": "Barrio Norte",
+      "venue": "Estadio Enrique Da Dalt",
+      "homeLogo": "/escudos/GualeguayCentral.png",
+      "awayLogo": "/escudos/BarrioNorte_V1.png"
+    },
+    {
+      "round": "Fecha 4",
+      "dateISO": "2026-02-11",
+      "time": "21:00",
+      "home": "Barrio Norte",
+      "away": "Bancario",
+      "venue": "Estadio Pocha Badaracco",
+      "homeLogo": "/escudos/BarrioNorte_V1.png",
+      "awayLogo": "/escudos/Bancario.png"
+    },
+    {
+      "round": "Fecha 5",
+      "dateISO": "2026-02-18",
+      "time": "23:00",
+      "home": "Juventud",
+      "away": "Barrio Norte",
+      "venue": "Estadio del Pueblo",
+      "homeLogo": "/escudos/JuventudCarbo.png",
+      "awayLogo": "/escudos/BarrioNorte_V1.png"
+    }
+]
+  

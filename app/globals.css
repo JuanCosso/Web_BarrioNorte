@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@layer utilities {
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    .animate-shimmer {
+      animation: shimmer 4s linear infinite; /* Más lento y elegante */
+    }
+  }
+  @keyframes museoRed {
+    0%, 100% { transform: translate(-40%, -25%) scale(1); opacity: 0.35; }
+    50%      { transform: translate(35%, 10%) scale(1.15); opacity: 0.60; }
+  }
+  
+  @keyframes museoWhite {
+    0%, 100% { transform: translate(25%, 25%) scale(1.05); opacity: 0.10; }
+    50%      { transform: translate(-25%, -15%) scale(1.25); opacity: 0.22; }
+  }
+  
+  @keyframes museoSheen {
+    0%   { transform: translateX(-30%); opacity: 0; }
+    35%  { opacity: 0.14; }
+    70%  { transform: translateX(30%); opacity: 0; }
+    100% { transform: translateX(30%); opacity: 0; }
+  }
+  
+  .museo-blob-red   { animation: museoRed 14s ease-in-out infinite; will-change: transform, opacity; }
+  .museo-blob-white { animation: museoWhite 18s ease-in-out infinite; will-change: transform, opacity; }
+  .museo-sheen      { animation: museoSheen 10s ease-in-out infinite; will-change: transform, opacity; }
+  @keyframes museoBeep {
+    0%, 78% { transform: scale(1); opacity: 1; }
+    82%     { transform: scale(1.0); opacity: 1; }
+    86%     { transform: scale(1.25); opacity: 1; }
+    92%     { transform: scale(1.0); opacity: 1; }
+    100%    { transform: scale(1); opacity: 1; }
+  }
+  
+  /* Halo/ping alrededor del punto */
+  @keyframes museoBeepRing {
+    0%, 78% { transform: scale(1); opacity: 0; }
+    82%     { opacity: 0.0; }
+    86%     { transform: scale(2.6); opacity: 0.35; }
+    100%    { transform: scale(3.2); opacity: 0; }
+  }
+  
+  .museo-beep-dot {
+    animation: museoBeep 3.6s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  
+  .museo-beep-ring {
+    animation: museoBeepRing 3.6s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  
+  
