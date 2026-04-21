@@ -31,7 +31,7 @@ export default function NoticiasYPosiciones() {
         {/* Fila 2: Tablas de posiciones Liga 2026 */}
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">
-            Tablas de posiciones · Liga 2026
+            Tablas de posiciones
           </h2>
           <div className="grid gap-6 lg:grid-cols-2 items-start">
             <TablaLigaInicio
