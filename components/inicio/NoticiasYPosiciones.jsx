@@ -1,14 +1,17 @@
 // components/inicio/NoticiasYPosiciones.jsx
 import ListaNoticias from "./ListaNoticias";
-import TablaPosiciones from "./TablaPosiciones";
-import TablaPosicionesPetit2025 from "./TablaPosicionesPetit2025";
-import TablaRepechajeOficial2025 from "./TablaRepechajeOficial2025";
+import TablaLigaInicio from "./TablaLigaInicio";
+import UltimosResultados2026 from "./UltimosResultados2026";
 import PublicidadBono from "./PublicidadBono";
+import Link from "next/link";
+import ligaMascData from "../../data/local/oficial-2026/oficial_2026_liga.json";
+import ligaFemData  from "../../data/local/oficial-2026-fem/fem_oficial_2026_liga.json";
 
 export default function NoticiasYPosiciones() {
   return (
     <section className="w-full bg-gray-50 py-8 md:py-10">
       <div className="container mx-auto px-4 space-y-8">
+
         {/* Fila 1: Noticias + Bono */}
         <div className="grid gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)] items-start">
           <div>
@@ -17,26 +20,40 @@ export default function NoticiasYPosiciones() {
             </h2>
             <ListaNoticias />
           </div>
-
           <div className="flex justify-center lg:justify-end">
             <PublicidadBono />
           </div>
         </div>
 
-        {/* Fila 2: Tablas de posiciones */}
+        {/* Últimos resultados — sutil */}
+        <UltimosResultados2026 />
+
+        {/* Fila 2: Tablas de posiciones Liga 2026 */}
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">
-            Tablas de posiciones
+            Tablas de posiciones · Liga 2026
           </h2>
-
           <div className="grid gap-6 lg:grid-cols-2 items-start">
-            <TablaPosiciones />
-
-            {/* Derecha: Repechaje arriba, Petit abajo */}
-            <div className="space-y-6">
-              <TablaRepechajeOficial2025 />
-              <TablaPosicionesPetit2025 />
-            </div>
+            <TablaLigaInicio
+              equiposRaw={ligaMascData.equipos}
+              title="Primera División"
+              badge="Masculino"
+              footnote="Posiciones Torneo Oficial 2026."
+            />
+            <TablaLigaInicio
+              equiposRaw={ligaFemData.equipos}
+              title="Primera División"
+              badge="Femenino"
+              footnote="Posiciones Torneo Oficial 2026 femenino."
+            />
+          </div>
+          <div className="flex justify-end pt-1">
+            <Link
+              href="/disciplinas/futbol"
+              className="text-sm font-semibold text-red-600 hover:text-red-700"
+            >
+              Ver todas las tablas →
+            </Link>
           </div>
         </div>
       </div>

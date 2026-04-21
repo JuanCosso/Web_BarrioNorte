@@ -128,7 +128,7 @@ export default function ListaNoticias() {
           href="/noticias"
           className="text-sm font-semibold text-red-600 hover:text-red-700"
         >
-          Ver todas las noticias
+          Ver todas las noticias →
         </Link>
       </div>
     </div>

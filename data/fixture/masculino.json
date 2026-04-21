@@ -1,43 +1,20 @@
 [
-    {
-      "round": "Fecha 1",
-      "dateISO": "2026-01-21",
-      "time": "21:00",
-      "home": "Barrio Norte",
-      "away": "La Academia",
-      "venue": "Estadio Pocha Badaracco",
-      "homeLogo": "/escudos/BarrioNorte_V1.png",
-      "awayLogo": "/escudos/LaAcademia.png"
-    },
-    {
-      "round": "Fecha 3",
-      "dateISO": "2026-02-04",
-      "time": "23:00",
-      "home": "Gualeguay Central",
-      "away": "Barrio Norte",
-      "venue": "Estadio Enrique Da Dalt",
-      "homeLogo": "/escudos/GualeguayCentral.png",
-      "awayLogo": "/escudos/BarrioNorte_V1.png"
-    },
-    {
-      "round": "Fecha 4",
-      "dateISO": "2026-02-11",
-      "time": "21:00",
-      "home": "Barrio Norte",
-      "away": "Bancario",
-      "venue": "Estadio Pocha Badaracco",
-      "homeLogo": "/escudos/BarrioNorte_V1.png",
-      "awayLogo": "/escudos/Bancario.png"
-    },
-    {
-      "round": "Fecha 5",
-      "dateISO": "2026-02-18",
-      "time": "23:00",
-      "home": "Juventud",
-      "away": "Barrio Norte",
-      "venue": "Estadio del Pueblo",
-      "homeLogo": "/escudos/JuventudCarbo.png",
-      "awayLogo": "/escudos/BarrioNorte_V1.png"
-    }
+  { "round": "Fecha 1",  "dateISO": "2026-04-19", "time": "14:30",       "home": "Centro Bancario",   "away": "Barrio Norte",      "venue": "Estadio Ricardo Taborda", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Bancario.png" },
+  { "round": "Fecha 2",  "dateISO": "2026-04-26", "time": "A confirmar", "home": "Barrio Norte",      "away": "Libertad",          "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Libertad.png" },
+  { "round": "Fecha 3",  "dateISO": "2026-05-03", "time": "A confirmar", "home": "La Academia",       "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/LaAcademia.png", "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 4",  "dateISO": "2026-05-10", "time": "A confirmar", "home": "Barrio Norte",      "away": "Urquiza",           "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Urquiza.png" },
+  { "round": "Fecha 5",  "dateISO": "2026-05-17", "time": "A confirmar", "home": "El Progreso",       "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/ElProgreso.png", "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 6",  "dateISO": "2026-05-24", "time": "A confirmar", "home": "Barrio Norte",      "away": "Central",           "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Central.png" },
+  { "round": "Fecha 7",  "dateISO": "2026-05-31", "time": "A confirmar", "home": "Juventud",          "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Juventud.png",   "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 8",  "dateISO": "2026-06-07", "time": "A confirmar", "home": "Barrio Norte",      "away": "Quilmes",           "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Quilmes.png" },
+  { "round": "Fecha 9",  "dateISO": "2026-06-14", "time": "A confirmar", "home": "Sociedad Sportiva", "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Sportiva.png",   "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 10", "dateISO": "2026-06-21", "time": "A confirmar", "home": "Centro Bancario",   "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Bancario.png",   "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 11", "dateISO": "2026-06-28", "time": "A confirmar", "home": "Libertad",          "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Libertad.png",   "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 12", "dateISO": "2026-07-05", "time": "A confirmar", "home": "Barrio Norte",      "away": "La Academia",       "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/LaAcademia.png" },
+  { "round": "Fecha 13", "dateISO": "2026-07-12", "time": "A confirmar", "home": "Urquiza",           "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Urquiza.png",    "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 14", "dateISO": "2026-07-19", "time": "A confirmar", "home": "Barrio Norte",      "away": "El Progreso",       "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/ElProgreso.png" },
+  { "round": "Fecha 15", "dateISO": "2026-07-26", "time": "A confirmar", "home": "Central",           "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Central.png",    "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 16", "dateISO": "2026-08-02", "time": "A confirmar", "home": "Barrio Norte",      "away": "Juventud",          "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Juventud.png" },
+  { "round": "Fecha 17", "dateISO": "2026-08-09", "time": "A confirmar", "home": "Quilmes",           "away": "Barrio Norte",      "venue": "A confirmar",             "homeLogo": "/escudos/Quilmes.png",    "awayLogo": "/escudos/BarrioNorte_V1.png" },
+  { "round": "Fecha 18", "dateISO": "2026-08-16", "time": "A confirmar", "home": "Barrio Norte",      "away": "Sociedad Sportiva", "venue": "Estadio Pocha Badaracco", "homeLogo": "/escudos/BarrioNorte_V1.png", "awayLogo": "/escudos/Sportiva.png" }
 ]
-  
