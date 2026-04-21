@@ -83,7 +83,7 @@ export const TOURNAMENTS = [
       playoffsTitle: "Eliminatorias",
       note: "Supercopa Entre Ríos 2023.",
 
-      // ✅ Footnotes personalizables
+      
       groupFootnote: "Primera Ronda de la Supercopa Entre Ríos 2023.",
       playoffsFootnote:
         "La Supercopa Entre Ríos 2023 finalmente fue alzada por el Club Gimnasia y Esgrima (Concepción del Uruguay).",
@@ -207,6 +207,27 @@ export const TOURNAMENTS = [
       grupoAFootnote: "Posiciones Torneo {label}.",
       grupoBFootnote: "Posiciones Torneo {label}.",
       playoffsFootnote: "Torneo {label} disputándose.",
+    },
+  },
+  {
+    id: "oficial-2026",
+    label: "Oficial 2026",
+    format: "oficial",
+    tables: {
+      liga:      { type: "oficial_2026_liga" },
+      repechaje: { type: "oficial_2026_repechaje" },
+      petit:     { type: "oficial_2026_petit" },
+    },
+    ui: {
+      ligaTitle:    "Liga Departamental",
+      ligaPhase:    "Fase regular",
+      repechajeTitle: "Repechaje",
+      petitTitle:   "Petit Torneo",
+      petitPhase:   "Fase final",
+      note:         "Torneo {label}.",
+      ligaFootnote:     "Posiciones {label}.",
+      repechajeFootnote: "Torneo {label} por disputarse.",
+      petitFootnote:     "Torneo {label} por disputarse.",
     },
   },
 ];
@@ -426,5 +447,18 @@ export const TOURNAMENT_CONTENT = {
       { name: "Jugador 4", role: "Delantero" },
     ], 
   },
-  "preparacion-2026": { results: [], staff: [], roster: [] },
+  "preparacion-2026": {     
+    results: [],  
+    staff: [
+      { name: "Darío Sánchez", role: "Director Técnico" },
+    ],
+    roster: [],
+  },
+  "oficial-2026": {
+  results: [],
+  staff: [
+    { name: "Darío 'Colo' Sánchez", role: "Director Técnico" },
+  ],
+  roster: [],
+},
 };

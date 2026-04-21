@@ -181,7 +181,7 @@ export function TablaPosicionesInicioLike({
             <tbody className="text-gray-800">
               {(equipos || []).map((equipo, index) => {
                 const posicion = index + 1;
-                const esBarrioNorte = equipo.slug === "barrio-norte";
+                const esBarrioNorte = equipo.slug === "barrio-norte" || /barrio\s*norte/i.test(String(equipo.name || ""));
   
                 return (
                   <tr
@@ -190,15 +190,11 @@ export function TablaPosicionesInicioLike({
                       esBarrioNorte ? "bg-red-50 font-semibold" : "hover:bg-gray-50"
                     }`}
                   >
-                    <td className="py-1 px-2 text-center">
-                      {withPositionColors ? (
-                        <span className={clasePosicion(posicion, positionColorScheme)}>{posicion}</span>
-                      ) : (
-                        posicion
-                      )}
+                    <td className="py-2 px-2 text-center">
+                      {posicion}
                     </td>
   
-                    <td className="py-1 pr-2 min-w-0">
+                    <td className="py-2 pr-2 min-w-0">
                       <div className="flex items-center gap-2 min-w-0">
                         <Image
                           src={equipo.logo || "/escudos/BarrioNorte_V1.png"}
@@ -213,12 +209,12 @@ export function TablaPosicionesInicioLike({
                       </div>
                     </td>
   
-                    <td className="py-1 px-1 text-center">{equipo.pj}</td>
-                    <td className="py-1 px-1 text-center">{equipo.pg}</td>
-                    <td className="py-1 px-1 text-center">{equipo.pe}</td>
-                    <td className="py-1 px-1 text-center">{equipo.pp}</td>
-                    <td className="py-1 px-1 text-center">{equipo.dg}</td>
-                    <td className="py-1 pl-1 text-center font-semibold">{equipo.pts}</td>
+                    <td className="py-2 px-1 text-center">{equipo.pj}</td>
+                    <td className="py-2 px-1 text-center">{equipo.pg}</td>
+                    <td className="py-2 px-1 text-center">{equipo.pe}</td>
+                    <td className="py-2 px-1 text-center">{equipo.pp}</td>
+                    <td className="py-2 px-1 text-center">{equipo.dg}</td>
+                    <td className="py-2 pl-1 text-center font-semibold">{equipo.pts}</td>
                   </tr>
                 );
               })}

@@ -160,7 +160,7 @@ export default function Infantiles({ nav, active, onChange }) {
     if (tournamentId && tournaments.some((t) => t.id === tournamentId)) return;
 
     if (defaultTournament?.id) setTournamentId(defaultTournament.id);
-  }, [tournaments, defaultTournament?.id, tournamentId]);
+  }, [categoryId]); // Solo dependencia en categoryId para evitar jitter
 
   function handleCategoryChange(nextCatId) {
     const nextCat = normalizeId(nextCatId);

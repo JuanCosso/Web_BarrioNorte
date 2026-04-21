@@ -65,10 +65,33 @@ function teamLogoFor(teamName) {
 }
 
 function withTeamLogosEquipos(equipos) {
+  const TEAM_SHORT = {
+    "Sociedad Sportiva": "Sportiva",
+    SociedadSportiva: "Sportiva",
+    "Gualeguay Central": "Central",
+    GualeguayCentral: "Central",
+  };
+
   return (Array.isArray(equipos) ? equipos : []).map((e) => {
     const teamName = e?.name || e?.shortName || e?.equipo || "";
+    const rawName = String(teamName || "").replace(/\u00A0/g, " ").trim();
+    const name = rawName.replace(/\s+/g, " ");
+    const noSpaces = name.replace(/\s+/g, "");
+    const slug = noSpaces.toLowerCase();
+
     const mapped = teamLogoFor(teamName);
-    return { ...e, logo: mapped || e?.logo || "/escudos/BarrioNorte_V1.png" };
+    const pg = Number(e?.pg || 0);
+    const pe = Number(e?.pe || 0);
+    const pts = pg * 3 + pe;
+
+    return {
+      ...e,
+      slug: e?.slug || slug,
+      name: name,
+      shortName: e?.shortName || TEAM_SHORT[name] || name,
+      logo: mapped || e?.logo || "/escudos/BarrioNorte_V1.png",
+      pts: e?.pts || pts,
+    };
   });
 }
 
@@ -143,8 +166,39 @@ export default function Femenino({ nav, active, onChange }) {
     [tournamentId]
   );
 
-  // ✅ Resultados/staff/plantel igual que Masculino: viene de TOURNAMENT_CONTENT por tournamentId
-  const content = TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] };
+  const [content, setContent] = useState(() => 
+    TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] }
+  );
+
+  // Cargar resultados dinámicamente del API cuando sea oficial-2026
+  useEffect(() => {
+    async function loadResults() {
+      const baseContent = TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] };
+      
+      // Si es oficial-2026-fem, intenta cargar desde el API
+      if (tournamentId.includes("2026")) {
+        try {
+          const category = "femenino";
+          const response = await fetch(
+            `/api/resultados?tournament=${encodeURIComponent(tournamentId)}&category=${encodeURIComponent(category)}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            if (Array.isArray(data.results) && data.results.length > 0) {
+              setContent({ ...baseContent, results: data.results });
+              return;
+            }
+          }
+        } catch (e) {
+          // Si falla, usa el del config
+        }
+      }
+      
+      setContent(baseContent);
+    }
+    
+    loadResults();
+  }, [tournamentId]);
 
   const [tables, setTables] = useState({});
   const [repechajeRows, setRepechajeRows] = useState(null);

@@ -50,16 +50,32 @@ function withTeamLogosFinales(rows) {
 }
 
 function withTeamLogosEquipos(equipos) {
+  const TEAM_SHORT = {
+    "Sociedad Sportiva": "Sportiva",
+    SociedadSportiva: "Sportiva",
+    "Gualeguay Central": "Central",
+    GualeguayCentral: "Central",
+  };
+
   const safe = Array.isArray(equipos) ? equipos : [];
 
   return safe.map((e) => {
     const name = normalizeTeamName(e?.name || e?.shortName);
     const noSpaces = name.replace(/\s+/g, "");
+    const slug = noSpaces.toLowerCase();
+
     const mapped = TEAM_LOGOS?.[name] || TEAM_LOGOS?.[noSpaces] || TEAM_LOGOS?.[e?.slug] || null;
+    const pg = Number(e?.pg || 0);
+    const pe = Number(e?.pe || 0);
+    const pts = pg * 3 + pe;
 
     return {
       ...e,
+      slug: e?.slug || slug,
+      name: name,
+      shortName: e?.shortName || TEAM_SHORT[name] || name,
       logo: mapped || e?.logo || "/escudos/BarrioNorte_V1.png",
+      pts: e?.pts || pts,
     };
   });
 }
@@ -157,7 +173,7 @@ export default function Inferiores({ nav, active, onChange }) {
     if (tournamentId && tournaments.some((t) => t.id === tournamentId)) return;
 
     if (defaultTournament?.id) setTournamentId(defaultTournament.id);
-  }, [tournaments, defaultTournament?.id, tournamentId]);
+  }, [categoryId]); // Solo dependencia en categoryId para evitar jitter
 
   // ✅ Cambio de categoría desde UI: actualiza URL (cat) y limpia tour (se volverá a setear al elegir/caer en default)
   function handleCategoryChange(nextCatId) {
@@ -212,15 +228,18 @@ export default function Inferiores({ nav, active, onChange }) {
   const [finalesRows, setFinalesRows] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Resetear datos inmediatamente cuando cambia la categoría para evitar jitter
+  useEffect(() => {
+    setLiga(null);
+    setFinalesRows(null);
+    setLoading(true);
+  }, [categoryId]);
+
   useEffect(() => {
     let cancelled = false;
     if (!tournament?.id) return;
 
     async function load() {
-      setLoading(true);
-      setLiga(null);
-      setFinalesRows(null);
-
       const bust = process.env.NODE_ENV === "development" ? `&_ts=${Date.now()}` : "";
       const base = `/api/tabla-posiciones?tournament=${encodeURIComponent(tournament.id)}${bust}`;
 
@@ -238,9 +257,14 @@ export default function Inferiores({ nav, active, onChange }) {
         if (!cancelled) {
           setLiga(ligaResp);
           setFinalesRows(finalesResp);
+          setLoading(false);
         }
-      } finally {
-        if (!cancelled) setLoading(false);
+      } catch (err) {
+        if (!cancelled) {
+          setLiga([]);
+          setFinalesRows([]);
+          setLoading(false);
+        }
       }
     }
 
@@ -267,7 +291,7 @@ export default function Inferiores({ nav, active, onChange }) {
         <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10 py-8">
           <div className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-6 items-start">
-              <div className="min-w-0">
+              <div className="min-w-0" key={`tables-${tournament?.id}`}>
                 <div className="flex items-end justify-between gap-3 mb-3 min-w-0">
                   <h2 className="text-lg sm:text-xl font-extrabold text-gray-900">Tablas de posiciones</h2>
                   <span className="text-xs text-gray-500">{tournament?.label || ""}</span>

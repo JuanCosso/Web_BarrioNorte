@@ -77,7 +77,7 @@ const BRACKET_TYPE_RE = /(repechaje|playoffs|eliminatorias|finales|semifinal|fin
  *   `${categoryId}-oficial-${year}`
  */
 const SHEETS = {
-  // Masculino Oficial 2025
+  
   "oficial-2025": {
     primera: process.env.NEXT_PUBLIC_SHEET_OFICIAL_2025_URL,
     petit: process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2025_URL,
@@ -117,6 +117,12 @@ const SHEETS = {
     prep_2026_grupo_a: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2026_URL,
     prep_2026_grupo_b: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2026_URL,
     prep_2026_playoffs: process.env.NEXT_PUBLIC_SHEET_PREPARACION_2026_URL,
+  },
+
+  "oficial-2026": {
+    oficial_2026_liga:      process.env.NEXT_PUBLIC_SHEET_OFICIAL_2026_URL,
+    oficial_2026_repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2026_URL,
+    oficial_2026_petit:     process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2026_URL,
   },
 
   "oficial-2025-fem": {
@@ -177,11 +183,6 @@ const SHEETS = {
     inf_septima_2026: process.env.NEXT_PUBLIC_SHEET_INF_SEPTIMA_2026_URL,
     inf_finales_septima_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEPTIMA_2026_URL,
   },
-
-  // =========================
-  // Infantiles (A/B/C/D)
-  // tournamentId esperado por tu config: "cat_a-oficial-2025", etc.
-  // =========================
 
   "cat_a-oficial-2025": {
     inf_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2025_URL,
@@ -258,19 +259,33 @@ export async function GET(req) {
     const tournamentMap = SHEETS[tournament] || SHEETS[fallbackTournament] || {};
     const sheetUrl = tournamentMap?.[type];
 
-    if (!sheetUrl) {
-      return NextResponse.json(
-        {
-          error: `No hay sheet configurada para tournament="${tournament}" type="${type}"`,
-          tournamentUsed: SHEETS[tournament] ? tournament : `${fallbackTournament} (fallback)`,
-          availableTournaments: Object.keys(SHEETS).sort(),
-          availableTypesForTournament: Object.keys(tournamentMap || {}).sort(),
-        },
-        { status: 400 }
-      );
-    }
-
     const isBracket = BRACKET_TYPE_RE.test(type);
+
+    if (!sheetUrl) {
+    // Fallback: intentar leer desde archivo local en data/local/
+      const fs = require("fs");
+      const path = require("path");
+      const localPath = path.join(
+        process.cwd(),
+        "data",
+        "local",
+        tournament,
+        `${type}.json`
+      );
+    
+      try {
+        const raw = fs.readFileSync(localPath, "utf-8");
+        const localData = JSON.parse(raw);
+        if (isBracket) {
+          return NextResponse.json({ rows: localData.rows || [] });
+        }
+        return NextResponse.json({ equipos: localData.equipos || [] });
+      } catch {
+        // Archivo no existe aún → devolver vacío (sin error)
+        if (isBracket) return NextResponse.json({ rows: [] });
+        return NextResponse.json({ equipos: [] });
+      }
+    }
 
     if (isBracket) {
       const res = await fetch(sheetUrl, { cache: "no-store" });

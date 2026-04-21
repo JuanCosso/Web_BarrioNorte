@@ -204,10 +204,11 @@ export const TOURNAMENTS_BY_CATEGORY = {
     }),
     torneoOficial({ 
       categoryId: "septima", 
-      year: 2026, 
-      ui: { 
-        finalesFootnote: "Torneo Oficial 2026 por disputarse." }
-    }),
+      year: 2026,
+      ligaType:    "inf_septima_2026",
+      finalesType: "inf_finales_septima_2026",
+      ui: { finalesFootnote: "Torneo Oficial 2026 por disputarse." }
+    })
   ],
 };
 

@@ -418,7 +418,7 @@ const HISTORY_DATA = [
           <p>
             Barrio Norte se destacará luego en la rama femenina de este deporte,
             que había arrancado justamente hace pocos años, en comparación al
-            masculino que estaba muy desarrollado en otras instituciones como BG
+            masculino que estaba muy desarrollado en otras instituciones como BH
             y Sportiva.
           </p>
         </li>

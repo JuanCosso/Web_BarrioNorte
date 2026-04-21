@@ -46,8 +46,6 @@ export const JOIN_AD = {
   kicker: "FÚTBOL FEMENINO",
   title: "Sumate a Barrio Norte",
   subtitle: "Categorías inferiores y primera.",
-  // Nota: tu Flyer “Sumate” compacto actual puede ignorar bullets; si querés volver a mostrarlas,
-  // se reactiva en el componente sin tocar este config.
   bullets: ["Ambiente de equipo", "Competencia local", "Formación y crecimiento"],
   scheduleLabel: "Entrenamientos",
   scheduleValue: "Consultá los horarios",
@@ -59,11 +57,7 @@ export const JOIN_AD = {
   centerImageSrc: "/escudos/BarrioNorte_V1.png",
 };
 
-/* ========= TORNEOS =========
-   Footnotes opcionales:
-   - Usá "{label}" para insertar tournament.label
-   - Si un footnote es "" (vacío), se oculta.
-*/
+/* ========= TORNEOS ========= */
 
 export const TOURNAMENTS = [
   {
@@ -73,7 +67,6 @@ export const TOURNAMENTS = [
     tables: {
       liga: { type: "fem_oficial_2025_liga" },
       repechaje: { type: "fem_oficial_2025_repechaje" },
-      // Petit = series (semis ida/vuelta) + final única
       petit: { type: "fem_oficial_2025_petit_playoffs" },
     },
     ui: {
@@ -117,44 +110,31 @@ export const TEAM_LOGOS = {
   "Aldea Asuncion": "/escudos/AldeaAsuncion.png",
   "Aldea Asunción": "/escudos/AldeaAsuncion.png",
   AldeaAsuncion: "/escudos/AldeaAsuncion.png",
-
   Bancario: "/escudos/Bancario.png",
   "Barrio Norte": "/escudos/BarrioNorte_V1.png",
-
   "El Progreso": "/escudos/ElProgreso.png",
   ElProgreso: "/escudos/ElProgreso.png",
-
   "Gualeguay Central": "/escudos/GualeguayCentral.png",
   GualeguayCentral: "/escudos/GualeguayCentral.png",
-
   Juventud: "/escudos/JuventudCarbo.png",
   "Juventud Carbó": "/escudos/JuventudCarbo.png",
   JuventudCarbo: "/escudos/JuventudCarbo.png",
-
   "La Academia": "/escudos/LaAcademia.png",
   LaAcademia: "/escudos/LaAcademia.png",
-
   Libertad: "/escudos/Libertad_V2.png",
   Quilmes: "/escudos/Quilmes.png",
-
   "Sociedad Sportiva": "/escudos/SociedadSportiva.png",
   SociedadSportiva: "/escudos/SociedadSportiva.png",
-
   Urquiza: "/escudos/Urquiza.png",
-
   "Juventud Unida": "/escudos/JuventudUnida.png",
   JuventudUnida: "/escudos/JuventudUnida.png",
-
   "Deportivo Urdinarrain": "/escudos/DeportivoUrdinarrain.png",
   DeportivoUrdinarrain: "/escudos/DeportivoUrdinarrain.png",
-
   "Ferrocarril (Chajarí)": "/escudos/Ferrocarril-Chajari.png",
   "Libertad (Concordia)": "/escudos/Libertad-Concordia.png",
 };
 
-/* ========= CONTENIDO POR TORNEO (RESULTADOS / STAFF / PLANTEL) =========
-   Igual que Masculino: esto se renderiza con UltimosPartidosCard + PeopleCard.
-*/
+/* ========= CONTENIDO POR TORNEO ========= */
 
 export const TOURNAMENT_CONTENT = {
   "oficial-2025-fem": {
@@ -194,6 +174,9 @@ export const TOURNAMENT_CONTENT = {
     ],
   },
   "oficial-2026-fem": {
+    // ⚠️ ELIMINADO EL CÓDIGO CON "fs" Y "path" QUE ROMPÍA TODO
+    // Si llegás a necesitar cargar el JSON en el futuro, importalo 
+    // arriba de todo junto con los otros imports.
     results: [],
     staff: [],
     roster: [],

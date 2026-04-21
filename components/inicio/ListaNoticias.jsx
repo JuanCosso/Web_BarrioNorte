@@ -55,13 +55,22 @@ export default function ListaNoticias() {
           >
             {/* Imagen pequeña */}
             <div className="relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-lg md:h-24 md:w-32">
-              <Image
-                src={noticia.imagen}
-                alt={noticia.titulo}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 20vw, (min-width: 640px) 30vw, 40vw"
-              />
+              {noticia.imagen && noticia.imagen.startsWith("/") ? (
+                // Imagen local → usa next/image optimizado
+                <Image
+                  src={noticia.imagen}
+                  alt={noticia.titulo}
+                  fill
+                  className="object-cover"
+                />
+              ) : noticia.imagen ? (
+                // Imagen externa (Instagram, etc.) → img estándar sin restricciones
+                <img
+                  src={noticia.imagen}
+                  alt={noticia.titulo}
+                  className="h-full w-full object-cover"
+                />
+              ) : null}
             </div>
 
             {/* Contenido */}

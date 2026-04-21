@@ -48,23 +48,36 @@ function withTeamLogos(rows) {
 }
 
 /**
- * Aplica TEAM_LOGOS a standings (equipos) para evitar logos rotos por
- * diferencias de espacios / caracteres invisibles en el Sheet.
+ * Enriquece equipos con: slug, logo, pts, shortName
  */
-function withTeamLogosEquipos(equipos) {
+function enrichTeamData(equipos) {
+  const TEAM_SHORT = {
+    "Sociedad Sportiva": "Sportiva",
+    SociedadSportiva: "Sportiva",
+    "Gualeguay Central": "Central",
+    GualeguayCentral: "Central",
+  };
+
   const safe = Array.isArray(equipos) ? equipos : [];
 
   return safe.map((e) => {
-    // Normaliza espacios (incluye NBSP)
     const rawName = String(e?.name || e?.shortName || "").replace(/\u00A0/g, " ").trim();
     const name = rawName.replace(/\s+/g, " ");
     const noSpaces = name.replace(/\s+/g, "");
+    const slug = noSpaces.toLowerCase();
 
     const mapped = TEAM_LOGOS[name] || TEAM_LOGOS[noSpaces] || TEAM_LOGOS[e?.slug] || null;
+    const pg = Number(e?.pg || 0);
+    const pe = Number(e?.pe || 0);
+    const pts = pg * 3 + pe;
 
     return {
       ...e,
+      slug: e?.slug || slug,
+      name: name,
+      shortName: e?.shortName || TEAM_SHORT[name] || name,
       logo: mapped || e?.logo || "/escudos/BarrioNorte_V1.png",
+      pts: e?.pts || pts,
     };
   });
 }
@@ -76,7 +89,7 @@ export default function Masculino({ nav, active, onChange }) {
   const spString = searchParams.toString();
 
   // Default: Preparación 2026
-  const [tournamentId, setTournamentId] = useState("preparacion-2026");
+  const [tournamentId, setTournamentId] = useState("oficial-2026");
 
   // ✅ Lee ?tour=... (deep-link)
   useEffect(() => {
@@ -109,7 +122,39 @@ export default function Masculino({ nav, active, onChange }) {
     [tournamentId]
   );
 
-  const content = TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] };
+  const [content, setContent] = useState(() => 
+    TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] }
+  );
+
+  // Cargar resultados dinámicamente del API cuando sea oficial-2026
+  useEffect(() => {
+    async function loadResults() {
+      const baseContent = TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] };
+      
+      // Si es oficial-2026 o femenino 2026, intenta cargar desde el API
+      if (tournamentId.includes("2026")) {
+        try {
+          const category = tournamentId.includes("fem") ? "femenino" : "masculino";
+          const response = await fetch(
+            `/api/resultados?tournament=${encodeURIComponent(tournamentId)}&category=${encodeURIComponent(category)}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            if (Array.isArray(data.results) && data.results.length > 0) {
+              setContent({ ...baseContent, results: data.results });
+              return;
+            }
+          }
+        } catch (e) {
+          // Si falla, usa el del config
+        }
+      }
+      
+      setContent(baseContent);
+    }
+    
+    loadResults();
+  }, [tournamentId]);
 
   const [tables, setTables] = useState({});
   const [bracketRows, setBracketRows] = useState(null);
@@ -152,11 +197,11 @@ export default function Masculino({ nav, active, onChange }) {
         if (tournament.format === "oficial") {
           const [liga, petit, llaves] = await Promise.all([
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.liga.type)}`)
-              .then((j) => (Array.isArray(j?.equipos) ? j.equipos : []))
+              .then((j) => enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []))
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.petit.type)}`)
-              .then((j) => (Array.isArray(j?.equipos) ? j.equipos : []))
+              .then((j) => enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []))
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.repechaje.type)}`)
@@ -174,11 +219,11 @@ export default function Masculino({ nav, active, onChange }) {
         if (tournament.format === "preparacion") {
           const [grupoA, grupoB, llaves] = await Promise.all([
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.grupoA.type)}`)
-              .then((j) => (Array.isArray(j?.equipos) ? j.equipos : []))
+              .then((j) => enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []))
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.grupoB.type)}`)
-              .then((j) => (Array.isArray(j?.equipos) ? j.equipos : []))
+              .then((j) => enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []))
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.playoffs.type)}`)
@@ -196,7 +241,7 @@ export default function Masculino({ nav, active, onChange }) {
         // supercopa
         const [group, llaves] = await Promise.all([
           fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.group.type)}`)
-            .then((j) => withTeamLogosEquipos(Array.isArray(j?.equipos) ? j.equipos : []))
+            .then((j) => enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []))
             .catch(() => []),
 
           fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.playoffs.type)}`)
