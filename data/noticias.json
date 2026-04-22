@@ -88,14 +88,14 @@
   },
   {
     "id": 7,
-    "titulo": "Jugadores de Barrio Norte ingresan al campo de juego",
-    "resumen": "Los futbolistas del Club Atlético Barrio Norte salen a la cancha para disputar un partido.",
+    "titulo": "Equipos ingresan al campo de juego",
+    "resumen": "Jugadores de Barrio Norte y el equipo visitante salen a la cancha para disputar un partido oficial.",
     "fecha": "2026-04-21",
     "categoria": "Fútbol",
     "tags": [
       "Barrio Norte",
       "Liga Departamental de Gualeguay",
-      "fútbol"
+      "Fútbol"
     ],
     "destacada": false,
     "imagen": "/noticias/noticia_DXYAe7SjOw2.webp",
