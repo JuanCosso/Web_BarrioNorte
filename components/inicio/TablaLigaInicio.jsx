@@ -24,8 +24,9 @@ function enriquecer(equipos) {
     .sort((a, b) => {
       if (b.pts !== a.pts) return b.pts - a.pts;
       if (b.dg  !== a.dg)  return b.dg  - a.dg;
-      return a.name.localeCompare(b.name);
-    });
+      if (b.gm  !== a.gm)  return b.gm  - a.gm;  // ← goles a favor como desempate
+      return a.name.localeCompare(b.name);         // ← alfabético solo si todo lo demás es igual
+    })
 }
 
 function clasePosicion(pos) {
