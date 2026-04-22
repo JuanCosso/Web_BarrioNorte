@@ -117,5 +117,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXcOP3OEULA/",
     "post_id": "DXcOP3OEULA"
+  },
+  {
+    "id": 9,
+    "titulo": "Facundo Barreto tras el empate de Barrio Norte",
+    "resumen": "El jugador Facundo Barreto compartió sus sensaciones luego del empate de Barrio Norte en su debut frente a Centro Bancario.",
+    "fecha": "2026-04-22",
+    "categoria": "Fútbol",
+    "tags": [
+      "Barrio Norte",
+      "Facundo Barreto"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/noticia_DXb1Qbajpcp.jpg",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXb1Qbajpcp/",
+    "post_id": "DXb1Qbajpcp"
   }
 ]
