@@ -88,7 +88,7 @@
   },
   {
     "id": 7,
-    "titulo": "Barreto no contento con el debut de Barrio Norte",
+    "titulo": "Barreto disconforme con el debut de Barrio Norte",
     "resumen": "Facundo Barreto, refuerzo de Barrio Norte, expresó su insatisfacción tras el partido contra Bancario.",
     "fecha": "2026-04-22",
     "categoria": "Fútbol",
@@ -104,35 +104,18 @@
   },
   {
     "id": 8,
-    "titulo": "Resultados Fecha 1 · Primera Masculino",
-    "resumen": "Libertad 0-0 Gualeguay Central · Urquiza 3-0 Quilmes · Barrio Norte 1-0 Bancario · La Academia 3-1 Sociedad Sportiva (CATEGORIA 2015).",
+    "titulo": "Resultados Fecha 1 · Infantiles",
+    "resumen": "Las categorías infantiles disputaron la primer fecha local.",
     "fecha": "2026-04-22",
     "categoria": "Fútbol",
     "tags": [
-      "Masculino",
-      "Resultados",
-      "Torneo Oficial"
+      "Infantiles",
+      "Resultados"
     ],
     "destacada": false,
     "imagen": "/noticias/resultado_1776888382676.jpg",
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXcOP3OEULA/",
     "post_id": "DXcOP3OEULA"
-  },
-  {
-    "id": 9,
-    "titulo": "Facundo Barreto tras el empate del Norte en el debut",
-    "resumen": "Facundo Barreto compartió sus sensaciones después del empate del Club Atlético Barrio Norte en su partido de debut contra Centro Bancario.",
-    "fecha": "2026-04-22",
-    "categoria": "Fútbol",
-    "tags": [
-      "Barrio Norte",
-      "Facundo Barreto"
-    ],
-    "destacada": false,
-    "imagen": "/noticias/noticia_DXb1Qbajpcp.jpg",
-    "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXb1Qbajpcp/",
-    "post_id": "DXb1Qbajpcp"
   }
 ]
