@@ -16,25 +16,39 @@ function colorResultado(score, condition) {
 
 function ResultadoStrip({ label, results }) {
   if (!results || results.length === 0) return null;
-  // Mostramos los últimos 3
-  const recientes = results.slice(-3).reverse();
+  const recientes = results.slice(-2).reverse();
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{label}</span>
-      <div className="flex flex-wrap gap-2">
+    <div>
+      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
+        {label}
+      </p>
+      <div className="space-y-1.5">
         {recientes.map((r, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-3 py-1 text-xs shadow-sm"
-          >
-            <span className="text-gray-500 font-medium">{r.rival}</span>
-            <span
-              className={`font-bold rounded-full px-1.5 py-px text-[10px] ${colorResultado(r.score, r.condition)}`}
-            >
+          <div key={i} className="flex items-center gap-2">
+
+            {/* Fecha */}
+            {r.date && (
+              <span className="shrink-0 text-[11px] text-gray-400 tabular-nums w-8">
+                {r.date}
+              </span>
+            )}
+
+            {/* L / V */}
+            <span className="shrink-0 text-[11px] font-semibold text-gray-400 w-4">
+              {r.condition === "Local" ? "L" : "V"}
+            </span>
+
+            {/* Rival */}
+            <span className="flex-1 min-w-0 text-xs text-gray-700 truncate">
+              vs {r.rival}
+            </span>
+
+            {/* Score — mismo estilo pill, ancho fijo para alinear */}
+            <span className={`shrink-0 text-xs font-bold tabular-nums w-12 text-center px-2 py-0.5 rounded-full ${colorResultado(r.score, r.condition)}`}>
               {r.score}
             </span>
-            <span className="text-[10px] text-gray-400">{r.condition === "Local" ? "L" : "V"}</span>
+
           </div>
         ))}
       </div>
@@ -61,7 +75,8 @@ export default function UltimosResultados2026() {
   if (masc.length === 0 && fem.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap gap-6 items-start px-1">
+    <div className="h-full bg-white rounded-lg shadow-sm border border-gray-100 p-4 flex flex-col gap-4">
+      <p className="text-sm font-semibold text-gray-800">Últimos resultados</p>
       <ResultadoStrip label="Masculino" results={masc} />
       <ResultadoStrip label="Femenino"  results={fem} />
     </div>
