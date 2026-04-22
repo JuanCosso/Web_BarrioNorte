@@ -88,35 +88,19 @@
   },
   {
     "id": 7,
-    "titulo": "Plantel de Primera División del Club Atlético Barrio Norte",
-    "resumen": "Presentación del equipo de fútbol que representa a la institución.",
-    "fecha": "2026-04-20",
+    "titulo": "Jugadores de Barrio Norte ingresan al campo de juego",
+    "resumen": "Los futbolistas del Club Atlético Barrio Norte salen a la cancha para disputar un partido.",
+    "fecha": "2026-04-21",
     "categoria": "Fútbol",
     "tags": [
       "Barrio Norte",
-      "Gualeguay",
-      "Primera División"
+      "Liga Departamental de Gualeguay",
+      "fútbol"
     ],
     "destacada": false,
-    "imagen": "https://scontent-lga3-2.cdninstagram.com/v/t51.82787-15/671679116_17990292530953309_4404735333757589571_n.webp?stp=dst-jpg_e35_s1080x1080_sh0.08_tt6&_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gHGMFUOg1a4SU6XnpCSIG4D1AU7CPgpRCaysmbsU0OWWxWVQoV_J3PkGo0bs-6uyHY&_nc_ohc=_pFdJYqvoUUQ7kNvwGYggGT&_nc_gid=KuFX6smTN5z7-opg6JqLCQ&edm=APs17CUBAAAA&ccb=7-5&oh=00_Af1N5Uj210UWVyU3mvFBeObmDfw6CcmPtES4cSIKCZCBQg&oe=69EC4E3E&_nc_sid=10d13b",
+    "imagen": "/noticias/noticia_DXYAe7SjOw2.webp",
     "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXWnF-bjiHP/",
-    "post_id": "DXWnF-bjiHP"
-  },
-  {
-    "id": 8,
-    "titulo": "Jugadores del Club Atlético Barrio Norte",
-    "resumen": "Imagen de los jugadores del Club Atlético Barrio Norte posando en la cancha.",
-    "fecha": "2026-04-20",
-    "categoria": "Fútbol",
-    "tags": [
-      "Barrio Norte",
-      "Gualeguay"
-    ],
-    "destacada": false,
-    "imagen": "https://scontent-det1-1.cdninstagram.com/v/t51.82787-15/670822207_17990292317953309_8453218148759745297_n.webp?stp=dst-jpg_e35_s1080x1080_sh0.08_tt6&_nc_ht=scontent-det1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gEoct3cPxYV2WNk17RscO9rN8_Ag1Tad3zpo-tNS8Soy-58qs8ZgGqkmOFR2opNjZw&_nc_ohc=YJ0tcG2HYB0Q7kNvwHasMW7&_nc_gid=A-BOeThbG9Kioxf7MNH8mg&edm=APs17CUBAAAA&ccb=7-5&oh=00_Af2nldgndx3sutcPFUPfJZacGvl-8sPRE1EqJx5lvgs1Aw&oe=69EC5F30&_nc_sid=10d13b",
-    "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXWm-W_juNP/",
-    "post_id": "DXWm-W_juNP"
+    "url": "https://www.instagram.com/p/DXYAe7SjOw2/",
+    "post_id": "DXYAe7SjOw2"
   }
 ]
