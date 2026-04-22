@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Semifinal 1",
+      "resultado": "",
+      "penales": "-",
+      "ida": "3",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Gualeguay Central",
+      "etapa": "Semifinal 1",
+      "resultado": "",
+      "penales": "-",
+      "ida": "0",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Sociedad Sportiva",
+      "etapa": "Semifinal 2",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "La Academia",
+      "etapa": "Semifinal 2",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Sociedad Sportiva",
+      "etapa": "Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "0",
+      "vuelta": "0"
+    }
+  ]
+}

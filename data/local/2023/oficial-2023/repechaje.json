@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "equipo": "Gualeguay Central",
+      "etapa": "Semifinal 1",
+      "resultado": "0",
+      "penales": "5",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Quilmes",
+      "etapa": "Semifinal 1",
+      "resultado": "0",
+      "penales": "3",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Urquiza",
+      "etapa": "Semifinal 2",
+      "resultado": "1",
+      "penales": "4",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Semifinal 2",
+      "resultado": "1",
+      "penales": "5",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Gualeguay Central",
+      "etapa": "Final",
+      "resultado": "0",
+      "penales": "10",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Final",
+      "resultado": "0",
+      "penales": "9",
+      "ida": "",
+      "vuelta": ""
+    }
+  ]
+}

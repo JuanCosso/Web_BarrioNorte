@@ -1,0 +1,54 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 3,
+      "pg": 1,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": -4
+    },
+    {
+      "name": "Juventud",
+      "pj": 3,
+      "pg": 3,
+      "pe": 0,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 7
+    },
+    {
+      "name": "La Academia",
+      "pj": 3,
+      "pg": 0,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": -4
+    },
+    {
+      "name": "Libertad",
+      "pj": 4,
+      "pg": 3,
+      "pe": 0,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    }
+  ]
+}

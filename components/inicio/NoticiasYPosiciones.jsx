@@ -4,8 +4,8 @@ import TablaLigaInicio from "./TablaLigaInicio";
 import UltimosResultados2026 from "./UltimosResultados2026";
 import PublicidadBono from "./PublicidadBono";
 import Link from "next/link";
-import ligaMascData from "../../data/local/oficial-2026/oficial_2026_liga.json";
-import ligaFemData  from "../../data/local/oficial-2026-fem/fem_oficial_2026_liga.json";
+import ligaMascData from "../../data/local/2026/oficial-2026/oficial_2026_liga.json";
+import ligaFemData  from "../../data/local/2026/oficial-2026-fem/fem_oficial_2026_liga.json";
 
 export default function NoticiasYPosiciones() {
   return (
@@ -20,7 +20,6 @@ export default function NoticiasYPosiciones() {
           </h2>
           <ListaNoticias />
         </div>
-        {/* DESPUÉS — ambos ocupan todo el ancho de la columna */}
         {/* columna derecha */}
         <div className="flex flex-col gap-4 w-full h-full">
           <PublicidadBono />

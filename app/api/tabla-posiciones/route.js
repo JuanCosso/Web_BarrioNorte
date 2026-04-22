@@ -1,63 +1,37 @@
 // app/api/tabla-posiciones/route.js
+import fs from "fs";
+import path from "path";
 import { NextResponse } from "next/server";
+import { aplicarConfigEquipo } from "../../../data/equiposConfig";
 import { obtenerEquiposOrdenadosDesdeSheet } from "../../../lib/tablaPosiciones";
 
 export const dynamic = "force-dynamic";
 
-/**
- * Standings -> obtenerEquiposOrdenadosDesdeSheet(url)
- * Playoffs -> rows con { equipo, etapa, resultado, penales, ida, vuelta }
- * Encabezados recomendados playoffs:
- * equipo | etapa | resultado | penales
- * o ida/vuelta:
- * equipo | etapa | resultado ida | resultado vuelta
- */
-
 function parseCSV(text) {
   const rows = [];
-  let row = [];
-  let cur = "";
-  let inQuotes = false;
-
+  let row = [], cur = "", inQuotes = false;
   for (let i = 0; i < text.length; i++) {
     const ch = text[i];
-
-    if (ch === '"' && text[i + 1] === '"') {
-      cur += '"';
-      i++;
-      continue;
-    }
-
-    if (ch === '"') {
-      inQuotes = !inQuotes;
-      continue;
-    }
-
+    if (ch === '"' && text[i + 1] === '"') { cur += '"'; i++; continue; }
+    if (ch === '"') { inQuotes = !inQuotes; continue; }
     if (!inQuotes && (ch === "," || ch === "\n" || ch === "\r")) {
       if (ch === "\r") continue;
-      row.push(cur);
-      cur = "";
+      row.push(cur); cur = "";
       if (ch === "\n") {
         if (row.some((c) => String(c).trim() !== "")) rows.push(row);
         row = [];
       }
       continue;
     }
-
     cur += ch;
   }
-
   row.push(cur);
   if (row.some((c) => String(c).trim() !== "")) rows.push(row);
-
   return rows;
 }
 
 function normalizeHeader(h) {
-  return String(h || "")
-    .replace(/^\uFEFF/, "")
-    .trim()
-    .toLowerCase();
+  return String(h || "").replace(/^\uFEFF/, "").trim().toLowerCase();
 }
 
 function indexOfAny(headers, candidates) {
@@ -70,287 +44,168 @@ function indexOfAny(headers, candidates) {
 
 const BRACKET_TYPE_RE = /(repechaje|playoffs|eliminatorias|finales|semifinal|final)/i;
 
-/**
- * IMPORTANTE:
- * - SHEETS mapea: tournamentId -> { type -> urlCSV }
- * - Para Inferiores/Infantiles, tournamentId sigue el patrón:
- *   `${categoryId}-oficial-${year}`
- */
+// Misma lógica de ordenamiento que obtenerEquiposOrdenadosDesdeSheet
+// Aplicada también a datos leídos desde JSON local
+function ordenarEquipos(equiposRaw) {
+  return equiposRaw
+    .filter((e) => e && e.name)
+    .map(aplicarConfigEquipo)
+    .map((e) => ({ ...e, pts: (e.pg || 0) * 3 + (e.pe || 0) }))
+    .sort((a, b) => {
+      if (b.pts !== a.pts) return b.pts - a.pts;
+      if (b.dg  !== a.dg)  return b.dg  - a.dg;
+      if (b.gm  !== a.gm)  return b.gm  - a.gm;
+      return a.name.localeCompare(b.name);
+    });
+}
+
 const SHEETS = {
-  
-  "oficial-2025": {
-    primera: process.env.NEXT_PUBLIC_SHEET_OFICIAL_2025_URL,
-    petit: process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2025_URL,
-    repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2025_URL,
-  },
-
-  "supercopa-entre-rios-2023": {
-    supercopa_grupo: process.env.NEXT_PUBLIC_SHEET_SUPERCOPA_GP_2023_URL,
-    supercopa_playoffs: process.env.NEXT_PUBLIC_SHEET_SUPERCOPA_2023_URL,
-  },
-
-  "preparacion-2024": {
-    prep_2024_grupo_a: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2024_URL,
-    prep_2024_grupo_b: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2024_URL,
-    prep_2024_playoffs: process.env.NEXT_PUBLIC_SHEET_PREPARACION_2024_URL,
-  },
-
-  "oficial-2024": {
-    oficial_2024_liga: process.env.NEXT_PUBLIC_SHEET_OFICIAL_2024_URL,
-    oficial_2024_petit: process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2024_URL,
-    oficial_2024_repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2024_URL,
-  },
-
-  "preparacion-2025": {
-    prep_2025_grupo_a: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2025_URL,
-    prep_2025_grupo_b: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2025_URL,
-    prep_2025_playoffs: process.env.NEXT_PUBLIC_SHEET_PREPARACION_2025_URL,
-  },
-
   "oficial-2023": {
-    primera: process.env.NEXT_PUBLIC_SHEET_OFICIAL_2023_URL,
-    petit: process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2023_URL,
+    primera:   process.env.NEXT_PUBLIC_SHEET_OFICIAL_2023_URL,
+    petit:     process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2023_URL,
     repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2023_URL,
   },
-
+  "supercopa-entre-rios-2023": {
+    supercopa_grupo:    process.env.NEXT_PUBLIC_SHEET_SUPERCOPA_GP_2023_URL,
+    supercopa_playoffs: process.env.NEXT_PUBLIC_SHEET_SUPERCOPA_2023_URL,
+  },
+  "preparacion-2024": {
+    prep_2024_grupo_a:  process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2024_URL,
+    prep_2024_grupo_b:  process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2024_URL,
+    prep_2024_playoffs: process.env.NEXT_PUBLIC_SHEET_PREPARACION_2024_URL,
+  },
+  "oficial-2024": {
+    oficial_2024_liga:      process.env.NEXT_PUBLIC_SHEET_OFICIAL_2024_URL,
+    oficial_2024_petit:     process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2024_URL,
+    oficial_2024_repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2024_URL,
+  },
+  "preparacion-2025": {
+    prep_2025_grupo_a:  process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2025_URL,
+    prep_2025_grupo_b:  process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2025_URL,
+    prep_2025_playoffs: process.env.NEXT_PUBLIC_SHEET_PREPARACION_2025_URL,
+  },
+  "oficial-2025": {
+    primera:   process.env.NEXT_PUBLIC_SHEET_OFICIAL_2025_URL,
+    petit:     process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2025_URL,
+    repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2025_URL,
+  },
   "preparacion-2026": {
-    prep_2026_grupo_a: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2026_URL,
-    prep_2026_grupo_b: process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2026_URL,
+    prep_2026_grupo_a:  process.env.NEXT_PUBLIC_SHEET_PREPARACION_GA_2026_URL,
+    prep_2026_grupo_b:  process.env.NEXT_PUBLIC_SHEET_PREPARACION_GB_2026_URL,
     prep_2026_playoffs: process.env.NEXT_PUBLIC_SHEET_PREPARACION_2026_URL,
   },
-
   "oficial-2026": {
     oficial_2026_liga:      process.env.NEXT_PUBLIC_SHEET_OFICIAL_2026_URL,
     oficial_2026_repechaje: process.env.NEXT_PUBLIC_SHEET_OFICIAL_REPECHAJE_2026_URL,
     oficial_2026_petit:     process.env.NEXT_PUBLIC_SHEET_OFICIAL_PETIT_2026_URL,
   },
-
   "oficial-2025-fem": {
-    fem_oficial_2025_liga: process.env.NEXT_PUBLIC_SHEET_FEMENINO_2025_URL,
-    fem_oficial_2025_repechaje: process.env.NEXT_PUBLIC_SHEET_FEMENINO_REPECHAJE_2025_URL,
-
-    fem_oficial_2025_petit: process.env.NEXT_PUBLIC_SHEET_FEMENINO_PETIT_2025_URL,
+    fem_oficial_2025_liga:           process.env.NEXT_PUBLIC_SHEET_FEMENINO_2025_URL,
+    fem_oficial_2025_repechaje:      process.env.NEXT_PUBLIC_SHEET_FEMENINO_REPECHAJE_2025_URL,
+    fem_oficial_2025_petit:          process.env.NEXT_PUBLIC_SHEET_FEMENINO_PETIT_2025_URL,
     fem_oficial_2025_petit_playoffs: process.env.NEXT_PUBLIC_SHEET_FEMENINO_PETIT_2025_URL,
   },
-
   "oficial-2026-fem": {
-    fem_oficial_2026_liga: process.env.NEXT_PUBLIC_SHEET_FEMENINO_2026_URL,
-    fem_oficial_2026_repechaje: process.env.NEXT_PUBLIC_SHEET_FEMENINO_REPECHAJE_2026_URL,
-
-    fem_oficial_2026_petit: process.env.NEXT_PUBLIC_SHEET_FEMENINO_PETIT_2026_URL,
+    fem_oficial_2026_liga:           process.env.NEXT_PUBLIC_SHEET_FEMENINO_2026_URL,
+    fem_oficial_2026_repechaje:      process.env.NEXT_PUBLIC_SHEET_FEMENINO_REPECHAJE_2026_URL,
+    fem_oficial_2026_petit:          process.env.NEXT_PUBLIC_SHEET_FEMENINO_PETIT_2026_URL,
     fem_oficial_2026_petit_playoffs: process.env.NEXT_PUBLIC_SHEET_FEMENINO_PETIT_2026_URL,
   },
-
-  // Inferiores (ya los tenías)
-  "tercera-oficial-2025": {
-    inf_tercera_2025: process.env.NEXT_PUBLIC_SHEET_INF_TERCERA_2025_URL,
-    inf_finales_tercera_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_TERCERA_2025_URL,
-  },
-  "cuarta-oficial-2025": {
-    inf_cuarta_2025: process.env.NEXT_PUBLIC_SHEET_INF_CUARTA_2025_URL,
-    inf_finales_cuarta_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CUARTA_2025_URL,
-  },
-  "quinta-oficial-2025": {
-    inf_quinta_2025: process.env.NEXT_PUBLIC_SHEET_INF_QUINTA_2025_URL,
-    inf_finales_quinta_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_QUINTA_2025_URL,
-  },
-  "sexta-oficial-2025": {
-    inf_sexta_2025: process.env.NEXT_PUBLIC_SHEET_INF_SEXTA_2025_URL,
-    inf_finales_sexta_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEXTA_2025_URL,
-  },
-  "septima-oficial-2025": {
-    inf_septima_2025: process.env.NEXT_PUBLIC_SHEET_INF_SEPTIMA_2025_URL,
-    inf_finales_septima_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEPTIMA_2025_URL,
-  },
-
-  "tercera-oficial-2026": {
-    inf_tercera_2026: process.env.NEXT_PUBLIC_SHEET_INF_TERCERA_2026_URL,
-    inf_finales_tercera_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_TERCERA_2026_URL,
-  },
-  "cuarta-oficial-2026": {
-    inf_cuarta_2026: process.env.NEXT_PUBLIC_SHEET_INF_CUARTA_2026_URL,
-    inf_finales_cuarta_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CUARTA_2026_URL,
-  },
-  "quinta-oficial-2026": {
-    inf_quinta_2026: process.env.NEXT_PUBLIC_SHEET_INF_QUINTA_2026_URL,
-    inf_finales_quinta_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_QUINTA_2026_URL,
-  },
-  "sexta-oficial-2026": {
-    inf_sexta_2026: process.env.NEXT_PUBLIC_SHEET_INF_SEXTA_2026_URL,
-    inf_finales_sexta_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEXTA_2026_URL,
-  },
-  "septima-oficial-2026": {
-    inf_septima_2026: process.env.NEXT_PUBLIC_SHEET_INF_SEPTIMA_2026_URL,
-    inf_finales_septima_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEPTIMA_2026_URL,
-  },
-
-  "cat_a-oficial-2025": {
-    inf_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2025_URL,
-    inf_finales_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2025_URL,
-  },
-  "cat_b-oficial-2025": {
-    inf_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2025_URL,
-    inf_finales_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2025_URL,
-  },
-  "cat_c-oficial-2025": {
-    inf_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2025_URL,
-    inf_finales_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2025_URL,
-  },
-  "cat_d-oficial-2025": {
-    inf_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2025_URL,
-    inf_finales_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2025_URL,
-  },
-
-  // Infantiles 2026 (cuando existan envs)
-  "cat_a-oficial-2026": {
-    inf_cat_a_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2026_URL,
-    inf_finales_cat_a_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2026_URL,
-  },
-  "cat_b-oficial-2026": {
-    inf_cat_b_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2026_URL,
-    inf_finales_cat_b_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2026_URL,
-  },
-  "cat_c-oficial-2026": {
-    inf_cat_c_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2026_URL,
-    inf_finales_cat_c_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2026_URL,
-  },
-  "cat_d-oficial-2026": {
-    inf_cat_d_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2026_URL,
-    inf_finales_cat_d_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2026_URL,
-  },
-
-  // (Opcional, por si en algún momento usás IDs con guion sin underscore)
-  "cat-a-oficial-2025": {
-    inf_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2025_URL,
-    inf_finales_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2025_URL,
-  },
-  "cat-b-oficial-2025": {
-    inf_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2025_URL,
-    inf_finales_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2025_URL,
-  },
-  "cat-c-oficial-2025": {
-    inf_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2025_URL,
-    inf_finales_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2025_URL,
-  },
-  "cat-d-oficial-2025": {
-    inf_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2025_URL,
-    inf_finales_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2025_URL,
-  },
+  "tercera-oficial-2025": { inf_tercera_2025: process.env.NEXT_PUBLIC_SHEET_INF_TERCERA_2025_URL, inf_finales_tercera_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_TERCERA_2025_URL },
+  "cuarta-oficial-2025":  { inf_cuarta_2025:  process.env.NEXT_PUBLIC_SHEET_INF_CUARTA_2025_URL,  inf_finales_cuarta_2025:  process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CUARTA_2025_URL },
+  "quinta-oficial-2025":  { inf_quinta_2025:  process.env.NEXT_PUBLIC_SHEET_INF_QUINTA_2025_URL,  inf_finales_quinta_2025:  process.env.NEXT_PUBLIC_SHEET_INF_FINALES_QUINTA_2025_URL },
+  "sexta-oficial-2025":   { inf_sexta_2025:   process.env.NEXT_PUBLIC_SHEET_INF_SEXTA_2025_URL,   inf_finales_sexta_2025:   process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEXTA_2025_URL },
+  "septima-oficial-2025": { inf_septima_2025: process.env.NEXT_PUBLIC_SHEET_INF_SEPTIMA_2025_URL, inf_finales_septima_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEPTIMA_2025_URL },
+  "tercera-oficial-2026": { inf_tercera_2026: process.env.NEXT_PUBLIC_SHEET_INF_TERCERA_2026_URL, inf_finales_tercera_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_TERCERA_2026_URL },
+  "cuarta-oficial-2026":  { inf_cuarta_2026:  process.env.NEXT_PUBLIC_SHEET_INF_CUARTA_2026_URL,  inf_finales_cuarta_2026:  process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CUARTA_2026_URL },
+  "quinta-oficial-2026":  { inf_quinta_2026:  process.env.NEXT_PUBLIC_SHEET_INF_QUINTA_2026_URL,  inf_finales_quinta_2026:  process.env.NEXT_PUBLIC_SHEET_INF_FINALES_QUINTA_2026_URL },
+  "sexta-oficial-2026":   { inf_sexta_2026:   process.env.NEXT_PUBLIC_SHEET_INF_SEXTA_2026_URL,   inf_finales_sexta_2026:   process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEXTA_2026_URL },
+  "septima-oficial-2026": { inf_septima_2026: process.env.NEXT_PUBLIC_SHEET_INF_SEPTIMA_2026_URL, inf_finales_septima_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_SEPTIMA_2026_URL },
+  "cat_a-oficial-2025": { inf_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2025_URL, inf_finales_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2025_URL },
+  "cat_b-oficial-2025": { inf_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2025_URL, inf_finales_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2025_URL },
+  "cat_c-oficial-2025": { inf_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2025_URL, inf_finales_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2025_URL },
+  "cat_d-oficial-2025": { inf_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2025_URL, inf_finales_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2025_URL },
+  "cat_a-oficial-2026": { inf_cat_a_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2026_URL, inf_finales_cat_a_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2026_URL },
+  "cat_b-oficial-2026": { inf_cat_b_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2026_URL, inf_finales_cat_b_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2026_URL },
+  "cat_c-oficial-2026": { inf_cat_c_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2026_URL, inf_finales_cat_c_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2026_URL },
+  "cat_d-oficial-2026": { inf_cat_d_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2026_URL, inf_finales_cat_d_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2026_URL },
+  // Aliases con guion
+  "cat-a-oficial-2025": { inf_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2025_URL, inf_finales_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2025_URL },
+  "cat-b-oficial-2025": { inf_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2025_URL, inf_finales_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2025_URL },
+  "cat-c-oficial-2025": { inf_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2025_URL, inf_finales_cat_c_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2025_URL },
+  "cat-d-oficial-2025": { inf_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2025_URL, inf_finales_cat_d_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2025_URL },
 };
+
+// Lee JSON local con fallback: primero data/local/{año}/{tournament}/, luego data/local/{tournament}/
+function readLocalJson(tournament, type) {
+  const year = (tournament.match(/(\d{4})/) || [])[1] || "misc";
+  const cwd  = process.cwd();
+  const candidates = [
+    path.join(cwd, "data", "local", year, tournament, `${type}.json`),
+    path.join(cwd, "data", "local", tournament, `${type}.json`),
+  ];
+  for (const p of candidates) {
+    try { return JSON.parse(fs.readFileSync(p, "utf-8")); } catch { /* siguiente */ }
+  }
+  return null;
+}
 
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
-
     const fallbackTournament = "oficial-2025";
-
-    const type = String(searchParams.get("type") || "primera").trim().toLowerCase();
-    const tournament = String(searchParams.get("tournament") || fallbackTournament)
-      .trim()
-      .toLowerCase();
+    const type       = String(searchParams.get("type")       || "primera").trim().toLowerCase();
+    const tournament = String(searchParams.get("tournament") || fallbackTournament).trim().toLowerCase();
 
     if (!type) {
-      return NextResponse.json(
-        { error: `Parámetro "type" vacío. Revisá tu config antes de llamar al API.` },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: `Parámetro "type" vacío.` }, { status: 400 });
     }
 
     const tournamentMap = SHEETS[tournament] || SHEETS[fallbackTournament] || {};
-    const sheetUrl = tournamentMap?.[type];
-
-    const isBracket = BRACKET_TYPE_RE.test(type);
+    const sheetUrl      = tournamentMap?.[type];
+    const isBracket     = BRACKET_TYPE_RE.test(type);
 
     if (!sheetUrl) {
-    // Fallback: intentar leer desde archivo local en data/local/
-      const fs = require("fs");
-      const path = require("path");
-      const localPath = path.join(
-        process.cwd(),
-        "data",
-        "local",
-        tournament,
-        `${type}.json`
-      );
-    
-      try {
-        const raw = fs.readFileSync(localPath, "utf-8");
-        const localData = JSON.parse(raw);
-        if (isBracket) {
-          return NextResponse.json({ rows: localData.rows || [] });
-        }
-        return NextResponse.json({ equipos: localData.equipos || [] });
-      } catch {
-        // Archivo no existe aún → devolver vacío (sin error)
-        if (isBracket) return NextResponse.json({ rows: [] });
-        return NextResponse.json({ equipos: [] });
+      const localData = readLocalJson(tournament, type);
+      if (localData) {
+        if (isBracket) return NextResponse.json({ rows: localData.rows || [] });
+        return NextResponse.json({ equipos: ordenarEquipos(localData.equipos || []) });
       }
+      if (isBracket) return NextResponse.json({ rows: [] });
+      return NextResponse.json({ equipos: [] });
     }
 
     if (isBracket) {
       const res = await fetch(sheetUrl, { cache: "no-store" });
-
-      if (!res.ok) {
-        return NextResponse.json(
-          { error: `La sheet de llaves no respondió OK (status ${res.status}). Revisá que sea un link CSV público.` },
-          { status: 502 }
-        );
-      }
-
-      const csv = await res.text();
+      if (!res.ok) return NextResponse.json({ error: `Sheet no respondió OK (${res.status}).` }, { status: 502 });
+      const csv    = await res.text();
       const matrix = parseCSV(csv);
+      if (!matrix.length) return NextResponse.json({ error: "CSV vacío." }, { status: 502 });
 
-      if (!matrix.length) {
-        return NextResponse.json(
-          { error: "CSV vacío o no parseable. Revisá que el link sea export CSV y que tenga encabezados." },
-          { status: 502 }
-        );
-      }
-
-      const headers = (matrix[0] || []).map(normalizeHeader);
-      const data = matrix.slice(1);
-
-      // robusto: acepta variaciones razonables de headers
-      const idxEquipo = indexOfAny(headers, ["equipo", "club", "team"]);
-      const idxEtapa = indexOfAny(headers, ["etapa", "fase", "round"]);
-
+      const headers      = (matrix[0] || []).map(normalizeHeader);
+      const data         = matrix.slice(1);
+      const idxEquipo    = indexOfAny(headers, ["equipo", "club", "team"]);
+      const idxEtapa     = indexOfAny(headers, ["etapa", "fase", "round"]);
       const idxResultado = indexOfAny(headers, ["resultado", "global"]);
-      const idxPenales = indexOfAny(headers, ["penales", "penal", "pen"]);
-
-      const idxIda = indexOfAny(headers, ["resultado ida", "ida"]);
-      const idxVuelta = indexOfAny(headers, ["resultado vuelta", "vuelta"]);
+      const idxPenales   = indexOfAny(headers, ["penales", "penal", "pen"]);
+      const idxIda       = indexOfAny(headers, ["resultado ida", "ida"]);
+      const idxVuelta    = indexOfAny(headers, ["resultado vuelta", "vuelta"]);
 
       if (idxEquipo < 0 || idxEtapa < 0) {
-        return NextResponse.json(
-          {
-            error: `Encabezados inválidos en llaves. Necesito al menos "equipo" y "etapa".`,
-            headersDetectados: headers,
-          },
-          { status: 502 }
-        );
+        return NextResponse.json({ error: `Headers inválidos. Necesito "equipo" y "etapa".`, headersDetectados: headers }, { status: 502 });
       }
 
-      const get = (row, idx) => (idx >= 0 ? String(row[idx] ?? "").trim() : "");
-
+      const get  = (row, idx) => (idx >= 0 ? String(row[idx] ?? "").trim() : "");
       const rows = data
-        .map((r) => ({
-          equipo: get(r, idxEquipo),
-          etapa: get(r, idxEtapa),
-
-          resultado: get(r, idxResultado),
-          penales: get(r, idxPenales),
-
-          ida: get(r, idxIda),
-          vuelta: get(r, idxVuelta),
-        }))
+        .map((r) => ({ equipo: get(r, idxEquipo), etapa: get(r, idxEtapa), resultado: get(r, idxResultado), penales: get(r, idxPenales), ida: get(r, idxIda), vuelta: get(r, idxVuelta) }))
         .filter((x) => x.equipo && x.etapa);
 
       return NextResponse.json({ rows });
     }
 
-    // Standings
     const equipos = await obtenerEquiposOrdenadosDesdeSheet(sheetUrl);
     return NextResponse.json({ equipos });
+
   } catch (e) {
     return NextResponse.json({ error: e?.message || "Error al obtener tabla" }, { status: 500 });
   }

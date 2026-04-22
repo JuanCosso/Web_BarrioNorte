@@ -1,0 +1,44 @@
+{
+  "equipos": [
+    {
+      "name": "Libertad",
+      "pj": 6,
+      "pg": 3,
+      "pe": 3,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 6
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 6,
+      "pg": 3,
+      "pe": 2,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 3
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 6,
+      "pg": 3,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Bancario",
+      "pj": 6,
+      "pg": 0,
+      "pe": 0,
+      "pp": 6,
+      "gm": 0,
+      "gc": 0,
+      "dg": -9
+    }
+  ]
+}

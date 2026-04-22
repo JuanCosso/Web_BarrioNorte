@@ -1,0 +1,54 @@
+{
+  "equipos": [
+    {
+      "name": "Bancario",
+      "pj": 4,
+      "pg": 1,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "El Progreso",
+      "pj": 4,
+      "pg": 0,
+      "pe": 0,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": -8
+    },
+    {
+      "name": "Quilmes",
+      "pj": 4,
+      "pg": 2,
+      "pe": 0,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 4,
+      "pg": 2,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Urquiza",
+      "pj": 4,
+      "pg": 4,
+      "pe": 0,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 7
+    }
+  ]
+}

@@ -206,7 +206,7 @@ export const TOURNAMENTS = [
       note: "Torneo {label}",
       grupoAFootnote: "Posiciones Torneo {label}.",
       grupoBFootnote: "Posiciones Torneo {label}.",
-      playoffsFootnote: "Torneo {label} disputándose.",
+      playoffsFootnote: "Sociedad Sportiva se consagra como campeón del Torneo {label}.",
     },
   },
   {
@@ -448,7 +448,13 @@ export const TOURNAMENT_CONTENT = {
     ], 
   },
   "preparacion-2026": {     
-    results: [],  
+    results: [
+      { round: "Fecha 1", date: "28/01", condition: "Local", rival: "La Academia", score: "3 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 3", date: "04/02", condition: "Visitante", rival: "Central", score: "0 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 4", date: "09/02", condition: "Visitante", rival: "Bancario", score: "0 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 4", date: "13/02", condition: "Visitante", rival: "Juventud", score: "1 - 4", competition: "Torneo Preparación" },
+      { round: "Semifinal", date: "25/02", condition: "Local", rival: "Sportiva", score: "1 - 2", competition: "Fase Final" },
+    ],  
     staff: [
       { name: "Darío Sánchez", role: "Director Técnico" },
     ],
@@ -457,7 +463,7 @@ export const TOURNAMENT_CONTENT = {
   "oficial-2026": {
   results: [],
   staff: [
-    { name: "Darío 'Colo' Sánchez", role: "Director Técnico" },
+    { name: "Darío Sánchez", role: "Director Técnico" },
   ],
   roster: [],
 },

@@ -1,0 +1,44 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 6,
+      "pg": 3,
+      "pe": 2,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 5
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 6,
+      "pg": 2,
+      "pe": 1,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": -4
+    },
+    {
+      "name": "Libertad",
+      "pj": 6,
+      "pg": 3,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Urquiza",
+      "pj": 6,
+      "pg": 2,
+      "pe": 0,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": -2
+    }
+  ]
+}

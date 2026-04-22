@@ -1,0 +1,54 @@
+{
+  "equipos": [
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 4,
+      "pg": 3,
+      "pe": 0,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 4,
+      "pg": 2,
+      "pe": 0,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "La Academia",
+      "pj": 4,
+      "pg": 1,
+      "pe": 2,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Libertad",
+      "pj": 4,
+      "pg": 1,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": -1
+    },
+    {
+      "name": "Bancario",
+      "pj": 4,
+      "pg": 1,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": -1
+    }
+  ]
+}

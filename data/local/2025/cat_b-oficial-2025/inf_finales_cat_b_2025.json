@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "equipo": "Sociedad Sportiva",
+      "etapa": "Semifinal 1",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Semifinal 1",
+      "resultado": "",
+      "penales": "-",
+      "ida": "2",
+      "vuelta": "5"
+    },
+    {
+      "equipo": "Bancario",
+      "etapa": "Semifinal 2",
+      "resultado": "",
+      "penales": "-",
+      "ida": "2",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "La Academia",
+      "etapa": "Semifinal 2",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Bancario",
+      "etapa": "Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "2"
+    }
+  ]
+}

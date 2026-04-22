@@ -572,17 +572,34 @@ function ScorePill({ children }) {
               <div className="rounded-lg border border-gray-200 bg-white overflow-hidden min-w-0 w-full">
                 <div className="divide-y">
                   {(groups.final || []).length ? (
-                    groups.final.map((t, i) => (
-                      <div key={`${t.equipo}-${i}`} className="px-3">
-                        <TeamRow
-                          logo={t.logo}
-                          name={t.equipo}
-                          score={t.resultado}
-                          pen={t.penales}
-                          useShortNames={useShortNames}
-                        />
-                      </div>
-                    ))
+                    groups.final.map((t, i) => {
+                      const hasLegs =
+                        String(t.ida || "").trim() !== "" ||
+                        String(t.vuelta || "").trim() !== "";
+                      return (
+                        <div key={`${t.equipo}-${i}`} className="px-3">
+                          {hasLegs ? (
+                            <TeamRowSeries
+                              logo={t.logo}
+                              name={t.equipo}
+                              ida={t.ida}
+                              vuelta={t.vuelta}
+                              resultado={t.resultado}
+                              pen={t.penales}
+                              useShortNames={useShortNames}
+                            />
+                          ) : (
+                            <TeamRow
+                              logo={t.logo}
+                              name={t.equipo}
+                              score={t.resultado}
+                              pen={t.penales}
+                              useShortNames={useShortNames}
+                            />
+                          )}
+                        </div>
+                      );
+                    })
                   ) : (
                     <div className="px-3 py-2 text-sm text-gray-500">A definir</div>
                   )}

@@ -1,0 +1,104 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 18,
+      "pg": 5,
+      "pe": 5,
+      "pp": 8,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Bancario",
+      "pj": 18,
+      "pg": 4,
+      "pe": 3,
+      "pp": 11,
+      "gm": 0,
+      "gc": 0,
+      "dg": -10
+    },
+    {
+      "name": "Juventud",
+      "pj": 18,
+      "pg": 9,
+      "pe": 6,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": 5
+    },
+    {
+      "name": "El Progreso",
+      "pj": 18,
+      "pg": 7,
+      "pe": 7,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": 7
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 18,
+      "pg": 11,
+      "pe": 5,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 25
+    },
+    {
+      "name": "Aldea Asuncion",
+      "pj": 18,
+      "pg": 2,
+      "pe": 5,
+      "pp": 11,
+      "gm": 0,
+      "gc": 0,
+      "dg": -20
+    },
+    {
+      "name": "Libertad",
+      "pj": 18,
+      "pg": 8,
+      "pe": 7,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": 7
+    },
+    {
+      "name": "Quilmes",
+      "pj": 18,
+      "pg": 1,
+      "pe": 5,
+      "pp": 12,
+      "gm": 0,
+      "gc": 0,
+      "dg": -30
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 18,
+      "pg": 6,
+      "pe": 6,
+      "pp": 6,
+      "gm": 0,
+      "gc": 0,
+      "dg": -2
+    },
+    {
+      "name": "Urquiza",
+      "pj": 18,
+      "pg": 10,
+      "pe": 5,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": 16
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 6,
+      "pg": 1,
+      "pe": 1,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": -2
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 6,
+      "pg": 2,
+      "pe": 3,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Juventud",
+      "pj": 6,
+      "pg": 1,
+      "pe": 3,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "La Academia",
+      "pj": 6,
+      "pg": 2,
+      "pe": 3,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    }
+  ]
+}

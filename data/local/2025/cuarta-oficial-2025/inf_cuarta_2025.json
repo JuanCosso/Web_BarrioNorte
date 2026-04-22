@@ -1,0 +1,84 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 14,
+      "pg": 6,
+      "pe": 4,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": 22
+    },
+    {
+      "name": "Bancario",
+      "pj": 14,
+      "pg": 9,
+      "pe": 3,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 21
+    },
+    {
+      "name": "El Progreso",
+      "pj": 14,
+      "pg": 2,
+      "pe": 1,
+      "pp": 11,
+      "gm": 0,
+      "gc": 0,
+      "dg": -30
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 14,
+      "pg": 6,
+      "pe": 7,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 18
+    },
+    {
+      "name": "Libertad",
+      "pj": 14,
+      "pg": 7,
+      "pe": 4,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": 5
+    },
+    {
+      "name": "Quilmes",
+      "pj": 14,
+      "pg": 0,
+      "pe": 1,
+      "pp": 13,
+      "gm": 0,
+      "gc": 0,
+      "dg": -52
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 14,
+      "pg": 4,
+      "pe": 5,
+      "pp": 5,
+      "gm": 0,
+      "gc": 0,
+      "dg": -1
+    },
+    {
+      "name": "Urquiza",
+      "pj": 14,
+      "pg": 8,
+      "pe": 3,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": 17
+    }
+  ]
+}

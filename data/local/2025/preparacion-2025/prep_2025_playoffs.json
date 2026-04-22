@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "equipo": "Urquiza",
+      "etapa": "Semifinal 1",
+      "resultado": "1",
+      "penales": "3",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Libertad",
+      "etapa": "Semifinal 1",
+      "resultado": "1",
+      "penales": "5",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Juventud",
+      "etapa": "Semifinal 2",
+      "resultado": "1",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Sociedad Sportiva",
+      "etapa": "Semifinal 2",
+      "resultado": "2",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Sociedad Sportiva",
+      "etapa": "Final",
+      "resultado": "2",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Libertad",
+      "etapa": "Final",
+      "resultado": "1",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    }
+  ]
+}

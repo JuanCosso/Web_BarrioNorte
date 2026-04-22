@@ -1,0 +1,74 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 12,
+      "pg": 6,
+      "pe": 5,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 12
+    },
+    {
+      "name": "Bancario",
+      "pj": 12,
+      "pg": 2,
+      "pe": 2,
+      "pp": 8,
+      "gm": 0,
+      "gc": 0,
+      "dg": -14
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 12,
+      "pg": 7,
+      "pe": 4,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 7
+    },
+    {
+      "name": "La Academia",
+      "pj": 12,
+      "pg": 7,
+      "pe": 3,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 16
+    },
+    {
+      "name": "Libertad",
+      "pj": 12,
+      "pg": 1,
+      "pe": 5,
+      "pp": 6,
+      "gm": 0,
+      "gc": 0,
+      "dg": -11
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 12,
+      "pg": 6,
+      "pe": 5,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 18
+    },
+    {
+      "name": "Urquiza",
+      "pj": 12,
+      "pg": 1,
+      "pe": 0,
+      "pp": 11,
+      "gm": 0,
+      "gc": 0,
+      "dg": -28
+    }
+  ]
+}
