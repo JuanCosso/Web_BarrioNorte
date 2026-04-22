@@ -69,7 +69,7 @@ export const CATEGORIES = [
    - Cada torneo: Liga + Finales (Semis/Final ida-vuelta).
 */
 
-function torneoOficial({ categoryId, year, ligaType, finalesType, ui = {} }) {
+function torneoOficial({ categoryId, year, ligaType, finalesType, division = "Liga Departamental", ui = {} }) {
   return {
     id: `${categoryId}-oficial-${year}`,
     label: `Oficial ${year}`,
@@ -78,7 +78,7 @@ function torneoOficial({ categoryId, year, ligaType, finalesType, ui = {} }) {
       finales: { type: finalesType || "" },
     },
     ui: {
-      ligaTitle: "Liga Departamental",
+      ligaTitle: division,
       ligaPhase: "Fase regular",
       ligaFootnote: "Posiciones {label}.",
 
@@ -97,6 +97,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_a",
       year: 2025,
+      division: "Categoría A",
       ligaType: "inf_cat_a_2025",
       finalesType: "inf_finales_cat_a_2025",
       ui: {finalesFootnote: "Sociedad Sportiva se consagra campéon del Torneo Oficial 2025 en Categoría A (2014)."}
@@ -104,9 +105,10 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_a",
       year: 2026,
+      division: "Categoría A",
       ligaType: "inf_cat_a_2026",
       finalesType: "inf_finales_cat_a_2026",
-      ui: { finalesFootnote: "Torneo {label} por disputarse." },
+      ui: { finalesFootnote: "Torneo {label} por definirse." },
     }),
   ],
 
@@ -114,6 +116,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_b",
       year: 2025,
+      divison: "Categoría B",
       ligaType: "inf_cat_b_2025",
       finalesType: "inf_finales_cat_b_2025",
       ui: {finalesFootnote: "Bancario se consagra campéon del Torneo Oficial 2025 en Categoría B (2015)."}
@@ -121,9 +124,10 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_b",
       year: 2026,
+      division: "Categoría B",
       ligaType: "inf_cat_b_2026",
       finalesType: "inf_finales_cat_b_2026",
-      ui: { finalesFootnote: "Torneo {label} por disputarse." },
+      ui: { finalesFootnote: "Torneo {label} por definirse." },
     }),
   ],
 
@@ -131,6 +135,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_c",
       year: 2025,
+      division: "Categoría C",
       ligaType: "inf_cat_c_2025",
       finalesType: "inf_finales_cat_c_2025",
       ui: {finalesFootnote: "Bancario se consagra campéon del Torneo Oficial 2025 en Categoría C (2016)."}
@@ -138,9 +143,10 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_c",
       year: 2026,
+      division: "Categoría C",
       ligaType: "inf_cat_c_2026",
       finalesType: "inf_finales_cat_c_2026",
-      ui: { finalesFootnote: "Torneo {label} por disputarse." },
+      ui: { finalesFootnote: "Torneo {label} por definirse." },
     }),
   ],
 
@@ -148,6 +154,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_d",
       year: 2025,
+      division: "Categoría D",
       ligaType: "inf_cat_d_2025",
       finalesType: "inf_finales_cat_d_2025",
       ui: {finalesFootnote: "Barrio Norte se consagra campéon del Torneo Oficial 2025 en Categoría D (2017)."}
@@ -155,9 +162,10 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cat_d",
       year: 2026,
+      division: "Categoría D",
       ligaType: "inf_cat_d_2026",
       finalesType: "inf_finales_cat_d_2026",
-      ui: { finalesFootnote: "Torneo {label} por disputarse." },
+      ui: { finalesFootnote: "Torneo {label} por definirse." },
     }),
   ],
 };

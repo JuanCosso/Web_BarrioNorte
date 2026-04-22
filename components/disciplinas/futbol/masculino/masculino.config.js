@@ -99,7 +99,7 @@ export const TOURNAMENTS = [
       petit: { type: "petit" },
     },
     ui: {
-      ligaTitle: "Liga Departamental",
+      ligaTitle: "Primera División",
       ligaPhase: "Fase regular",
       repechajeTitle: "Repechaje",
       petitTitle: "Petit Torneo",
@@ -139,7 +139,7 @@ export const TOURNAMENTS = [
       petit: { type: "oficial_2024_petit" },
     },
     ui: {
-      ligaTitle: "Liga Departamental",
+      ligaTitle: "Primera División",
       ligaPhase: "Fase regular",
       repechajeTitle: "Repechaje",
       petitTitle: "Petit Torneo",
@@ -179,7 +179,7 @@ export const TOURNAMENTS = [
       petit: { type: "petit" },
     },
     ui: {
-      ligaTitle: "Liga Departamental",
+      ligaTitle: "Primera División",
       ligaPhase: "Fase regular",
       repechajeTitle: "Repechaje",
       petitTitle: "Petit Torneo",
@@ -219,15 +219,15 @@ export const TOURNAMENTS = [
       petit:     { type: "oficial_2026_petit" },
     },
     ui: {
-      ligaTitle:    "Liga Departamental",
+      ligaTitle:    "Primera División",
       ligaPhase:    "Fase regular",
       repechajeTitle: "Repechaje",
       petitTitle:   "Petit Torneo",
       petitPhase:   "Fase final",
       note:         "Torneo {label}.",
       ligaFootnote:     "Posiciones {label}.",
-      repechajeFootnote: "Torneo {label} por disputarse.",
-      petitFootnote:     "Torneo {label} por disputarse.",
+      repechajeFootnote: "Torneo {label} por definirse.",
+      petitFootnote:     "Torneo {label} por definirse.",
     },
   },
 ];

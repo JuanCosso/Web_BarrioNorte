@@ -164,7 +164,7 @@ export function TablaPosicionesInferioresLike({
                     esBarrioNorte ? "bg-red-50 font-semibold" : "hover:bg-gray-50"
                   }`}
                 >
-                  <td className="py-2 px-2 text-center">
+                  <td className="py-1 px-2 text-center">
                     {withPositionColors ? (
                       <span className={clasePosicionInf(posicion)}>{posicion}</span>
                     ) : (
@@ -172,7 +172,7 @@ export function TablaPosicionesInferioresLike({
                     )}
                   </td>
 
-                  <td className="py-2 pr-2 min-w-0">
+                  <td className="py-1 pr-2 min-w-0">
                     <div className="flex items-center gap-2 min-w-0">
                       <Image
                         src={equipo.logo || "/escudos/BarrioNorte_V1.png"}
@@ -187,12 +187,12 @@ export function TablaPosicionesInferioresLike({
                     </div>
                   </td>
 
-                  <td className="py-2 px-1 text-center">{equipo.pj}</td>
-                  <td className="py-2 px-1 text-center">{equipo.pg}</td>
-                  <td className="py-2 px-1 text-center">{equipo.pe}</td>
-                  <td className="py-2 px-1 text-center">{equipo.pp}</td>
-                  <td className="py-2 px-1 text-center">{equipo.dg}</td>
-                  <td className="py-2 pl-1 text-center font-semibold">{equipo.pts}</td>
+                  <td className="py-1 px-1 text-center">{equipo.pj}</td>
+                  <td className="py-1 px-1 text-center">{equipo.pg}</td>
+                  <td className="py-1 px-1 text-center">{equipo.pe}</td>
+                  <td className="py-1 px-1 text-center">{equipo.pp}</td>
+                  <td className="py-1 px-1 text-center">{equipo.dg}</td>
+                  <td className="py-1 pl-1 text-center font-semibold">{equipo.pts}</td>
                 </tr>
               );
             })}

@@ -78,7 +78,7 @@ export const CATEGORIES = [
    - ui: textos editables por torneo (campeón, notas, etc.)
 */
 
-function torneoOficial({ categoryId, year, ligaType, finalesType, ui = {} }) {
+function torneoOficial({ categoryId, year, ligaType, finalesType, division = "Liga Departamental", ui = {} }) {
   return {
     id: `${categoryId}-oficial-${year}`,
     label: `Oficial ${year}`,
@@ -88,7 +88,7 @@ function torneoOficial({ categoryId, year, ligaType, finalesType, ui = {} }) {
     },
     ui: {
       // Card Liga (izquierda)
-      ligaTitle: "Liga Departamental",
+      ligaTitle: division,
       ligaPhase: "Fase regular",
       ligaFootnote: "Posiciones {label}.",
 
@@ -111,6 +111,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "tercera",
       year: 2025,
+      division: "Tercera División",
       ligaType: "inf_tercera_2025",
       finalesType: "inf_finales_tercera_2025",
       ui: {
@@ -121,10 +122,11 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "tercera",
       year: 2026,
+      division: "Tercera División",
       ligaType: "inf_tercera_2026",
       finalesType: "inf_finales_tercera_2026",
       ui: {
-        finalesFootnote: "Torneo Oficial 2026 por disputarse.",
+        finalesFootnote: "Torneo Oficial 2026 por definirse.",
       },
     }),
   ],
@@ -133,6 +135,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "cuarta",
       year: 2025,
+      division: "Cuarta División",
       ligaType: "inf_cuarta_2025",
       finalesType: "inf_finales_cuarta_2025",
       ui: {
@@ -142,10 +145,11 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({ 
     categoryId: "cuarta", 
     year: 2026, 
+    division: "Cuarta División",
     ligaType: "inf_cuarta_2026",
     finalesType: "inf_finales_cuarta_2026",
     ui: { 
-      finalesFootnote: "Torneo Oficial 2026 por disputarse." 
+      finalesFootnote: "Torneo Oficial 2026 por definirse." 
     },
     }),
   ],
@@ -154,6 +158,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "quinta",
       year: 2025,
+      division: "Quinta División",
       ligaType: "inf_quinta_2025",
       finalesType: "inf_finales_quinta_2025",
       ui: {
@@ -163,10 +168,11 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({ 
     categoryId: "quinta", 
     year: 2026,
+    division: "Quinta División",
     ligaType: "inf_quinta_2026",
     finalesType: "inf_finales_quinta_2026", 
     ui: { 
-      finalesFootnote: "Torneo Oficial 2026 por disputarse." 
+      finalesFootnote: "Torneo Oficial 2026 por definirse." 
     },
     }),
   ],
@@ -175,6 +181,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "sexta",
       year: 2025,
+      division: "Sexta División",
       ligaType: "inf_sexta_2025",
       finalesType: "inf_finales_sexta_2025",
       ui: {
@@ -184,10 +191,11 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({ 
       categoryId: "sexta", 
       year: 2026,
+      division: "Sexta División",
       ligaType: "inf_sexta_2026",
       finalesType: "inf_finales_sexta_2026",
       ui: { 
-        finalesFootnote: "Torneo Oficial 2026 por disputarse." 
+        finalesFootnote: "Torneo Oficial 2026 por definirse." 
       },
     }),
   ],
@@ -196,6 +204,7 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({
       categoryId: "septima",
       year: 2025,
+      division: "Séptima División",
       ligaType: "inf_septima_2025",
       finalesType: "inf_finales_septima_2025",
       ui: {
@@ -205,9 +214,10 @@ export const TOURNAMENTS_BY_CATEGORY = {
     torneoOficial({ 
       categoryId: "septima", 
       year: 2026,
+      division: "Séptima División",
       ligaType:    "inf_septima_2026",
       finalesType: "inf_finales_septima_2026",
-      ui: { finalesFootnote: "Torneo Oficial 2026 por disputarse." }
+      ui: { finalesFootnote: "Torneo Oficial 2026 por definirse." }
     })
   ],
 };

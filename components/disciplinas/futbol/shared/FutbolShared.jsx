@@ -289,15 +289,15 @@ export function StandingsTable({ data }) {
         <table className="min-w-[720px] w-full text-sm">
           <thead className="bg-black/25 text-white/70">
             <tr>
-              <th className="text-left px-4 py-3">#</th>
-              <th className="text-left px-4 py-3">Equipo</th>
-              <th className="text-right px-4 py-3">PTS</th>
-              <th className="text-right px-4 py-3">PJ</th>
-              <th className="text-right px-4 py-3">G</th>
-              <th className="text-right px-4 py-3">E</th>
-              <th className="text-right px-4 py-3">P</th>
-              <th className="text-right px-4 py-3">GF</th>
-              <th className="text-right px-4 py-3">GC</th>
+              <th className="text-left px-4 2">#</th>
+              <th className="text-left px-4 py-2">Equipo</th>
+              <th className="text-right px-4 py-2">PTS</th>
+              <th className="text-right px-4 py-2">PJ</th>
+              <th className="text-right px-4 py-2">G</th>
+              <th className="text-right px-4 py-2">E</th>
+              <th className="text-right px-4 py-2">P</th>
+              <th className="text-right px-4 py-2">GF</th>
+              <th className="text-right px-4 py-2">GC</th>
             </tr>
           </thead>
           <tbody>
@@ -311,17 +311,17 @@ export function StandingsTable({ data }) {
                     isUs ? "bg-[color:var(--brand)]/12" : "hover:bg-white/5",
                   ].join(" ")}
                 >
-                  <td className="px-4 py-3 font-semibold">{r.pos}</td>
-                  <td className="px-4 py-3 font-semibold">
+                  <td className="px-4 py-1.5 font-semibold">{r.pos}</td>
+                  <td className="px-4 py-1.5 font-semibold">
                     <span className={isUs ? "text-white" : "text-white/90"}>{r.team}</span>
                   </td>
-                  <td className="px-4 py-3 text-right font-extrabold">{r.pts}</td>
-                  <td className="px-4 py-3 text-right text-white/80">{r.pj}</td>
-                  <td className="px-4 py-3 text-right text-white/80">{r.g}</td>
-                  <td className="px-4 py-3 text-right text-white/80">{r.e}</td>
-                  <td className="px-4 py-3 text-right text-white/80">{r.p}</td>
-                  <td className="px-4 py-3 text-right text-white/80">{r.gf}</td>
-                  <td className="px-4 py-3 text-right text-white/80">{r.gc}</td>
+                  <td className="px-4 py-1.5 text-right font-extrabold">{r.pts}</td>
+                  <td className="px-4 py-1.5 text-right text-white/80">{r.pj}</td>
+                  <td className="px-4 py-1.5 text-right text-white/80">{r.g}</td>
+                  <td className="px-4 py-1.5 text-right text-white/80">{r.e}</td>
+                  <td className="px-4 py-1.5 text-right text-white/80">{r.p}</td>
+                  <td className="px-4 py-1.5 text-right text-white/80">{r.gf}</td>
+                  <td className="px-4 py-1.5 text-right text-white/80">{r.gc}</td>
                 </tr>
               );
             })}

@@ -70,7 +70,7 @@ export const TOURNAMENTS = [
       petit: { type: "fem_oficial_2025_petit_playoffs" },
     },
     ui: {
-      ligaTitle: "Liga Departamental",
+      ligaTitle: "Primera División",
       ligaPhase: "Fase regular",
       repechajeTitle: "Repechaje",
       repechajePhase: "Fase Eliminatoria",
@@ -91,15 +91,15 @@ export const TOURNAMENTS = [
       petit: { type: "fem_oficial_2026_petit_playoffs" },
     },
     ui: {
-      ligaTitle: "Liga Departamental",
+      ligaTitle: "Primera División",
       ligaPhase: "Fase regular",
       repechajeTitle: "Repechaje",
       repechajePhase: "Fase Eliminatoria",
       petitTitle: "Petit torneo",
       petitPhase: "Fase Final",
       ligaFootnote: "Posiciones {label}.",
-      repechajeFootnote: "Torneo {label} femenino por disputarse.",
-      petitFootnote: "Torneo {label} femenino por disputarse.",
+      repechajeFootnote: "Torneo {label} femenino por definirse.",
+      petitFootnote: "Torneo {label} femenino por definirse.",
     },
   },
 ];

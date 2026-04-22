@@ -49,7 +49,7 @@ export default function TablaLigaInicio({ equiposRaw, title, badge, footnote }) 
             </span>
           )}
         </div>
-        <span className="text-xs text-gray-500">Oficial 2026 · Fase regular</span>
+        <span className="text-xs text-gray-500">Fase regular</span>
       </div>
 
       {equipos.length === 0 ? (
