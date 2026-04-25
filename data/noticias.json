@@ -199,5 +199,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXhxH9ixmbY/",
     "post_id": "DXhxH9ixmbY"
+  },
+  {
+    "id": 14,
+    "titulo": "Barrio Norte recibe a Libertad por la segunda fecha",
+    "resumen": "Barrio Norte juega de local ante Libertad en el Estadio Alberto Pocha Badaracco por la segunda fecha del Torneo Oficial 2026.",
+    "fecha": "2026-04-24",
+    "categoria": "Fútbol",
+    "tags": [
+      "Barrio Norte",
+      "Torneo Oficial 2026"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/noticia_DXfRwXTkdd_.webp",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXfRwXTkdd_/",
+    "post_id": "DXfRwXTkdd_"
   }
 ]
