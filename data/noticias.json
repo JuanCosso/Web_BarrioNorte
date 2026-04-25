@@ -183,5 +183,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXhHkGCjhiX/",
     "post_id": "DXhHkGCjhiX"
+  },
+  {
+    "id": 13,
+    "titulo": "Avanzan las obras en el estadio Pocha Badaracco",
+    "resumen": "El Club Barrio Norte realiza mejoras en su infraestructura, incluyendo el traslado del alambrado para mejorar la seguridad del campo de juego.",
+    "fecha": "2026-04-24",
+    "categoria": "Fútbol",
+    "tags": [
+      "Barrio Norte",
+      "Infraestructura"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/noticia_DXhxH9ixmbY.jpg",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXhxH9ixmbY/",
+    "post_id": "DXhxH9ixmbY"
   }
 ]
