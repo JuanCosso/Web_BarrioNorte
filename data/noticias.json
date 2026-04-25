@@ -167,5 +167,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXhf0OKDple/",
     "post_id": "DXhf0OKDple"
+  },
+  {
+    "id": 12,
+    "titulo": "Barrio Norte juega de local ante Libertad",
+    "resumen": "El Club Atlético Barrio Norte recibe a Libertad por la segunda fecha del Torneo Oficial 2026 en sus divisiones inferiores.",
+    "fecha": "2026-04-24",
+    "categoria": "Inferiores",
+    "tags": [
+      "Barrio Norte",
+      "Inferiores"
+    ],
+    "destacada": true,
+    "imagen": "/noticias/noticia_DXhHkGCjhiX.webp",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXhHkGCjhiX/",
+    "post_id": "DXhHkGCjhiX"
   }
 ]
