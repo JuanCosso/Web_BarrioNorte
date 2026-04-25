@@ -151,5 +151,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXfGv5BkfE-/",
     "post_id": "DXfGv5BkfE-"
+  },
+  {
+    "id": 11,
+    "titulo": "Obras de mejora en el estadio Alberto Pocha Badaracco",
+    "resumen": "El Club Atlético Barrio Norte realiza mejoras en su estadio para optimizar la seguridad y la infraestructura del campo de juego.",
+    "fecha": "2026-04-24",
+    "categoria": "Fútbol",
+    "tags": [
+      "Barrio Norte",
+      "Infraestructura"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/noticia_DXhf0OKDple.jpg",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXhf0OKDple/",
+    "post_id": "DXhf0OKDple"
   }
 ]
