@@ -120,40 +120,6 @@
   },
   {
     "id": 9,
-    "titulo": "Resultados Fecha 2 · Primera Masculino",
-    "resumen": "Bancario 0-0 Libertad · Barrio Norte 0-0 La Academia · Sociedad Sportiva 0-0 Urquiza · Quilmes 0-0 El Progreso · Juventud 0-0 Gualeguay Central (Campeonato Oficial 2026).",
-    "fecha": "2026-04-24",
-    "categoria": "Fútbol",
-    "tags": [
-      "Masculino",
-      "Resultados",
-      "Torneo Oficial"
-    ],
-    "destacada": false,
-    "imagen": "/noticias/resultado_1777085737024.jpg",
-    "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXfDGaNDQIK/",
-    "post_id": "DXfDGaNDQIK"
-  },
-  {
-    "id": 10,
-    "titulo": "Resultados Fecha 3 · Primera Masculino",
-    "resumen": "Barrio Norte 0-0 Bancario (Torneo Asociativo de Primera División).",
-    "fecha": "2026-04-24",
-    "categoria": "Fútbol",
-    "tags": [
-      "Masculino",
-      "Resultados",
-      "Torneo Oficial"
-    ],
-    "destacada": false,
-    "imagen": "/noticias/resultado_1777085742763.jpg",
-    "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXfGv5BkfE-/",
-    "post_id": "DXfGv5BkfE-"
-  },
-  {
-    "id": 11,
     "titulo": "Obras de mejora en el estadio Alberto Pocha Badaracco",
     "resumen": "El Club Atlético Barrio Norte realiza mejoras en su estadio para optimizar la seguridad y la infraestructura del campo de juego.",
     "fecha": "2026-04-24",
@@ -165,12 +131,12 @@
     "destacada": false,
     "imagen": "/noticias/noticia_DXhf0OKDple.jpg",
     "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXhf0OKDple/",
+    "url": "https://www.instagram.com/p/DXhxH9ixmbY/",
     "post_id": "DXhf0OKDple"
   },
   {
-    "id": 12,
-    "titulo": "Barrio Norte juega de local ante Libertad",
+    "id": 10,
+    "titulo": "Horarios de categorías inferiores para la segunda fecha",
     "resumen": "El Club Atlético Barrio Norte recibe a Libertad por la segunda fecha del Torneo Oficial 2026 en sus divisiones inferiores.",
     "fecha": "2026-04-24",
     "categoria": "Inferiores",
@@ -178,33 +144,17 @@
       "Barrio Norte",
       "Inferiores"
     ],
-    "destacada": true,
+    "destacada": false,
     "imagen": "/noticias/noticia_DXhHkGCjhiX.webp",
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXhHkGCjhiX/",
     "post_id": "DXhHkGCjhiX"
   },
   {
-    "id": 13,
-    "titulo": "Avanzan las obras en el estadio Pocha Badaracco",
-    "resumen": "El Club Barrio Norte realiza mejoras en su infraestructura, incluyendo el traslado del alambrado para mejorar la seguridad del campo de juego.",
-    "fecha": "2026-04-24",
-    "categoria": "Fútbol",
-    "tags": [
-      "Barrio Norte",
-      "Infraestructura"
-    ],
-    "destacada": false,
-    "imagen": "/noticias/noticia_DXhxH9ixmbY.jpg",
-    "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXhxH9ixmbY/",
-    "post_id": "DXhxH9ixmbY"
-  },
-  {
-    "id": 14,
+    "id": 11,
     "titulo": "Barrio Norte recibe a Libertad por la segunda fecha",
     "resumen": "Barrio Norte juega de local ante Libertad en el Estadio Alberto Pocha Badaracco por la segunda fecha del Torneo Oficial 2026.",
-    "fecha": "2026-04-24",
+    "fecha": "2026-04-23",
     "categoria": "Fútbol",
     "tags": [
       "Barrio Norte",
@@ -217,27 +167,10 @@
     "post_id": "DXfRwXTkdd_"
   },
   {
-    "id": 15,
-    "titulo": "Resultados Fecha 2 · Primera Femenino",
-    "resumen": "Barrio Norte 0-0 Libertad · Bancario 0-0 Alsea Asuncion · Sociedad Sportiva 0-0 Urquiza · Quilmes 0-0 El Progreso (TORNEO FEMENINO 2026).",
-    "fecha": "2026-04-24",
-    "categoria": "Fútbol",
-    "tags": [
-      "Femenino",
-      "Resultados",
-      "Torneo Oficial"
-    ],
-    "destacada": false,
-    "imagen": "/noticias/resultado_1777085815509.webp",
-    "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXfF6rcjH62/",
-    "post_id": "DXfF6rcjH62"
-  },
-  {
-    "id": 16,
-    "titulo": "Resultados Fecha 1 · Primera Masculino",
-    "resumen": "Urquiza 5-0 Quilmes · Urquiza 3-0 Quilmes · Urquiza 2-1 Quilmes · La Academia 0-2 Sociedad Sportiva · La Academia 0-5 Sociedad Sportiva · Bancario 3-1 Barrio Norte · Bancario 2-0 Barrio Norte · Bancario 0-0 Barrio Norte · Libertad 0-0 Gualeguay Central · Urquiza 3-0 Quilmes · Barrio Norte 1-0 Bancario · La Academia 3-1 Sociedad Sportiva · La Academia 0-0 Sociedad Sportiva · Libertad 1-2 Gualeguay Central · Urquiza 1-0 Quilmes · Barrio Norte 2-2 Bancario · Libertad 0-1 Gualeguay Central · La Academia 2-0 Sociedad Sportiva · Barrio Norte 1-0 Bancario (Liga Departamental de Gualeguay).",
-    "fecha": "2026-04-24",
+    "id": 12,
+    "titulo": "Resultados Fecha 2 · Primera Masculino",
+    "resumen": "Barrio Norte 0-0 Libertad · Bancario 0-0 La Academia · Sociedad Sportiva 0-0 Urquiza · Quilmes 0-0 El Progreso · Juventud 0-0 Gualeguay Central (Campeonato Oficial 2026).",
+    "fecha": "2026-04-23",
     "categoria": "Fútbol",
     "tags": [
       "Masculino",
@@ -245,9 +178,9 @@
       "Torneo Oficial"
     ],
     "destacada": false,
-    "imagen": "/noticias/resultado_1777085855434.webp",
+    "imagen": "/noticias/resultado_1777089499914.jpg",
     "fuente": "Instagram",
-    "url": "https://www.instagram.com/p/DXfrN7ODC__/",
-    "post_id": "DXfrN7ODC__"
+    "url": "https://www.instagram.com/p/DXfDGaNDQIK/",
+    "post_id": "DXfDGaNDQIK"
   }
 ]
