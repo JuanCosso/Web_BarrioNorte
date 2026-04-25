@@ -134,5 +134,22 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXfDGaNDQIK/",
     "post_id": "DXfDGaNDQIK"
+  },
+  {
+    "id": 10,
+    "titulo": "Resultados Fecha 3 · Primera Masculino",
+    "resumen": "Barrio Norte 0-0 Bancario (Torneo Asociativo de Primera División).",
+    "fecha": "2026-04-24",
+    "categoria": "Fútbol",
+    "tags": [
+      "Masculino",
+      "Resultados",
+      "Torneo Oficial"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/resultado_1777085742763.jpg",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXfGv5BkfE-/",
+    "post_id": "DXfGv5BkfE-"
   }
 ]
