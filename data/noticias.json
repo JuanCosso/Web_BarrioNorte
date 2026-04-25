@@ -117,5 +117,22 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXcOP3OEULA/",
     "post_id": "DXcOP3OEULA"
+  },
+  {
+    "id": 9,
+    "titulo": "Resultados Fecha 2 · Primera Masculino",
+    "resumen": "Bancario 0-0 Libertad · Barrio Norte 0-0 La Academia · Sociedad Sportiva 0-0 Urquiza · Quilmes 0-0 El Progreso · Juventud 0-0 Gualeguay Central (Campeonato Oficial 2026).",
+    "fecha": "2026-04-24",
+    "categoria": "Fútbol",
+    "tags": [
+      "Masculino",
+      "Resultados",
+      "Torneo Oficial"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/resultado_1777085737024.jpg",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXfDGaNDQIK/",
+    "post_id": "DXfDGaNDQIK"
   }
 ]
