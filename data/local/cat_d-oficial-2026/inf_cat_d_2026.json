@@ -1,0 +1,24 @@
+{
+  "equipos": [
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 1,
+      "pg": 0,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Urquiza",
+      "pj": 1,
+      "pg": 0,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    }
+  ]
+}
