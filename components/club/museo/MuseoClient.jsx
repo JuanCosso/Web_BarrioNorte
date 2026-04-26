@@ -13,52 +13,43 @@ export default function MuseoClient() {
   const [zoomOpen, setZoomOpen] = useState(false);
   const [zoomItem, setZoomItem] = useState(null);
 
-  const openZoom = (item) => {
-    setZoomItem(item);
-    setZoomOpen(true);
-  };
+  const openZoom = (item) => { setZoomItem(item); setZoomOpen(true); };
+  const closeZoom = () => { setZoomOpen(false); setZoomItem(null); };
 
-  const closeZoom = () => {
-    setZoomOpen(false);
-    setZoomItem(null);
-  };
+  const titulos = camisetas.reduce((acc, c) => acc + (c.hitos?.length ?? 0), 0);
 
   return (
-    <section className="w-full">
-      <div className="mx-auto max-w-6xl px-4 py-12">
-        <header className="relative overflow-hidden rounded-3xl border border-neutral-800 bg-gradient-to-b from-neutral-900/40 via-neutral-950 to-neutral-950 px-6 py-10 sm:px-10 sm:py-14 text-center">
-          {/* Decoración */}
-          <div className="pointer-events-none absolute inset-0">
-            <div className="museo-blob-red motion-reduce:animate-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-red-600/25 blur-3xl" />
-            <div className="museo-blob-white motion-reduce:animate-none absolute -bottom-28 right-6 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+    <section className="w-full bg-gray-50 min-h-screen">
+      <div className="mx-auto max-w-6xl px-4 pt-10 pb-20">
 
-            <div className="museo-sheen motion-reduce:animate-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white/10 to-transparent blur-2xl" />
-
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),transparent_55%)]" />
-          </div>
-
-          <div className="relative mx-auto max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-700 bg-neutral-950/60 px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-neutral-200">
-              {/* Beep / ping */}
-              <span className="relative inline-flex h-2 w-2">
-                <span className="museo-beep-ring motion-reduce:animate-none absolute inset-0 rounded-full bg-red-600/60" />
-                <span className="museo-beep-dot motion-reduce:animate-none relative h-2 w-2 rounded-full bg-red-600" />
-              </span>
-
-              Archivos históricos
+        {/* ── HEADER ── */}
+        <header className="mb-12 pb-8 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-red-600 mb-2">
+                Club Atlético Barrio Norte
+              </p>
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
+                Museo <span className="text-red-600">Online</span>
+              </h1>
+              <p className="mt-2 text-gray-500 text-sm max-w-md">
+                Nuestra historia a través de los símbolos y camisetas del club.
+              </p>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-              Museo <span className="text-red-600">Online</span>
-            </h1>
-
-            <p className="text-sm sm:text-base text-neutral-200/90 leading-relaxed">
-              Visitá nuestra colección de símbolos, logros y momentos del club.
-            </p>
+            {/* Estadísticas rápidas */}
+            <div className="flex items-stretch gap-6">
+              <Stat value={escudos.length} label="escudos" />
+              <div className="w-px bg-gray-200" />
+              <Stat value={camisetas.length} label="camisetas" />
+              <div className="w-px bg-gray-200" />
+              <Stat value={titulos} label="títulos" accent />
+            </div>
           </div>
         </header>
 
-        <div className="mt-10 space-y-14">
+        {/* ── CONTENIDO ── */}
+        <div className="space-y-16">
           <EscudosGrid escudos={escudos} onOpenZoom={openZoom} />
           <CamisetasCarousel camisetas={camisetas} onOpenZoom={openZoom} />
         </div>
@@ -66,5 +57,16 @@ export default function MuseoClient() {
 
       <ZoomModal open={zoomOpen} item={zoomItem} onClose={closeZoom} />
     </section>
+  );
+}
+
+function Stat({ value, label, accent = false }) {
+  return (
+    <div className="flex flex-col justify-center">
+      <span className={`text-3xl font-extrabold tabular-nums ${accent ? "text-red-600" : "text-gray-900"}`}>
+        {value}
+      </span>
+      <span className="text-xs text-gray-400 mt-0.5">{label}</span>
+    </div>
   );
 }

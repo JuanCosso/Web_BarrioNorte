@@ -168,8 +168,8 @@
   },
   {
     "id": 12,
-    "titulo": "Resultados Fecha 2 · Primera Masculino",
-    "resumen": "Barrio Norte 0-0 Libertad · Bancario 0-0 La Academia · Sociedad Sportiva 0-0 Urquiza · Quilmes 0-0 El Progreso · Juventud 0-0 Gualeguay Central (Campeonato Oficial 2026).",
+    "titulo": "Programación para la Fecha 2",
+    "resumen": "Los partidos correspondientes a la segunda fecha del torneo oficial 2026.",
     "fecha": "2026-04-23",
     "categoria": "Fútbol",
     "tags": [
@@ -182,5 +182,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXfDGaNDQIK/",
     "post_id": "DXfDGaNDQIK"
+  },
+  {
+    "id": 13,
+    "titulo": "Convocados de Barrio Norte para enfrentar a Libertad",
+    "resumen": "El Club Atlético Barrio Norte presentó la lista de 18 jugadores convocados para la segunda fecha del Torneo Oficial frente a Libertad.",
+    "fecha": "2026-04-25",
+    "categoria": "Fútbol",
+    "tags": [
+      "Barrio Norte",
+      "Libertad"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/noticia_DXkuNjDjs9J.webp",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXkuNjDjs9J/",
+    "post_id": "DXkuNjDjs9J"
   }
 ]
