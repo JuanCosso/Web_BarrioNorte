@@ -3,15 +3,35 @@
     {
       "name": "Barrio Norte",
       "pj": 1,
-      "pg": 1,
-      "pe": 0,
+      "pg": 0,
+      "pe": 1,
       "pp": 0,
-      "gm": 1,
-      "gc": 0,
-      "dg": 1
+      "gm": 2,
+      "gc": 2,
+      "dg": 0
     },
     {
       "name": "Bancario",
+      "pj": 1,
+      "pg": 0,
+      "pe": 1,
+      "pp": 0,
+      "gm": 2,
+      "gc": 2,
+      "dg": 0
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 1,
+      "pg": 0,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Quilmes",
       "pj": 1,
       "pg": 0,
       "pe": 0,
@@ -21,34 +41,14 @@
       "dg": -1
     },
     {
-      "name": "Sociedad Sportiva",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 1,
-      "gc": 3,
-      "dg": -2
-    },
-    {
-      "name": "Quilmes",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 0,
-      "gc": 3,
-      "dg": -3
-    },
-    {
       "name": "La Academia",
       "pj": 1,
-      "pg": 1,
-      "pe": 0,
+      "pg": 0,
+      "pe": 1,
       "pp": 0,
-      "gm": 3,
-      "gc": 1,
-      "dg": 2
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
     },
     {
       "name": "Urquiza",
@@ -56,29 +56,29 @@
       "pg": 1,
       "pe": 0,
       "pp": 0,
-      "gm": 3,
+      "gm": 1,
       "gc": 0,
-      "dg": 3
+      "dg": 1
     },
     {
       "name": "Libertad",
       "pj": 1,
       "pg": 0,
-      "pe": 1,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
-      "dg": 0
+      "pe": 0,
+      "pp": 1,
+      "gm": 1,
+      "gc": 2,
+      "dg": -1
     },
     {
       "name": "Gualeguay Central",
       "pj": 1,
-      "pg": 0,
-      "pe": 1,
+      "pg": 1,
+      "pe": 0,
       "pp": 0,
-      "gm": 0,
-      "gc": 0,
-      "dg": 0
+      "gm": 2,
+      "gc": 1,
+      "dg": 1
     }
   ],
   "partidos_procesados": [
