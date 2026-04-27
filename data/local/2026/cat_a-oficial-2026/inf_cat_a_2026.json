@@ -2,58 +2,8 @@
   "equipos": [
     {
       "name": "Barrio Norte",
-      "pj": 1,
-      "pg": 1,
-      "pe": 0,
-      "pp": 0,
-      "gm": 1,
-      "gc": 0,
-      "dg": 1
-    },
-    {
-      "name": "Bancario",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 0,
-      "gc": 1,
-      "dg": -1
-    },
-    {
-      "name": "Sociedad Sportiva",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 1,
-      "gc": 3,
-      "dg": -2
-    },
-    {
-      "name": "Quilmes",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 0,
-      "gc": 3,
-      "dg": -3
-    },
-    {
-      "name": "La Academia",
-      "pj": 1,
-      "pg": 1,
-      "pe": 0,
-      "pp": 0,
-      "gm": 3,
-      "gc": 1,
-      "dg": 2
-    },
-    {
-      "name": "Urquiza",
-      "pj": 1,
-      "pg": 1,
+      "pj": 2,
+      "pg": 2,
       "pe": 0,
       "pp": 0,
       "gm": 3,
@@ -61,14 +11,44 @@
       "dg": 3
     },
     {
-      "name": "Libertad",
-      "pj": 1,
-      "pg": 0,
-      "pe": 1,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
+      "name": "Urquiza",
+      "pj": 2,
+      "pg": 1,
+      "pe": 0,
+      "pp": 1,
+      "gm": 3,
+      "gc": 1,
+      "dg": 2
+    },
+    {
+      "name": "La Academia",
+      "pj": 2,
+      "pg": 1,
+      "pe": 0,
+      "pp": 1,
+      "gm": 4,
+      "gc": 3,
+      "dg": 1
+    },
+    {
+      "name": "Bancario",
+      "pj": 2,
+      "pg": 1,
+      "pe": 0,
+      "pp": 1,
+      "gm": 2,
+      "gc": 2,
       "dg": 0
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 2,
+      "pg": 1,
+      "pe": 0,
+      "pp": 1,
+      "gm": 2,
+      "gc": 3,
+      "dg": -1
     },
     {
       "name": "Gualeguay Central",
@@ -79,8 +59,42 @@
       "gm": 0,
       "gc": 0,
       "dg": 0
+    },
+    {
+      "name": "El Progreso",
+      "pj": 1,
+      "pg": 0,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Libertad",
+      "pj": 2,
+      "pg": 0,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 2,
+      "dg": -2
+    },
+    {
+      "name": "Quilmes",
+      "pj": 2,
+      "pg": 0,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 3,
+      "dg": -3
     }
   ],
   "partidos_procesados": [
+    "Fecha 2|El Progreso|Quilmes",
+    "Fecha 2|Sociedad Sportiva|Urquiza",
+    "Fecha 2|Barrio Norte|Libertad",
+    "Fecha 2|Bancario|La Academia"
   ]
 }
