@@ -215,5 +215,22 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXpEA7GDtIQ/",
     "post_id": "DXpEA7GDtIQ"
+  },
+  {
+    "id": 15,
+    "titulo": "Resultados Fecha 2 · Primera Masculino",
+    "resumen": "Barrio Norte 0-2 Libertad (Torneo Oficial 2026).",
+    "fecha": "2026-04-27",
+    "categoria": "Fútbol",
+    "tags": [
+      "Masculino",
+      "Resultados",
+      "Torneo Oficial"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/resultado_1777311167444.webp",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DXpEKoGjjhW/",
+    "post_id": "DXpEKoGjjhW"
   }
 ]
