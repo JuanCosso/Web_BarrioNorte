@@ -2,13 +2,23 @@
   "equipos": [
     {
       "name": "Urquiza",
-      "pj": 1,
-      "pg": 1,
+      "pj": 2,
+      "pg": 2,
       "pe": 0,
       "pp": 0,
-      "gm": 0,
+      "gm": 6,
       "gc": 0,
-      "dg": 5
+      "dg": 6
+    },
+    {
+      "name": "Aldea Asuncion",
+      "pj": 2,
+      "pg": 2,
+      "pe": 0,
+      "pp": 0,
+      "gm": 4,
+      "gc": 2,
+      "dg": 2
     },
     {
       "name": "Gualeguay Central",
@@ -16,79 +26,69 @@
       "pg": 1,
       "pe": 0,
       "pp": 0,
-      "gm": 0,
+      "gm": 3,
+      "gc": 0,
+      "dg": 3
+    },
+    {
+      "name": "El Progreso",
+      "pj": 1,
+      "pg": 1,
+      "pe": 0,
+      "pp": 1,
+      "gm": 3,
       "gc": 0,
       "dg": 3
     },
     {
       "name": "Bancario",
-      "pj": 1,
+      "pj": 2,
       "pg": 1,
       "pe": 0,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
-      "dg": 2
-    },
-    {
-      "name": "Aldea Asuncion",
-      "pj": 1,
-      "pg": 1,
-      "pe": 0,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
+      "pp": 1,
+      "gm": 4,
+      "gc": 3,
       "dg": 1
     },
     {
-      "name": "El Progreso",
-      "pj": 0,
-      "pg": 0,
-      "pe": 0,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
-      "dg": 0
-    },
-    {
-      "name": "Sociedad Sportiva",
-      "pj": 1,
-      "pg": 0,
+      "name": "Libertad",
+      "pj": 2,
+      "pg": 1,
       "pe": 0,
       "pp": 1,
-      "gm": 0,
-      "gc": 0,
-      "dg": -1
-    },
-    {
-      "name": "Barrio Norte",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 0,
-      "gc": 0,
+      "gm": 1,
+      "gc": 3,
       "dg": -2
     },
     {
-      "name": "Libertad",
-      "pj": 1,
+      "name": "Sociedad Sportiva",
+      "pj": 2,
       "pg": 0,
       "pe": 0,
-      "pp": 1,
-      "gm": 0,
-      "gc": 0,
+      "pp": 2,
+      "gm": 1,
+      "gc": 3,
+      "dg": -2
+    },
+    {
+      "name": "Barrio Norte",
+      "pj": 2,
+      "pg": 0,
+      "pe": 0,
+      "pp": 2,
+      "gm": 1,
+      "gc": 4,
       "dg": -3
     },
     {
       "name": "Quilmes",
-      "pj": 1,
+      "pj": 2,
       "pg": 0,
       "pe": 0,
-      "pp": 1,
+      "pp": 2,
       "gm": 0,
-      "gc": 0,
-      "dg": -5
+      "gc": 8,
+      "dg": -8
     }
   ]
 }
