@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import { escudos as escudosData, camisetas as camisetasData } from "../../../lib/museoData";
 import EscudosGrid from "./EscudosGrid";
-import CamisetasCarousel from "./CamisetasCarousel";
+import CamisetasGallery from "./CamisetasGallery";
 import ZoomModal from "./ZoomModal";
+
+const BRAND_RED = "#bc1717";
 
 export default function MuseoClient() {
   const escudos = useMemo(() => escudosData, []);
@@ -26,18 +28,21 @@ export default function MuseoClient() {
         <header className="mb-12 pb-8 border-b border-gray-200">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-red-600 mb-2">
+              <p
+                className="text-xs font-bold uppercase tracking-[0.22em] mb-2"
+                style={{ color: BRAND_RED }}
+              >
                 Club Atlético Barrio Norte
               </p>
               <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
-                Museo <span className="text-red-600">Online</span>
+                Museo <span style={{ color: BRAND_RED }}>Online</span>
               </h1>
               <p className="mt-2 text-gray-500 text-sm max-w-md">
                 Nuestra historia a través de los símbolos y camisetas del club.
               </p>
             </div>
 
-            {/* Estadísticas rápidas */}
+            {/* Estadísticas */}
             <div className="flex items-stretch gap-6">
               <Stat value={escudos.length} label="escudos" />
               <div className="w-px bg-gray-200" />
@@ -51,7 +56,7 @@ export default function MuseoClient() {
         {/* ── CONTENIDO ── */}
         <div className="space-y-16">
           <EscudosGrid escudos={escudos} onOpenZoom={openZoom} />
-          <CamisetasCarousel camisetas={camisetas} onOpenZoom={openZoom} />
+          <CamisetasGallery camisetas={camisetas} onOpenZoom={openZoom} />
         </div>
       </div>
 
@@ -63,7 +68,10 @@ export default function MuseoClient() {
 function Stat({ value, label, accent = false }) {
   return (
     <div className="flex flex-col justify-center">
-      <span className={`text-3xl font-extrabold tabular-nums ${accent ? "text-red-600" : "text-gray-900"}`}>
+      <span
+        className="text-3xl font-extrabold tabular-nums"
+        style={accent ? { color: BRAND_RED } : { color: "#111827" }}
+      >
         {value}
       </span>
       <span className="text-xs text-gray-400 mt-0.5">{label}</span>

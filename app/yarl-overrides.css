@@ -1,0 +1,24 @@
+/*
+ * yarl-overrides.css
+ * Importar en globals.css:  @import './yarl-overrides.css';
+ *
+ * Sobrescribe el color de acento de yet-another-react-lightbox
+ * para usar el rojo institucional del club (#bc1717).
+ */
+
+/* Thumbnail activo */
+.yarl__thumbnails_thumbnail_active {
+  border-color: #bc1717 !important;
+}
+
+/* Barra de progreso / indicador */
+.yarl__slide_captions_title {
+  font-family: inherit;
+}
+
+/* Botones de nav — hover en rojo */
+.yarl__button:hover {
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #bc1717 !important;
+}

@@ -9,7 +9,6 @@ const ITEMS_INICIALES = 8;
 const ITEMS_POR_CARGA = 8;
 
 const CATEGORIA_TODAS = "Todas";
-const TAG_TODOS = "Todos";
 
 // --- Helpers ---
 
@@ -21,24 +20,11 @@ function obtenerCategorias(noticias) {
   return Array.from(set);
 }
 
-function obtenerTags(noticias) {
-  const set = new Set();
-  noticias.forEach((nota) => {
-    (nota.tags || []).forEach((tag) => set.add(tag));
-  });
-  return Array.from(set);
-}
-
-// Mismo criterio que en ListaNoticias:
-// Destacadas primero, luego fecha descendente
 function ordenarNoticias(lista) {
   return [...lista].sort((a, b) => {
     if (a.destacada && !b.destacada) return -1;
     if (!a.destacada && b.destacada) return 1;
-
-    const fechaA = new Date(a.fecha).getTime();
-    const fechaB = new Date(b.fecha).getTime();
-    return fechaB - fechaA;
+    return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
   });
 }
 
@@ -46,21 +32,17 @@ function formatearFecha(isoDate) {
   if (!isoDate) return "";
   const [year, month, day] = isoDate.split("-");
   if (!year || !month || !day) return "";
-  return `${day}/${month}/${year}`; // DD/MM/AAAA
+  return `${day}/${month}/${year}`;
 }
 
 // --- Página principal ---
 
 export default function NoticiasPage() {
   const [busqueda, setBusqueda] = useState("");
-  const [categoriaSeleccionada, setCategoriaSeleccionada] =
-    useState(CATEGORIA_TODAS);
-  const [tagSeleccionado, setTagSeleccionado] = useState(TAG_TODOS);
-  const [cantidadVisible, setCantidadVisible] =
-    useState(ITEMS_INICIALES);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(CATEGORIA_TODAS);
+  const [cantidadVisible, setCantidadVisible] = useState(ITEMS_INICIALES);
 
   const categorias = obtenerCategorias(noticiasData);
-  const tags = obtenerTags(noticiasData);
   const noticiasOrdenadas = ordenarNoticias(noticiasData);
 
   const handleBusquedaChange = (valor) => {
@@ -73,42 +55,20 @@ export default function NoticiasPage() {
     setCantidadVisible(ITEMS_INICIALES);
   };
 
-  const handleTagChange = (tag) => {
-    setTagSeleccionado(tag);
-    setCantidadVisible(ITEMS_INICIALES);
-  };
-
   const texto = busqueda.trim().toLowerCase();
 
   const noticiasFiltradas = noticiasOrdenadas.filter((noticia) => {
-    if (
-      categoriaSeleccionada !== CATEGORIA_TODAS &&
-      noticia.categoria !== categoriaSeleccionada
-    ) {
+    if (categoriaSeleccionada !== CATEGORIA_TODAS && noticia.categoria !== categoriaSeleccionada) {
       return false;
     }
-
-    if (tagSeleccionado !== TAG_TODOS) {
-      const tagsNoticia = noticia.tags || [];
-      if (!tagsNoticia.includes(tagSeleccionado)) {
-        return false;
-      }
-    }
-
     if (texto) {
       const titulo = noticia.titulo.toLowerCase();
       const resumen = (noticia.resumen || "").toLowerCase();
       const fuente = (noticia.fuente || "").toLowerCase();
-
-      if (
-        !titulo.includes(texto) &&
-        !resumen.includes(texto) &&
-        !fuente.includes(texto)
-      ) {
+      if (!titulo.includes(texto) && !resumen.includes(texto) && !fuente.includes(texto)) {
         return false;
       }
     }
-
     return true;
   });
 
@@ -117,7 +77,6 @@ export default function NoticiasPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-gray-50">
-      {/* HERO / MENSAJE DE BIENVENIDA NOTICIAS */}
       <header className="border-b border-gray-200">
         <div className="container mx-auto px-4 pt-8 pb-10 sm:pt-10 sm:pb-12">
           <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-neutral-800 font-semibold text-center mb-3">
@@ -131,7 +90,6 @@ export default function NoticiasPage() {
         </div>
       </header>
 
-      {/* CONTENIDO PRINCIPAL: FILTROS + GRID DE NOTICIAS */}
       <div className="container mx-auto w-full px-4 py-8 md:px-6 lg:px-8">
         <NewsFilters
           busqueda={busqueda}
@@ -139,9 +97,6 @@ export default function NoticiasPage() {
           categoriaSeleccionada={categoriaSeleccionada}
           onCategoriaChange={handleCategoriaChange}
           categorias={categorias}
-          tagSeleccionado={tagSeleccionado}
-          onTagChange={handleTagChange}
-          tags={tags}
         />
 
         <section className="mt-8">
@@ -161,10 +116,8 @@ export default function NoticiasPage() {
                 <div className="mt-8 flex justify-center">
                   <button
                     type="button"
-                    onClick={() =>
-                      setCantidadVisible((prev) => prev + ITEMS_POR_CARGA)
-                    }
-                    className="rounded-full bg-red-600 px-6 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-red-700"
+                    onClick={() => setCantidadVisible((prev) => prev + ITEMS_POR_CARGA)}
+                    className="rounded-full bg-[#bc1717] px-6 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-red-800"
                   >
                     Cargar más noticias
                   </button>
@@ -178,20 +131,9 @@ export default function NoticiasPage() {
   );
 }
 
-// --- Filtros / buscador ---
+// --- Filtros / buscador (sin etiquetas) ---
 
-function NewsFilters({
-  busqueda,
-  onBusquedaChange,
-  categoriaSeleccionada,
-  onCategoriaChange,
-  categorias,
-  tagSeleccionado,
-  onTagChange,
-  tags,
-}) {
-  const mostrarTags = tags.length > 0;
-
+function NewsFilters({ busqueda, onBusquedaChange, categoriaSeleccionada, onCategoriaChange, categorias }) {
   return (
     <section className="flex flex-col gap-4 rounded-2xl bg-neutral-50 p-4 shadow-sm md:flex-row md:items-center md:justify-between">
       {/* Buscador */}
@@ -204,77 +146,40 @@ function NewsFilters({
           value={busqueda}
           onChange={(e) => onBusquedaChange(e.target.value)}
           placeholder="Buscar por título, resumen o medio..."
-          className="mt-1 w-full rounded-full border border-neutral-300 px-4 py-2 text-sm outline-none ring-red-500/30 focus:border-red-500 focus:ring-2"
+          className="mt-1 w-full rounded-full border border-neutral-300 px-4 py-2 text-sm outline-none ring-[#bc1717]/30 focus:border-[#bc1717] focus:ring-2"
         />
       </div>
 
-      {/* Categorías y etiquetas */}
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Categorías */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-wide text-neutral-600">
-            Categorías:
-          </span>
+      {/* Categorías */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-semibold uppercase tracking-wide text-neutral-600">
+          Categorías:
+        </span>
+        <button
+          type="button"
+          onClick={() => onCategoriaChange(CATEGORIA_TODAS)}
+          className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+            categoriaSeleccionada === CATEGORIA_TODAS
+              ? "border-[#bc1717] bg-[#bc1717] text-white"
+              : "border-neutral-300 bg-white text-neutral-700 hover:border-[#bc1717]/50"
+          }`}
+        >
+          Todas
+        </button>
+        {categorias.map((cat) => (
           <button
+            key={cat}
             type="button"
-            onClick={() => onCategoriaChange(CATEGORIA_TODAS)}
-            className={`rounded-full border px-3 py-1 text-xs font-medium ${
-              categoriaSeleccionada === CATEGORIA_TODAS
-                ? "border-red-600 bg-red-600 text-white"
-                : "border-neutral-300 bg-white text-neutral-700 hover:border-red-400"
+            onClick={() => onCategoriaChange(cat)}
+            className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+              categoriaSeleccionada === cat
+                ? "border-[#bc1717] bg-[#bc1717] text-white"
+                : "border-neutral-300 bg-white text-neutral-700 hover:border-[#bc1717]/50"
             }`}
           >
-            Todas
+            {cat}
           </button>
-          {categorias.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => onCategoriaChange(cat)}
-              className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                categoriaSeleccionada === cat
-                  ? "border-red-600 bg-red-600 text-white"
-                  : "border-neutral-300 bg-white text-neutral-700 hover:border-red-400"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Etiquetas */}
-        {mostrarTags && (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-neutral-600">
-              Etiquetas:
-            </span>
-            <button
-              type="button"
-              onClick={() => onTagChange(TAG_TODOS)}
-              className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                tagSeleccionado === TAG_TODOS
-                  ? "border-red-600 bg-red-600 text-white"
-                  : "border-neutral-300 bg-white text-neutral-700 hover:border-red-400"
-              }`}
-            >
-              Todas
-            </button>
-            {tags.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => onTagChange(tag)}
-                className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                  tagSeleccionado === tag
-                    ? "border-red-600 bg-red-600 text-white"
-                    : "border-neutral-300 bg-white text-neutral-700 hover:border-red-400"
-                }`}
-              >
-                #{tag}
-              </button>
-            ))}
-          </div>
-        )}
+        ))}
       </div>
     </section>
   );
@@ -303,7 +208,7 @@ function NewsCard({ noticia }) {
         {/* Badges */}
         <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium">
           {noticia.categoria && (
-            <span className="rounded-full bg-red-600 px-2 py-0.5 uppercase tracking-wide text-white">
+            <span className="rounded-full bg-[#bc1717] px-2 py-0.5 uppercase tracking-wide text-white">
               {noticia.categoria}
             </span>
           )}
@@ -330,15 +235,12 @@ function NewsCard({ noticia }) {
 
         {/* Resumen */}
         {noticia.resumen && (
-          <p className="line-clamp-3 text-sm text-neutral-700">
-            {noticia.resumen}
-          </p>
+          <p className="line-clamp-3 text-sm text-neutral-700">{noticia.resumen}</p>
         )}
 
-        {/* Espaciador flexible para empujar lo de abajo al fondo */}
         <div className="flex-1" />
 
-        {/* Tags + Leer más fijos abajo */}
+        {/* Tags (solo visual, no son filtros) + Leer más */}
         <div className="flex flex-col gap-2">
           {noticia.tags && noticia.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
@@ -357,7 +259,7 @@ function NewsCard({ noticia }) {
             href={noticia.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-sm font-semibold text-red-600 hover:text-red-700"
+            className="inline-flex items-center text-sm font-semibold text-[#bc1717] hover:text-red-800"
           >
             Leer más
             <span className="ml-1 text-base leading-none">↗</span>

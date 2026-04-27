@@ -53,5 +53,15 @@
     animation: museoBeepRing 3.6s ease-in-out infinite;
     will-change: transform, opacity;
   }
+
+  /* yet-another-react-lightbox — overrides de color del club */
+.yarl__thumbnails_thumbnail_active {
+  border-color: #bc1717 !important;
+}
+.yarl__button:hover {
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #bc1717 !important;
+}
   
   
