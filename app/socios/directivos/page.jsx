@@ -1,13 +1,9 @@
 // app/socios/directivos/page.jsx
 import Image from "next/image";
 
-const BRAND_RED = "#bc1717";
+// BRAND_RED se mantiene SOLO para el encabezado de sección (#BC1717)
+const BRAND_RED = "#BC1717";
 
-/**
- * Si más adelante tenés fotos, agregá imgSrc:
- * { role: "Presidente", name: "...", imgSrc: "/directivos/garibotti.jpg" }
- * y subís el archivo a: /public/directivos/garibotti.jpg
- */
 const PRINCIPALES = [
   { role: "Presidente", name: "Rubén A. Garibotti", imgSrc: "/directivos/garibotti.jpg" },
   { role: "Vicepresidente", name: "Pablo O. Denardi" },
@@ -33,8 +29,6 @@ const VOCALES_SUPLENTES = [
 
 const REVISORES = ["Edelmiro Fumaneri", "Natalia Di Lorenzi", "Alejandra Borro"];
 
-
-
 function initials(name) {
   const parts = String(name).trim().split(/\s+/);
   const a = parts[0]?.[0] ?? "";
@@ -56,6 +50,7 @@ function PersonCard({ role, name, imgSrc }) {
               className="object-cover"
             />
           ) : (
+            // Decorativo: tint rgba se mantiene
             <div
               className="h-full w-full grid place-items-center text-sm font-extrabold text-neutral-900"
               style={{ background: "rgba(188, 23, 23, 0.10)" }}
@@ -74,13 +69,12 @@ function PersonCard({ role, name, imgSrc }) {
             {name}
           </p>
 
-          <div
-            className="mt-3 h-1 w-12 rounded-full"
-            style={{ background: BRAND_RED }}
-          />
+          {/* Contenido: barra decorativa de acento → bg-red-600 */}
+          <div className="mt-3 h-1 w-12 rounded-full bg-red-600" />
         </div>
       </div>
 
+      {/* Decorativo: blur ambiente → rgba se mantiene */}
       <div
         className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full blur-2xl"
         style={{ background: "rgba(188, 23, 23, 0.08)" }}
@@ -114,7 +108,7 @@ function NamesBlock({ title, items }) {
 export default function DirectivosPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-neutral-50 text-neutral-900">
-      {/* Header (misma estructura que socios/montos) */}
+      {/* Header */}
       <header className="border-b border-gray-200 bg-white">
         <div className="container mx-auto px-4 pt-8 pb-10 sm:pt-10 sm:pb-12">
           <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-neutral-800 font-semibold text-center mb-3">
@@ -123,6 +117,7 @@ export default function DirectivosPage() {
 
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 text-center">
             Conocé a la{" "}
+            {/* Encabezado de sección: se mantiene #BC1717 */}
             <span className="italic" style={{ color: BRAND_RED }}>
               Comisión
             </span>{" "}
@@ -164,7 +159,6 @@ export default function DirectivosPage() {
             <NamesBlock title="Revisores de cuentas" items={REVISORES} />
           </div>
         </div>
-
       </section>
     </main>
   );

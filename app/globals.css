@@ -54,14 +54,20 @@
     will-change: transform, opacity;
   }
 
-  /* yet-another-react-lightbox — overrides de color del club */
-.yarl__thumbnails_thumbnail_active {
-  border-color: #bc1717 !important;
+/* yarl buttons — sin círculo, sin fondo */
+.yarl__button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: rgba(255,255,255,0.50) !important;
+  transition: color 0.15s !important;
 }
+
 .yarl__button:hover {
-  background: #fef2f2 !important;
-  border-color: #fca5a5 !important;
-  color: #bc1717 !important;
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
 }
   
   

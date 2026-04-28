@@ -2,7 +2,8 @@
 
 import { useMemo, useRef, useState } from "react";
 
-const BRAND_RED = "#bc1717";
+// BRAND_RED se mantiene SOLO para el encabezado de sección (#BC1717)
+const BRAND_RED = "#BC1717";
 
 const PLANS = [
   {
@@ -39,7 +40,7 @@ const DISCOUNT_PARTNERS = [
   { name: "Planeta Fútbol", percent: 10, note: "Indumentaria del club" },
   { name: "Pinturerías Calcagno", percent: 10 },
   { name: "Lo Geniol", percent: 10 },
-  { name: "La Mansión Bar", percent: 10, note: "Excluye bebidas"},
+  { name: "La Mansión Bar", percent: 10, note: "Excluye bebidas" },
   { name: "Imperiales LA", percent: 5 },
   { name: "El Mirador SA", percent: 5 },
 ];
@@ -80,7 +81,6 @@ export default function SociosMontosPage() {
   );
 
   const SORTED_DISCOUNTS = useMemo(() => {
-    // Desc por porcentaje y, en empate, alfabético por nombre
     return [...DISCOUNT_PARTNERS].sort((a, b) => {
       if (b.percent !== a.percent) return b.percent - a.percent;
       return a.name.localeCompare(b.name, "es");
@@ -149,6 +149,7 @@ export default function SociosMontosPage() {
 
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 text-center">
             Seamos{" "}
+            {/* Encabezado de sección: se mantiene #BC1717 */}
             <span className="italic" style={{ color: BRAND_RED }}>
               cada
             </span>{" "}
@@ -204,10 +205,8 @@ export default function SociosMontosPage() {
                       <ul className="mt-4 space-y-2">
                         {plan.includes.map((item) => (
                           <li key={item} className="flex gap-2 text-sm">
-                            <IconCheck
-                              className="mt-0.5 h-5 w-5 flex-none"
-                              style={{ color: BRAND_RED }}
-                            />
+                            {/* Contenido: red-600 */}
+                            <IconCheck className="mt-0.5 h-5 w-5 flex-none text-red-600" />
                             <span className="text-neutral-700">{item}</span>
                           </li>
                         ))}
@@ -220,6 +219,7 @@ export default function SociosMontosPage() {
                           className={[
                             "inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-bold transition",
                             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+                            // Contenido: red-600 base → red-700 hover
                             active
                               ? "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-300"
                               : "bg-neutral-900 text-white hover:bg-neutral-800 focus-visible:ring-neutral-300",
@@ -230,6 +230,7 @@ export default function SociosMontosPage() {
                       </div>
                     </div>
 
+                    {/* Decorativo: se mantiene rgba */}
                     <div
                       className="absolute -right-16 -top-16 h-40 w-40 rounded-full blur-2xl"
                       style={{ background: "rgba(188, 23, 23, 0.10)" }}
@@ -296,7 +297,8 @@ export default function SociosMontosPage() {
                       value={form.nombre}
                       onChange={onChange}
                       required
-                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                      // Contenido: red-600 focus border + ring
+                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                       placeholder="Tu nombre"
                     />
                   </div>
@@ -308,7 +310,7 @@ export default function SociosMontosPage() {
                       value={form.apellido}
                       onChange={onChange}
                       required
-                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                       placeholder="Tu apellido"
                     />
                   </div>
@@ -322,7 +324,7 @@ export default function SociosMontosPage() {
                       value={form.dni}
                       onChange={onChange}
                       required
-                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                       placeholder="Ej: 12345678"
                     />
                   </div>
@@ -334,7 +336,7 @@ export default function SociosMontosPage() {
                       value={form.whatsapp}
                       onChange={onChange}
                       required
-                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                      className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                       placeholder="Ej: +54 9 3444 123456"
                     />
                   </div>
@@ -348,7 +350,7 @@ export default function SociosMontosPage() {
                     value={form.email}
                     onChange={onChange}
                     required
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                     placeholder="tu@email.com"
                   />
                 </div>
@@ -362,7 +364,7 @@ export default function SociosMontosPage() {
                       onChange(e);
                       setSelectedPlanId(e.target.value);
                     }}
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                   >
                     {PLANS.map((p) => (
                       <option key={p.id} value={p.id}>
@@ -386,7 +388,7 @@ export default function SociosMontosPage() {
                     value={form.mensaje}
                     onChange={onChange}
                     rows={4}
-                    className="mt-1 w-full resize-none rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-400 focus:ring-2 focus:ring-red-200"
+                    className="mt-1 w-full resize-none rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
                     placeholder="Si querés, agregá información extra."
                   />
                 </div>
@@ -415,6 +417,7 @@ export default function SociosMontosPage() {
                   </div>
                 )}
 
+                {/* Contenido: red-600 base → red-700 hover */}
                 <button
                   type="submit"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-red-600 px-4 py-3 text-sm font-extrabold text-white transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-300"
@@ -447,7 +450,6 @@ export default function SociosMontosPage() {
 
               <ul className="mt-4 grid gap-3 md:grid-cols-2">
                 {SORTED_DISCOUNTS.map((p) => {
-                  // Barra comparativa: el mayor descuento es 100%
                   const normalized = Math.round((p.percent / MAX_DISCOUNT) * 100);
 
                   return (
@@ -476,12 +478,10 @@ export default function SociosMontosPage() {
                         aria-valuemin={0}
                         aria-valuemax={MAX_DISCOUNT}
                       >
+                        {/* Contenido: bg-red-600. Width es dinámico → inline style solo para width */}
                         <div
-                          className="h-full rounded-full"
-                          style={{
-                            width: `${normalized}%`,
-                            background: BRAND_RED,
-                          }}
+                          className="h-full rounded-full bg-red-600"
+                          style={{ width: `${normalized}%` }}
                         />
                       </div>
                     </li>
@@ -495,7 +495,6 @@ export default function SociosMontosPage() {
             </div>
           </div>
 
-          {/* fin grid */}
         </div>
       </section>
     </main>

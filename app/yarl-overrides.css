@@ -1,24 +1,85 @@
 /*
- * yarl-overrides.css
- * Importar en globals.css:  @import './yarl-overrides.css';
- *
- * Sobrescribe el color de acento de yet-another-react-lightbox
- * para usar el rojo institucional del club (#bc1717).
+ * yarl-overrides.css — @import './yarl-overrides.css'; en globals.css
  */
+
+/* ── CSS variables de yarl — forma oficial de customizar ── */
+:root {
+  --yarl__color_button: rgba(255, 255, 255, 0.55);
+  --yarl__color_button_active: #ffffff; /* <--- ACÁ: Dejamos que YARL maneje el blanco nativamente */
+  --yarl__color_button_disabled: rgba(255, 255, 255, 0.2);
+  --yarl__button_filter: none;
+  
+  /* Matamos variables internas de fondo por si la librería las invoca */
+  --yarl__color_button_background: transparent;
+  --yarl__color_button_background_active: transparent;
+  --yarl__color_button_background_hover: transparent;
+}
 
 /* Thumbnail activo */
 .yarl__thumbnails_thumbnail_active {
   border-color: #bc1717 !important;
 }
 
-/* Barra de progreso / indicador */
-.yarl__slide_captions_title {
-  font-family: inherit;
+/* ── Botones: sin círculo, sin borde, sin fondo — en cualquier estado ── */
+.yarl__root button.yarl__button,
+.yarl__root button.yarl__button:hover,
+.yarl__root button.yarl__button:focus,
+.yarl__root button.yarl__button:focus-visible,
+.yarl__root button.yarl__button:active,
+.yarl__root button.yarl__button[disabled] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important; /* Quita el cuadro gris asqueroso al tocar en móviles */
 }
 
-/* Botones de nav — hover en rojo */
-.yarl__button:hover {
-  background: #fef2f2 !important;
-  border-color: #fca5a5 !important;
-  color: #bc1717 !important;
+.yarl__root button.yarl__button {
+  color: var(--yarl__color_button) !important;
+  transition: color 0.15s ease-in-out !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.yarl__root button.yarl__button:hover {
+  color: var(--yarl__color_button_active) !important;
+}
+
+/* SVG dentro de los botones */
+.yarl__root .yarl__button svg,
+.yarl__root .yarl__icon {
+  width: 18px !important;
+  height: 18px !important;
+  fill: none !important;
+  filter: none !important;
+}
+
+/* Toolbar */
+.yarl__toolbar {
+  gap: 6px !important;
+  padding: 14px 14px 10px !important;
+  align-items: center !important;
+}
+
+/* Nav prev/next */
+.yarl__navigation_prev,
+.yarl__navigation_next {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+/* Descripción centrada full-width */
+.yarl__slide_captions_description {
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 32px !important;
+  box-sizing: border-box !important;
+}
+
+.yarl__slide_captions_title_container,
+.yarl__slide_captions_description_container {
+  backdrop-filter: none !important;
 }

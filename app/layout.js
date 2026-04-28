@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         {/* Contenido de la página */}
         {/* pt-24 sirve si en algún momento dejas el Navbar como fixed con h-24.
             Si no lo usás fijo, podés quitar el pt-24 sin drama. */}
-        <main className="flex-1">
+        <main className="flex-1 flex flex-col">
           {children}
         </main>
 

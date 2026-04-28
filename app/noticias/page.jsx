@@ -84,7 +84,8 @@ export default function NoticiasPage() {
           </p>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 text-center">
             La{" "}
-            <span className="text-[#bc1717] italic">actualidad</span>
+            {/* Encabezado de sección: se mantiene #BC1717 */}
+            <span className="text-[#BC1717] italic">actualidad</span>
             <span className="text-neutral-900"> del club</span>
           </h1>
         </div>
@@ -117,7 +118,8 @@ export default function NoticiasPage() {
                   <button
                     type="button"
                     onClick={() => setCantidadVisible((prev) => prev + ITEMS_POR_CARGA)}
-                    className="rounded-full bg-[#bc1717] px-6 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-red-800"
+                    // Contenido: red-600 base → red-700 hover
+                    className="rounded-full bg-red-600 px-6 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-red-700"
                   >
                     Cargar más noticias
                   </button>
@@ -131,7 +133,7 @@ export default function NoticiasPage() {
   );
 }
 
-// --- Filtros / buscador (sin etiquetas) ---
+// --- Filtros / buscador ---
 
 function NewsFilters({ busqueda, onBusquedaChange, categoriaSeleccionada, onCategoriaChange, categorias }) {
   return (
@@ -146,7 +148,8 @@ function NewsFilters({ busqueda, onBusquedaChange, categoriaSeleccionada, onCate
           value={busqueda}
           onChange={(e) => onBusquedaChange(e.target.value)}
           placeholder="Buscar por título, resumen o medio..."
-          className="mt-1 w-full rounded-full border border-neutral-300 px-4 py-2 text-sm outline-none ring-[#bc1717]/30 focus:border-[#bc1717] focus:ring-2"
+          // Contenido: red-600 base → red-700 hover (en focus ring y border)
+          className="mt-1 w-full rounded-full border border-neutral-300 px-4 py-2 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/30"
         />
       </div>
 
@@ -158,10 +161,11 @@ function NewsFilters({ busqueda, onBusquedaChange, categoriaSeleccionada, onCate
         <button
           type="button"
           onClick={() => onCategoriaChange(CATEGORIA_TODAS)}
+          // Contenido: activo → red-600; hover borde → red-600/50
           className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
             categoriaSeleccionada === CATEGORIA_TODAS
-              ? "border-[#bc1717] bg-[#bc1717] text-white"
-              : "border-neutral-300 bg-white text-neutral-700 hover:border-[#bc1717]/50"
+              ? "border-red-600 bg-red-600 text-white"
+              : "border-neutral-300 bg-white text-neutral-700 hover:border-red-600/50"
           }`}
         >
           Todas
@@ -173,8 +177,8 @@ function NewsFilters({ busqueda, onBusquedaChange, categoriaSeleccionada, onCate
             onClick={() => onCategoriaChange(cat)}
             className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
               categoriaSeleccionada === cat
-                ? "border-[#bc1717] bg-[#bc1717] text-white"
-                : "border-neutral-300 bg-white text-neutral-700 hover:border-[#bc1717]/50"
+                ? "border-red-600 bg-red-600 text-white"
+                : "border-neutral-300 bg-white text-neutral-700 hover:border-red-600/50"
             }`}
           >
             {cat}
@@ -208,7 +212,8 @@ function NewsCard({ noticia }) {
         {/* Badges */}
         <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium">
           {noticia.categoria && (
-            <span className="rounded-full bg-[#bc1717] px-2 py-0.5 uppercase tracking-wide text-white">
+            // Contenido: red-600
+            <span className="rounded-full bg-red-600 px-2 py-0.5 uppercase tracking-wide text-white">
               {noticia.categoria}
             </span>
           )}
@@ -240,7 +245,7 @@ function NewsCard({ noticia }) {
 
         <div className="flex-1" />
 
-        {/* Tags (solo visual, no son filtros) + Leer más */}
+        {/* Tags + Leer más */}
         <div className="flex flex-col gap-2">
           {noticia.tags && noticia.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
@@ -259,7 +264,8 @@ function NewsCard({ noticia }) {
             href={noticia.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-sm font-semibold text-[#bc1717] hover:text-red-800"
+            // Contenido: red-600 base → red-700 hover
+            className="inline-flex items-center text-sm font-semibold text-red-600 hover:text-red-700"
           >
             Leer más
             <span className="ml-1 text-base leading-none">↗</span>
