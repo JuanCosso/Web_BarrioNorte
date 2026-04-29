@@ -6,8 +6,8 @@
       "pg": 2,
       "pe": 0,
       "pp": 0,
-      "gm": 2,
-      "gc": 1,
+      "gm": 0,
+      "gc": 0,
       "dg": 4
     },
     {
@@ -16,8 +16,8 @@
       "pg": 1,
       "pe": 1,
       "pp": 0,
-      "gm": 1,
-      "gc": 1,
+      "gm": 0,
+      "gc": 0,
       "dg": 1
     },
     {
@@ -26,7 +26,7 @@
       "pg": 1,
       "pe": 0,
       "pp": 1,
-      "gm": 3,
+      "gm": 0,
       "gc": 0,
       "dg": 2
     },
@@ -36,8 +36,8 @@
       "pg": 1,
       "pe": 0,
       "pp": 1,
-      "gm": 1,
-      "gc": 2,
+      "gm": 0,
+      "gc": 0,
       "dg": 1
     },
     {
@@ -46,8 +46,8 @@
       "pg": 1,
       "pe": 0,
       "pp": 1,
-      "gm": 2,
-      "gc": 1,
+      "gm": 0,
+      "gc": 0,
       "dg": -2
     },
     {
@@ -57,7 +57,7 @@
       "pe": 0,
       "pp": 1,
       "gm": 0,
-      "gc": 3,
+      "gc": 0,
       "dg": -2
     },
     {
@@ -66,8 +66,8 @@
       "pg": 0,
       "pe": 2,
       "pp": 0,
-      "gm": 1,
-      "gc": 1,
+      "gm": 0,
+      "gc": 0,
       "dg": 0
     },
     {
@@ -96,16 +96,9 @@
       "pg": 0,
       "pe": 0,
       "pp": 2,
-      "gm": 1,
-      "gc": 2,
+      "gm": 0,
+      "gc": 0,
       "dg": -2
     }
-  ],
-  "partidos_procesados": [
-    "Fecha 2|Barrio Norte|Libertad",
-    "Fecha 2|Bancario|La Academia",
-    "Fecha 2|Sociedad Sportiva|Urquiza",
-    "Fecha 2|El Progreso|Quilmes",
-    "Fecha 2|Gualeguay Central|Juventud"
   ]
 }
