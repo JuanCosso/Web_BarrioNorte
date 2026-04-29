@@ -46,6 +46,7 @@ export default function NoticiasYPosiciones() {
               title="Primera División"
               badge="Femenino"
               footnote="Posiciones Torneo Oficial 2026 femenino."
+              positionColorScheme="fem2026"
             />
           </div>
           <div className="flex justify-end pt-1">

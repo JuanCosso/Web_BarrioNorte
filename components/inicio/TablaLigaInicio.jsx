@@ -24,18 +24,24 @@ function enriquecer(equipos) {
     .sort((a, b) => {
       if (b.pts !== a.pts) return b.pts - a.pts;
       if (b.dg  !== a.dg)  return b.dg  - a.dg;
-      if (b.gm  !== a.gm)  return b.gm  - a.gm;  // ← goles a favor como desempate
-      return a.name.localeCompare(b.name);         // ← alfabético solo si todo lo demás es igual
-    })
+      if (b.gm  !== a.gm)  return b.gm  - a.gm;
+      return a.name.localeCompare(b.name);
+    });
 }
 
-function clasePosicion(pos) {
+// "liga"    → top 3 verde, 4–7 amarillo  (masculino 2025/2026)
+// "fem2026" → top 4 verde, sin amarillo  (femenino 2026)
+function clasePosicion(pos, scheme = "liga") {
+  if (scheme === "fem2026") {
+    return pos <= 4 ? "text-green-600 font-semibold" : "";
+  }
+  // default liga
   if (pos <= 3) return "text-green-600 font-semibold";
-  if (pos <= 7)  return "text-yellow-500 font-semibold";
+  if (pos <= 7) return "text-yellow-500 font-semibold";
   return "";
 }
 
-export default function TablaLigaInicio({ equiposRaw, title, badge, footnote }) {
+export default function TablaLigaInicio({ equiposRaw, title, badge, footnote, positionColorScheme = "liga" }) {
   const equipos = enriquecer(equiposRaw);
 
   return (
@@ -54,7 +60,7 @@ export default function TablaLigaInicio({ equiposRaw, title, badge, footnote }) 
       </div>
 
       {equipos.length === 0 ? (
-        <p className="text-xs text-gray-400 py-2">Tabla en preparación...</p>
+        <p className="text-sm text-gray-400">Sin datos disponibles.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs md:text-sm">
@@ -72,26 +78,35 @@ export default function TablaLigaInicio({ equiposRaw, title, badge, footnote }) 
             </thead>
             <tbody>
               {equipos.map((equipo, index) => {
-                const pos = index + 1;
-                const esBarrio = equipo.slug === "barrio-norte";
+                const posicion = index + 1;
+                const esBarrioNorte =
+                  equipo.slug === "barrio-norte" ||
+                  /barrio\s*norte/i.test(String(equipo.name || ""));
+
                 return (
                   <tr
-                    key={equipo.slug}
-                    className={`border-b last:border-0 ${esBarrio ? "bg-red-50 font-semibold" : "hover:bg-gray-50"}`}
+                    key={equipo.slug || `${equipo.name}-${index}`}
+                    className={`border-b last:border-0 ${
+                      esBarrioNorte ? "bg-red-50 font-semibold" : "hover:bg-gray-50"
+                    }`}
                   >
                     <td className="py-1 px-2 text-center">
-                      <span className={clasePosicion(pos)}>{pos}</span>
+                      <span className={clasePosicion(posicion, positionColorScheme)}>
+                        {posicion}
+                      </span>
                     </td>
                     <td className="py-1 pr-2">
                       <div className="flex items-center gap-2">
                         <Image
                           src={equipo.logo}
                           alt={equipo.name}
-                          width={20}
-                          height={20}
+                          width={24}
+                          height={24}
                           className="object-contain"
                         />
-                        <span className="text-xs md:text-sm text-gray-800">{equipo.shortName}</span>
+                        <span className="text-xs md:text-sm text-gray-800">
+                          {equipo.shortName || equipo.name}
+                        </span>
                       </div>
                     </td>
                     <td className="py-1 px-1 text-center">{equipo.pj}</td>
@@ -108,7 +123,9 @@ export default function TablaLigaInicio({ equiposRaw, title, badge, footnote }) 
         </div>
       )}
 
-      {footnote && <p className="mt-2 text-[11px] text-gray-500">{footnote}</p>}
+      {footnote && (
+        <p className="mt-2 text-[11px] text-gray-500">{footnote}</p>
+      )}
     </div>
   );
 }

@@ -312,23 +312,26 @@ export default function Femenino({ nav, active, onChange }) {
                       equipos={tables.liga}
                       footnote={getFootnote("ligaFootnote", `Tabla de posiciones (${tournament.label}).`)}
                       withPositionColors
+                      positionColorScheme={tournamentId === "oficial-2026-fem" ? "fem2026" : "liga"}
                     />
                   </div>
 
                   <div className="space-y-4 min-w-0">
                     <TablaLlavesCard
                       rows={repechajeRows}
-                      title={tournament.ui.repechajeTitle}
+                      title={tournamentId === "oficial-2026-fem" ? "Playoffs" : tournament.ui.repechajeTitle}
                       phase={tournament.ui.repechajePhase || "Fase Eliminatoria"}
                       footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
                     />
 
-                    <TablaPetitLikeRepechaje
-                      rows={petitRows}
-                      title={tournament.ui.petitTitle}
-                      phase={tournament.ui.petitPhase}
-                      footnote={getFootnote("petitFootnote", "Formato: semifinales ida/vuelta y final única.")}
-                    />
+                    {tournamentId !== "oficial-2026-fem" && (
+                      <TablaPetitLikeRepechaje
+                        rows={petitRows}
+                        title={tournament.ui.petitTitle}
+                        phase={tournament.ui.petitPhase}
+                        footnote={getFootnote("petitFootnote", "Formato: semifinales ida/vuelta y final única.")}
+                      />
+                    )}
                   </div>
                 </div>
               )}

@@ -140,7 +140,9 @@ function clasePosicion(pos, scheme = "liga") {
   if (scheme === "prep") {
     return pos <= 2 ? "text-green-600 font-semibold" : "";
   }
-
+  if (scheme === "fem2026") {
+    return pos <= 4 ? "text-green-600 font-semibold" : "";
+  }
   // default (liga/oficial)
   if (pos <= 3) return "text-green-600 font-semibold";
   if (pos >= 4 && pos <= 7) return "text-yellow-500 font-semibold";
