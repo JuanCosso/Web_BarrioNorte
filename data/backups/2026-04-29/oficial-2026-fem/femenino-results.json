@@ -1,0 +1,18 @@
+[
+  {
+    "round": "Fecha 1",
+    "date": "19/04",
+    "condition": "Visitante",
+    "rival": "Bancario",
+    "score": "3 - 1",
+    "competition": "Torneo Oficial"
+  },
+  {
+    "round": "Fecha 2",
+    "date": "26/04",
+    "condition": "Local",
+    "rival": "Libertad",
+    "score": "0 - 2",
+    "competition": "Torneo Oficial"
+  }
+]

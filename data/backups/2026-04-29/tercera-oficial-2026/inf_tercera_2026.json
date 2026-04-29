@@ -1,19 +1,9 @@
 {
   "equipos": [
     {
-      "name": "Quilmes",
+      "name": "Urquiza",
       "pj": 2,
-      "pg": 1,
-      "pe": 1,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
-      "dg": 4
-    },
-    {
-      "name": "Bancario",
-      "pj": 1,
-      "pg": 1,
+      "pg": 2,
       "pe": 0,
       "pp": 0,
       "gm": 0,
@@ -21,8 +11,18 @@
       "dg": 4
     },
     {
+      "name": "Libertad",
+      "pj": 2,
+      "pg": 1,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
       "name": "Gualeguay Central",
-      "pj": 1,
+      "pj": 2,
       "pg": 1,
       "pe": 0,
       "pp": 1,
@@ -31,7 +31,7 @@
       "dg": 2
     },
     {
-      "name": "Barrio Norte",
+      "name": "Sociedad Sportiva",
       "pj": 2,
       "pg": 1,
       "pe": 0,
@@ -41,44 +41,64 @@
       "dg": 1
     },
     {
-      "name": "Urquiza",
+      "name": "Quilmes",
       "pj": 2,
-      "pg": 0,
-      "pe": 2,
+      "pg": 1,
+      "pe": 0,
       "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": 0
+      "dg": -2
     },
     {
-      "name": "Libertad",
+      "name": "Juventud",
       "pj": 2,
-      "pg": 0,
+      "pg": 1,
       "pe": 0,
-      "pp": 2,
+      "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": -3
+      "dg": -2
     },
     {
-      "name": "Sociedad Sportiva",
-      "pj": 1,
+      "name": "Barrio Norte",
+      "pj": 2,
       "pg": 0,
-      "pe": 1,
+      "pe": 2,
       "pp": 0,
       "gm": 0,
       "gc": 0,
       "dg": 0
     },
     {
-      "name": "El Progreso",
-      "pj": 1,
+      "name": "Bancario",
+      "pj": 2,
       "pg": 0,
-      "pe": 0,
+      "pe": 2,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "La Academia",
+      "pj": 2,
+      "pg": 0,
+      "pe": 1,
       "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": -4
+      "dg": -2
+    },
+    {
+      "name": "El Progreso",
+      "pj": 2,
+      "pg": 0,
+      "pe": 0,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": -2
     }
   ]
 }

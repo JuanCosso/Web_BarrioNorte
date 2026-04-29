@@ -1,17 +1,7 @@
 {
   "equipos": [
     {
-      "name": "Sociedad Sportiva",
-      "pj": 2,
-      "pg": 2,
-      "pe": 0,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
-      "dg": 9
-    },
-    {
-      "name": "Bancario",
+      "name": "Gualeguay Central",
       "pj": 2,
       "pg": 1,
       "pe": 1,
@@ -19,76 +9,96 @@
       "gm": 0,
       "gc": 0,
       "dg": 2
+    },
+    {
+      "name": "Barrio Norte",
+      "pj": 2,
+      "pg": 1,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 2,
+      "pg": 1,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
     },
     {
       "name": "Urquiza",
       "pj": 2,
       "pg": 1,
+      "pe": 1,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Juventud",
+      "pj": 2,
+      "pg": 1,
       "pe": 0,
       "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": 2
+      "dg": 0
     },
     {
-      "name": "Juventud",
-      "pj": 1,
+      "name": "La Academia",
+      "pj": 2,
       "pg": 1,
       "pe": 0,
-      "pp": 0,
+      "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": 2
-    },
-    {
-      "name": "Gualeguay Central",
-      "pj": 2,
-      "pg": 0,
-      "pe": 0,
-      "pp": 2,
-      "gm": 0,
-      "gc": 0,
-      "dg": -4
+      "dg": 0
     },
     {
       "name": "Libertad",
       "pj": 2,
-      "pg": 2,
-      "pe": 0,
+      "pg": 0,
+      "pe": 2,
       "pp": 0,
       "gm": 0,
       "gc": 0,
-      "dg": 3
+      "dg": 0
     },
     {
-      "name": "La Academia",
+      "name": "Quilmes",
       "pj": 2,
       "pg": 0,
       "pe": 1,
       "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": -8
+      "dg": -1
     },
     {
-      "name": "Quilmes",
-      "pj": 1,
+      "name": "El Progreso",
+      "pj": 2,
       "pg": 0,
-      "pe": 0,
+      "pe": 1,
       "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": -3
+      "dg": -2
     },
     {
-      "name": "Barrio Norte",
+      "name": "Bancario",
       "pj": 2,
       "pg": 0,
       "pe": 0,
       "pp": 2,
       "gm": 0,
       "gc": 0,
-      "dg": -3
+      "dg": -2
     }
   ]
 }
