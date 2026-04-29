@@ -5,11 +5,12 @@ import { escudos as escudosData, camisetas as camisetasData } from "../../../lib
 import EscudosGrid from "./EscudosGrid";
 import CamisetasGallery from "./CamisetasGallery";
 import ZoomModal from "./ZoomModal";
+import HistorialSection from "./HistorialSection";
 
 const BRAND_RED = "#bc1717";
 
 export default function MuseoClient() {
-  const escudos = useMemo(() => escudosData, []);
+  const escudos   = useMemo(() => escudosData, []);
   const camisetas = useMemo(() => camisetasData, []);
 
   const [zoomOpen, setZoomOpen]   = useState(false);
@@ -27,8 +28,6 @@ export default function MuseoClient() {
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 pt-9 pb-9 sm:pt-9 sm:pb-12">
           <div className="flex flex-col items-center sm:flex-row sm:items-end sm:justify-center sm:gap-16 gap-6">
-
-            {/* Título — centrado en mobile, alineado a la izquierda en desktop */}
             <div className="text-center sm:text-left">
               <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
                 Museo <span style={{ color: BRAND_RED }}>Online</span>
@@ -37,24 +36,22 @@ export default function MuseoClient() {
                 Nuestra historia a través de los símbolos y camisetas del club.
               </p>
             </div>
-
-            {/* Stats — siempre centradas, en fila */}
             <div className="flex items-stretch gap-6">
-              <Stat value={escudos.length} label="escudos" />
+              <Stat value={escudos.length}   label="escudos" />
               <div className="w-px bg-gray-200" />
               <Stat value={camisetas.length} label="camisetas" />
               <div className="w-px bg-gray-200" />
-              <Stat value={titulos} label="títulos" accent />
+              <Stat value={titulos}          label="títulos" accent />
             </div>
-
           </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl px-4 pt-10 pb-20">
         <div className="space-y-16">
-          <EscudosGrid escudos={escudos} onOpenZoom={openZoom} />
-          <CamisetasGallery camisetas={camisetas} onOpenZoom={openZoom} />
+          <EscudosGrid      escudos={escudos}     onOpenZoom={openZoom} />
+          <CamisetasGallery camisetas={camisetas}  onOpenZoom={openZoom} />
+          <HistorialSection />
         </div>
       </div>
 
