@@ -6,7 +6,7 @@
       "pg": 1,
       "pe": 1,
       "pp": 0,
-      "gm": 4,
+      "gm": 0,
       "gc": 0,
       "dg": 4
     },
@@ -25,7 +25,7 @@
       "pj": 1,
       "pg": 1,
       "pe": 0,
-      "pp": 0,
+      "pp": 1,
       "gm": 0,
       "gc": 0,
       "dg": 2
@@ -36,19 +36,29 @@
       "pg": 1,
       "pe": 0,
       "pp": 1,
-      "gm": 1,
+      "gm": 0,
       "gc": 0,
-      "dg": -3
+      "dg": 1
     },
     {
       "name": "Urquiza",
       "pj": 2,
       "pg": 0,
       "pe": 2,
-      "pp": 0,
-      "gm": 1,
-      "gc": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
       "dg": 0
+    },
+    {
+      "name": "Libertad",
+      "pj": 2,
+      "pg": 0,
+      "pe": 2,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": -3
     },
     {
       "name": "Sociedad Sportiva",
@@ -56,19 +66,9 @@
       "pg": 0,
       "pe": 1,
       "pp": 0,
-      "gm": 1,
-      "gc": 1,
-      "dg": 0
-    },
-    {
-      "name": "Libertad",
-      "pj": 2,
-      "pg": 0,
-      "pe": 0,
-      "pp": 2,
       "gm": 0,
-      "gc": 1,
-      "dg": -3
+      "gc": 0,
+      "dg": 0
     },
     {
       "name": "El Progreso",
@@ -77,13 +77,8 @@
       "pe": 0,
       "pp": 1,
       "gm": 0,
-      "gc": 4,
+      "gc": 0,
       "dg": -4
     }
-  ],
-  "partidos_procesados": [
-    "Fecha 2|Barrio Norte|Libertad",
-    "Fecha 2|Sociedad Sportiva|Urquiza",
-    "Fecha 2|El Progreso|Quilmes"
   ]
 }
