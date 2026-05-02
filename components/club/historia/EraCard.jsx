@@ -122,18 +122,21 @@ function SectionBlock({ section }) {
   const aspectRatio = section.imageAspect || "4/3";
   const imageBlock = hasImage ? (
     <figure>
-      <div
-        className="relative w-full overflow-hidden rounded-2xl"
-        style={{ aspectRatio }}
-      >
-        <img
-          src={section.imageSrc}
-          alt={section.title || ""}
-          className={`w-full h-full ${section.imageContain ? "object-contain p-2" : "object-cover"}`}
-        />
-        {!section.imageContain && (
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-        )}
+      <div className="relative group/img">
+        <div className="absolute -inset-4 bg-red-600/10 rounded-[2rem] blur-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+        <div
+          className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-neutral-900 transform transition-transform duration-700 group-hover/img:-translate-y-1"
+          style={{ aspectRatio }}
+        >
+          <img
+            src={section.imageSrc}
+            alt={section.title || ""}
+            className={`w-full h-full ${section.imageContain ? "object-contain p-2" : "object-cover"}`}
+          />
+          {!section.imageContain && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          )}
+        </div>
       </div>
       {section.imageCaption && (
         <figcaption className="mt-2 text-xs text-neutral-500 font-mono pl-3 border-l-2 border-red-900">
@@ -186,48 +189,44 @@ function SectionBlock({ section }) {
    Se activa con floatImage: true
    ========================================================= */
 function FloatLayout({ era, index }) {
+  const isEven = index % 2 === 0;
+
   return (
-    <div className="relative z-10 w-full pt-6">
-      <div className="relative mb-6">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-          {era.title}
-        </h2>
-        <div className="h-1 w-20 bg-red-600 rounded-full" />
-      </div>
-
-      <div className="history-content text-left text-[15px] sm:text-[16px] md:text-[17px] leading-relaxed text-neutral-300 font-light">
-        {/* Imagen flotada — desktop/tablet */}
-        <div
-          className="relative group/img mb-6 ml-8 hidden sm:block"
-          style={{ float: "right", width: "42%", clear: "right" }}
-        >
-          <div className="absolute -inset-4 bg-red-600/10 rounded-[2rem] blur-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-1000" />
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900 transform transition-transform duration-700 group-hover/img:-translate-y-1">
-            <MediaFrame
-              src={era.imageSrc}
-              alt={era.title}
-              aspect="aspect-[4/3]"
-              fit="cover"
-              overlay={true}
-              priority={index === 0}
-            />
+    <div className="relative z-10 w-full pt-6 clear-both">
+      <div className="history-content text-left text-[15px] sm:text-[16px] md:text-[17px] leading-relaxed text-neutral-300 font-light block">
+        
+        {/* IMAGEN PRINCIPAL: Flota a Izquierda o Derecha según la época */}
+        {era.imageSrc && (
+          <div
+            className={`relative group/img mb-4 w-full sm:w-[42%] ${isEven ? "sm:ml-8" : "sm:mr-8"}`}
+            style={{ float: isEven ? "right" : "left" }}
+          >
+            <div className="absolute -inset-4 bg-red-600/10 rounded-[2rem] blur-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900 transform transition-transform duration-700 group-hover/img:-translate-y-1">
+              <MediaFrame
+                src={era.imageSrc}
+                alt={era.title}
+                aspect="aspect-[4/3]"
+                fit="cover"
+                overlay={true}
+                priority={index === 0}
+              />
+            </div>
           </div>
+        )}
+
+        {/* TÍTULO PRINCIPAL ("Primeros pasos"): Se alinea al lado opuesto de la foto */}
+        <div className={`relative mb-6 ${isEven ? "text-left" : "text-right"}`}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 mt-2">
+            {era.title}
+          </h2>
+          <div className={`h-1 w-20 bg-red-600 rounded-full ${isEven ? "" : "ml-auto"}`} />
         </div>
 
-        {/* Imagen apilada — mobile */}
-        <div className="block sm:hidden mb-6 rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900">
-          <MediaFrame
-            src={era.imageSrc}
-            alt={era.title}
-            aspect="aspect-[4/3]"
-            fit="cover"
-            overlay={true}
-            priority={index === 0}
-          />
-        </div>
-
+        {/* CONTENIDO (Texto y fotos secundarias) */}
         {era.content}
-        <div style={{ clear: "both" }} />
+        
+        <div className="clear-both table" />
       </div>
     </div>
   );

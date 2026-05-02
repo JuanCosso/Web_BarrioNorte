@@ -117,3 +117,21 @@ export function MediaGrid({ images, caption, cols, aspect, variant = "photo" }) 
     </figure>
   );
 }
+
+/* =========================================================
+   FlatImage — imagen plana para que el texto la envuelva
+   ========================================================= */
+export function FlatImage({ src, alt, align = "right", width = "w-full sm:w-1/3" }) {
+  // align determina hacia dónde flota la imagen y sus márgenes[cite: 4]
+  const floatClasses = align === "right" 
+    ? "float-right ml-5 mb-3" 
+    : "float-left mr-5 mb-3";
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${floatClasses} ${width} rounded-lg object-cover shadow-md`}
+    />
+  );
+}
