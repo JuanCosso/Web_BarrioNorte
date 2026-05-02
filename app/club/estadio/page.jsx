@@ -94,11 +94,9 @@ export default function EstadioPage() {
 
           {/* TÍTULO */}
           <h1 className="text-3xl sm:text-5xl tracking-tight text-white drop-shadow-2xl text-center mt-2">
-            <span className="font-extrabold">La casa de</span>{" "}
+            <span className="font-extrabold">Nuestra </span>
             <span className="font-extrabold">
-              {/* "sueños" con glow pulsante (más/menos notorio) */}
               <motion.span className="relative inline-block text-red-600">
-                {/* Halo/iluminación pulsante */}
                 <motion.span
                   aria-hidden="true"
                   className="absolute -inset-x-3 -inset-y-2 rounded-xl bg-red-600/45 blur-2xl pointer-events-none"
@@ -112,13 +110,11 @@ export default function EstadioPage() {
                     ease: "easeInOut",
                   }}
                 />
-
-                {/* Texto real (estable) */}
                 <span className="relative drop-shadow-[0_0_10px_rgba(220,38,38,0.85)]">
-                  sueños
+                  casa
                 </span>
-              </motion.span>{" "}
-              e ilusiones
+              </motion.span>
+              {", desde 1950"}
             </span>
           </h1>
         </div>
