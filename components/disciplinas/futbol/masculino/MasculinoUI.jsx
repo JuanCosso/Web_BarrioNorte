@@ -143,7 +143,11 @@ function clasePosicion(pos, scheme = "liga") {
   if (scheme === "fem2026") {
     return pos <= 4 ? "text-green-600 font-semibold" : "";
   }
-  // default (liga/oficial)
+  // Clasifican los primeros 4, sin amarillo (ej. Oficial 2021/22)
+  if (scheme === "top4") {
+    return pos <= 4 ? "text-green-600 font-semibold" : "";
+  }
+  // default liga: top 3 verde, 4–7 amarillo
   if (pos <= 3) return "text-green-600 font-semibold";
   if (pos >= 4 && pos <= 7) return "text-yellow-500 font-semibold";
   return "";
@@ -347,45 +351,60 @@ function isLibreName(name) {
   }
   
   export function TablaRondasSeriesCard({
-    rows,
-    title = "Eliminatorias",
-    phase = "Fase Eliminatoria",
-    footnote,
-    useShortNames = false, // por defecto: sin abreviar (mejor para SuperCopa)
-  }) {
-    const stages = useMemo(() => {
-      const byStage = new Map();
-      (rows || []).forEach((r) => {
-        const st = String(r.etapa || "").trim();
-        if (!st) return;
-        if (!byStage.has(st)) byStage.set(st, []);
-        byStage.get(st).push(r);
-      });
-  
-      // mantenemos el orden de aparición en la sheet (Map preserva inserción)
-      return [...byStage.entries()].map(([stage, list]) => {
-        const matches = list.length <= 2 ? [list] : chunkPairs(list);
-        return { stage, matches };
-      });
-    }, [rows]);
-  
-    return (
-      <div className="bg-white rounded-lg shadow-sm p-4 text-gray-900 min-w-0">
-        <div className="flex items-baseline justify-between mb-3 min-w-0 gap-3">
-          <p className="text-sm font-semibold text-gray-800">{title}</p>
-          <span className="text-xs text-gray-500">{phase}</span>
-        </div>
-  
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start min-w-0">
-          {stages.map((st) => (
-            <div key={st.stage} className="min-w-0">
-              <p className="text-xs font-semibold text-gray-700 mb-2">{st.stage}</p>
-  
-              <div className="space-y-3">
-                {st.matches.map((match, idx) => {
+  rows,
+  title = "Eliminatorias",
+  phase = "Fase Eliminatoria",
+  footnote,
+  useShortNames = false,
+}) {
+  const stages = useMemo(() => {
+    const byStage = new Map();
+    (rows || []).forEach((r) => {
+      const st = String(r.etapa || "").trim();
+      if (!st) return;
+      if (!byStage.has(st)) byStage.set(st, []);
+      byStage.get(st).push(r);
+    });
+    return [...byStage.entries()].map(([stage, list]) => {
+      const matches = list.length <= 2 ? [list] : chunkPairs(list);
+      return { stage, matches };
+    });
+  }, [rows]);
+ 
+  // Agrupa visualmente: si hay más de un stage con "semifinal", se unifican en una columna
+  const visualGroups = useMemo(() => {
+    const semiStages = stages.filter((s) => isSemiStage(s.stage));
+    const otherStages = stages.filter((s) => !isSemiStage(s.stage));
+ 
+    if (semiStages.length > 1) {
+      return [
+        { label: "Semifinales", stages: semiStages },
+        ...otherStages.map((s) => ({ label: s.stage, stages: [s] })),
+      ];
+    }
+    return stages.map((s) => ({ label: s.stage, stages: [s] }));
+  }, [stages]);
+ 
+  const gridCols = visualGroups.length >= 3 ? "md:grid-cols-3 gap-3" : "md:grid-cols-2 gap-4";
+ 
+  return (
+    <div className="bg-white rounded-lg shadow-sm p-4 text-gray-900 min-w-0">
+      <div className="flex items-baseline justify-between mb-3 min-w-0 gap-3">
+        <p className="text-sm font-semibold text-gray-800">{title}</p>
+        <span className="text-xs text-gray-500">{phase}</span>
+      </div>
+ 
+      <div className={`grid grid-cols-1 ${gridCols} items-start min-w-0`}>
+        {visualGroups.map((group) => (
+          <div key={group.label} className="min-w-0">
+            <p className="text-xs font-semibold text-gray-700 mb-2">{group.label}</p>
+ 
+            <div className="space-y-3">
+              {group.stages.flatMap((st) =>
+                st.matches.map((match, idx) => {
                   const a = match?.[0] || {};
                   const b = match?.[1] || { equipo: "Libre", ida: "-", vuelta: "-", resultado: "-", penales: "" };
-  
+ 
                   return (
                     <div
                       key={`${st.stage}-${idx}`}
@@ -403,7 +422,6 @@ function isLibreName(name) {
                             useShortNames={useShortNames}
                           />
                         </div>
-  
                         <div className="px-3 min-w-0">
                           <TeamRowSeries
                             logo={b.logo}
@@ -418,16 +436,17 @@ function isLibreName(name) {
                       </div>
                     </div>
                   );
-                })}
-              </div>
+                })
+              )}
             </div>
-          ))}
-        </div>
-  
-        {footnote ? <p className="mt-2 text-[11px] text-gray-500">{footnote}</p> : null}
+          </div>
+        ))}
       </div>
-    );
-  }
+ 
+      {footnote ? <p className="mt-2 text-[11px] text-gray-500">{footnote}</p> : null}
+    </div>
+  );
+}
   
 
 function ScorePill({ children }) {

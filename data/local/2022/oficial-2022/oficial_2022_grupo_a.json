@@ -1,0 +1,54 @@
+{
+  "equipos": [
+    {
+      "name": "Juventud",
+      "pj": 5,
+      "pg": 3,
+      "pe": 1,
+      "pp": 1,
+      "gm": 11,
+      "gc": 8,
+      "dg": 3
+    },
+    {
+      "name": "Urquiza",
+      "pj": 5,
+      "pg": 2,
+      "pe": 3,
+      "pp": 0,
+      "gm": 10,
+      "gc": 7,
+      "dg": 3
+    },
+    {
+      "name": "Bancario",
+      "pj": 5,
+      "pg": 2,
+      "pe": 2,
+      "pp": 1,
+      "gm": 8,
+      "gc": 5,
+      "dg": 3
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 5,
+      "pg": 1,
+      "pe": 3,
+      "pp": 1,
+      "gm": 7,
+      "gc": 6,
+      "dg": 1
+    },
+    {
+      "name": "Libertad",
+      "pj": 5,
+      "pg": 0,
+      "pe": 1,
+      "pp": 4,
+      "gm": 6,
+      "gc": 10,
+      "dg": -4
+    }
+  ]
+}

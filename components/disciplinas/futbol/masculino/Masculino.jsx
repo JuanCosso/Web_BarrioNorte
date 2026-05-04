@@ -315,23 +315,36 @@ export default function Masculino({ nav, active, onChange }) {
                         equipos={tables.liga}
                         footnote={getFootnote("ligaFootnote", `Posiciones ${tournament.label}.`)}
                         withPositionColors
+                        positionColorScheme={tournament.ui.positionColorScheme || "liga"}
                       />
                     </div>
 
                     <div className="space-y-4 min-w-0">
-                      <TablaLlavesCard
-                        rows={bracketRows}
-                        title={tournament.ui.repechajeTitle}
-                        phase="Fase Eliminatoria"
-                        footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
-                      />
+                      {tournament.ui.finalesComponent === "series" ? (
+                        <TablaRondasSeriesCard
+                          rows={bracketRows}
+                          title={tournament.ui.repechajeTitle}
+                          phase="Fase Eliminatoria"
+                          footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
+                          useShortNames
+                        />
+                      ) : (
+                        <TablaLlavesCard
+                          rows={bracketRows}
+                          title={tournament.ui.repechajeTitle}
+                          phase="Fase Eliminatoria"
+                          footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
+                        />
+                      )}
 
-                      <TablaPosicionesInicioLike
-                        title={tournament.ui.petitTitle}
-                        phase={tournament.ui.petitPhase}
-                        equipos={tables.petit}
-                        footnote={getFootnote("petitFootnote", `Petit Torneo (${tournament.label}).`)}
-                      />
+                      {tournament.ui.petitTitle ? (
+                        <TablaPosicionesInicioLike
+                          title={tournament.ui.petitTitle}
+                          phase={tournament.ui.petitPhase}
+                          equipos={tables.petit}
+                          footnote={getFootnote("petitFootnote", `Petit Torneo (${tournament.label}).`)}
+                        />
+                      ) : null}
                     </div>
                   </div>
                 ) : tournament.format === "preparacion" ? (
@@ -343,7 +356,7 @@ export default function Masculino({ nav, active, onChange }) {
                         equipos={tables.grupoA}
                         footnote={getFootnote("grupoAFootnote", `Grupo A (${tournament.label}).`)}
                         withPositionColors
-                        positionColorScheme="prep"
+                        positionColorScheme={tournament.ui.positionColorScheme || "prep"}
                       />
                       <TablaPosicionesInicioLike
                         title={tournament.ui.grupoBTitle}
@@ -351,16 +364,16 @@ export default function Masculino({ nav, active, onChange }) {
                         equipos={tables.grupoB}
                         footnote={getFootnote("grupoBFootnote", `Grupo B (${tournament.label}).`)}
                         withPositionColors
-                        positionColorScheme="prep"
+                        positionColorScheme={tournament.ui.positionColorScheme || "prep"}
                       />
                     </div>
 
-                    <TablaLlavesCard
+                    <TablaRondasSeriesCard
                       rows={bracketRows}
                       title={tournament.ui.playoffsTitle}
                       phase="Fase Eliminatoria"
                       footnote={getFootnote("playoffsFootnote", "Formato: semifinales y final.")}
-                      useShortNames={false}
+                      useShortNames
                     />
                   </div>
                 ) : (

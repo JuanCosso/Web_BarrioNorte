@@ -1,0 +1,116 @@
+{
+  "rows": [
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "2"
+    },
+    {
+      "equipo": "Sociedad Sportiva",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "2",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Urquiza",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "3",
+      "vuelta": "3"
+    },
+    {
+      "equipo": "Gualeguay Central",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "0",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "Quilmes",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "9",
+      "ida": "1",
+      "vuelta": "3"
+    },
+    {
+      "equipo": "Juventud",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "8",
+      "ida": "3",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "Bancario",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "2",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "El Progreso",
+      "etapa": "Cuartos de Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Semifinal",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "2"
+    },
+    {
+      "equipo": "Bancario",
+      "etapa": "Semifinal",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Urquiza",
+      "etapa": "Semifinal",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "Quilmes",
+      "etapa": "Semifinal",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "0"
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "1",
+      "vuelta": "1"
+    },
+    {
+      "equipo": "Urquiza",
+      "etapa": "Final",
+      "resultado": "",
+      "penales": "-",
+      "ida": "0",
+      "vuelta": "0"
+    }
+  ]
+}

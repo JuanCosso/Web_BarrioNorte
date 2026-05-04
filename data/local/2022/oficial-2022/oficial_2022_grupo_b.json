@@ -1,0 +1,54 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 5,
+      "pg": 3,
+      "pe": 2,
+      "pp": 0,
+      "gm": 10,
+      "gc": 6,
+      "dg": 4
+    },
+    {
+      "name": "El Progreso",
+      "pj": 5,
+      "pg": 2,
+      "pe": 2,
+      "pp": 1,
+      "gm": 4,
+      "gc": 4,
+      "dg": 0
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 5,
+      "pg": 2,
+      "pe": 1,
+      "pp": 2,
+      "gm": 6,
+      "gc": 7,
+      "dg": -1
+    },
+    {
+      "name": "Quilmes",
+      "pj": 5,
+      "pg": 0,
+      "pe": 3,
+      "pp": 2,
+      "gm": 2,
+      "gc": 5,
+      "dg": -3
+    },
+    {
+      "name": "La Academia",
+      "pj": 5,
+      "pg": 0,
+      "pe": 2,
+      "pp": 3,
+      "gm": 5,
+      "gc": 9,
+      "dg": -4
+    }
+  ]
+}

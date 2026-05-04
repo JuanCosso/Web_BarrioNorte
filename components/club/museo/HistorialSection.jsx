@@ -259,7 +259,7 @@ export default function HistorialSection() {
           Nuestros rivales, partido a partido
         </p>
         <p className="text-sm text-gray-400 mt-1">
-          Se contabilizan los torneos disputados a partir de 2023, año de la vuelta a la competencia tras la pandemia.
+          Se contabilizan los torneos disputados a partir de 2021, año de la vuelta a la competencia tras la pandemia.
         </p>
       </div>
 

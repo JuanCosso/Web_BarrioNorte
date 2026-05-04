@@ -71,6 +71,59 @@ export const TITLES = [
 
 export const TOURNAMENTS = [
   {
+    id: "oficial-2021-22",
+    label: "Oficial 2021/22",
+    format: "oficial",
+    tables: {
+      liga:      { type: "primera_2021_22_liga" },
+      repechaje: { type: "primera_2021_22_finales" },
+      petit:     { type: "" },          // sin petit torneo
+    },
+    ui: {
+      ligaTitle:          "Primera División",
+      ligaPhase:          "Fase regular",
+      repechajeTitle:     "Playoffs",
+      repechajePhase:     "Fase Eliminatoria",
+      petitTitle:         "",
+      petitPhase:         "",
+      note:               "Torneo {label}.",
+    
+      // ↓ TOP 4 en verde (clasificaban los 4 primeros a los playoffs)
+      positionColorScheme: "top4",
+    
+      // ↓ Usa TablaRondasSeriesCard (Semis ida/vuelta + Final + Desempate)
+      finalesComponent:   "series",
+    
+      ligaFootnote:
+        "Posiciones {label}. ",
+      repechajeFootnote:
+        "Barrio Norte se consagra campeón del Torneo {label} tras vencer a Urquiza en un partido a desempate.",
+      petitFootnote: "",
+    },
+  },
+    {
+    id: "oficial-2022",
+    label: "Oficial 2022",
+    format: "preparacion",
+    tables: {
+      grupoA:   { type: "oficial_2022_grupo_a" },
+      grupoB:   { type: "oficial_2022_grupo_b" },
+      playoffs: { type: "oficial_2022_playoffs" },
+    },
+    ui: {
+      grupoATitle:   "Grupo A",
+      grupoBTitle:   "Grupo B",
+      playoffsTitle: "Playoffs",
+      note:          "Torneo {label}.",
+      // Clasifican los 4 primeros de cada zona → top4 (o fem2026 como fallback)
+      positionColorScheme: "fem2026",
+      grupoAFootnote: "Posiciones Torneo {label}.",
+      grupoBFootnote: "Posiciones Torneo {label}.",
+      playoffsFootnote:
+        "Barrio Norte se consagra campeón del Torneo {label}.",
+    },
+  },
+  {
     id: "supercopa-entre-rios-2023",
     label: "Supercopa Entre Ríos 2023",
     format: "supercopa",
@@ -264,6 +317,61 @@ export const TEAM_LOGOS = {
 /* ========= CONTENIDO POR TORNEO (esto es lo que vas a editar) ========= */
 
 export const TOURNAMENT_CONTENT = {
+  "oficial-2021-22": {
+      results: [
+        // ── Primera rueda ────────────────────────────────────────────────────────
+        { round: "Fecha 1",  date: "19/09", condition: "Local",     rival: "Quilmes",          score: "6 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 2",  date: "26/09", condition: "Local",     rival: "Urquiza",           score: "3 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 3",  date: "26/09", condition: "Visitante", rival: "Juventud",          score: "0 - 3", competition: "Torneo Oficial" },
+        { round: "Fecha 4",  date: "10/10", condition: "Visitante",     rival: "El Progreso",       score: "0 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 5",  date: "24/10", condition: "Visitante", rival: "Bancario",          score: "0 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 6",  date: "31/10", condition: "Local",     rival: "Sportiva",          score: "3 - 3", competition: "Torneo Oficial" },
+        { round: "Fecha 7",  date: "07/11", condition: "Visitante", rival: "La Academia",       score: "2 - 4", competition: "Torneo Oficial" },
+        { round: "Fecha 8",  date: "28/11", condition: "Visitante",     rival: "Libertad",          score: "1 - 3", competition: "Torneo Oficial" }, // completar
+        { round: "Fecha 9",  date: "05/12", condition: "Visitante", rival: "Central",           score: "2 - 1", competition: "Torneo Oficial" },
+        // ── Segunda rueda ────────────────────────────────────────────────────────
+        { round: "Fecha 10", date: "12/12", condition: "Visitante",     rival: "Quilmes",           score: "1 - 3", competition: "Torneo Oficial" },
+        { round: "Fecha 11", date: "30/01", condition: "Visitante", rival: "Urquiza",           score: "1 - 1", competition: "Torneo Oficial" },
+        { round: "Fecha 12", date: "06/02", condition: "Local",     rival: "Juventud",          score: "3 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 13", date: "13/02", condition: "Visitante",     rival: "El Progreso",       score: "0 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 14", date: "20/02", condition: "Local",     rival: "Bancario",          score: "1 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 15", date: "13/03", condition: "Local",     rival: "Sportiva",          score: "2 - 1", competition: "Torneo Oficial" },
+        { round: "Fecha 16", date: "20/03", condition: "Local",     rival: "La Academia",       score: "1 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 17", date: "27/03", condition: "Visitante", rival: "Libertad",          score: "3 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 18", date: "10/04", condition: "Local",     rival: "Central",           score: "0 - 0", competition: "Torneo Oficial" },
+        // ── Playoffs ─────────────────────────────────────────────────────────────
+        { round: "Semifinal",       date: "17/04", condition: "Visitante", rival: "Sportiva", score: "0 - 0", competition: "Fase Final" },
+        { round: "Semifinal",    date: "24/04", condition: "Local",     rival: "Sportiva", score: "1 - 1", competition: "Fase Final" },
+        { round: "Final",           date: "01/05", condition: "Local",     rival: "Urquiza",  score: "3 - 2", competition: "Fase Final" },
+        { round: "Final",        date: "08/05", condition: "Visitante", rival: "Urquiza",  score: "2 - 1", competition: "Fase Final" },
+        { round: "Final (desempate)",     date: "15/05", condition: "Local",     rival: "Urquiza",  score: "3 - 0", competition: "Fase Final" },
+      ],
+      staff: [
+        // completar con el cuerpo técnico de esa temporada
+      ],
+      roster: [
+        // completar con el plantel de esa temporada
+      ],
+    },
+    "oficial-2022": {
+    results: [
+      // ── Fase de grupos (Zona B + interzonales) ───────────────────────────────
+      { round: "Fecha 1", date: "10/07", condition: "Visitante", rival: "La Academia",      score: "3 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 2", date: "17/07", condition: "Visitante", rival: "Central", score: "1 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 3", date: "24/07", condition: "Local",     rival: "El Progreso",       score: "1 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 4", date: "31/07", condition: "Local",     rival: "Libertad",          score: "2 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 5", date: "07/08", condition: "Local",     rival: "Quilmes",           score: "1 - 0", competition: "Torneo Oficial" },
+      // ── Playoffs ─────────────────────────────────────────────────────────────
+      { round: "Cuartos",     date: "21/08", condition: "Visitante", rival: "Sportiva", score: "2 - 1", competition: "Fase Final" },
+      { round: "Cuartos",  date: "28/08", condition: "Local",     rival: "Sportiva", score: "2 - 0", competition: "Fase Final" },
+      { round: "Semifinal",   date: "04/09", condition: "Visitante", rival: "Bancario",          score: "1 - 1", competition: "Fase Final" },
+      { round: "Semifinal",date: "11/09", condition: "Local",     rival: "Bancario",          score: "2 - 0", competition: "Fase Final" },
+      { round: "Final",       date: "18/09", condition: "Visitante", rival: "Urquiza",           score: "0 - 1", competition: "Fase Final" },
+      { round: "Final",    date: "25/09", condition: "Local",     rival: "Urquiza",           score: "1 - 0", competition: "Fase Final" },
+    ],
+    staff: [],
+    roster: [],
+  },
   "oficial-2025": {
     results: [
       { round: "Fecha 1", date: "06/04", condition: "Local", rival: "Bancario", score: "2 - 1", competition: "Torneo Oficial" },
