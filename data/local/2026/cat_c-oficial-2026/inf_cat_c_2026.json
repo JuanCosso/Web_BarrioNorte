@@ -2,23 +2,23 @@
   "equipos": [
     {
       "name": "La Academia",
-      "pj": 2,
-      "pg": 2,
+      "pj": 3,
+      "pg": 3,
       "pe": 0,
       "pp": 0,
-      "gm": 4,
+      "gm": 6,
       "gc": 0,
-      "dg": 4
+      "dg": 6
     },
     {
       "name": "Barrio Norte",
-      "pj": 2,
+      "pj": 3,
       "pg": 2,
       "pe": 0,
-      "pp": 0,
+      "pp": 1,
       "gm": 2,
-      "gc": 0,
-      "dg": 2
+      "gc": 2,
+      "dg": 0
     },
     {
       "name": "Sociedad Sportiva",
@@ -41,6 +41,26 @@
       "dg": 1
     },
     {
+      "name": "Bancario",
+      "pj": 3,
+      "pg": 0,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 3,
+      "dg": -3
+    },
+    {
+      "name": "Urquiza",
+      "pj": 2,
+      "pg": 0,
+      "pe": 1,
+      "pp": 1,
+      "gm": 1,
+      "gc": 5,
+      "dg": -4
+    },
+    {
       "name": "Libertad",
       "pj": 2,
       "pg": 0,
@@ -49,26 +69,6 @@
       "gm": 0,
       "gc": 2,
       "dg": -2
-    },
-    {
-      "name": "Bancario",
-      "pj": 2,
-      "pg": 0,
-      "pe": 0,
-      "pp": 2,
-      "gm": 0,
-      "gc": 3,
-      "dg": -3
-    },
-    {
-      "name": "Urquiza",
-      "pj": 1,
-      "pg": 0,
-      "pe": 0,
-      "pp": 1,
-      "gm": 1,
-      "gc": 5,
-      "dg": -4
     }
   ],
   "partidos_procesados": [
@@ -77,6 +77,8 @@
     "Fecha 1|Bancario|Barrio Norte",
     "Fecha 2|Sociedad Sportiva|Urquiza",
     "Fecha 2|Bancario|La Academia",
-    "Fecha 2|Barrio Norte|Libertad"
+    "Fecha 2|Barrio Norte|Libertad",
+    "Fecha 3|Bancario|Urquiza",
+    "Fecha 3|Barrio Norte|La Academia"
   ]
 }
