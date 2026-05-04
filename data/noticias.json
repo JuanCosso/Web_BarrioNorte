@@ -232,5 +232,21 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DXpEKoGjjhW/",
     "post_id": "DXpEKoGjjhW"
+  },
+  {
+    "id": 16,
+    "titulo": "Convocados para enfrentar a La Academia",
+    "resumen": "El Club Atlético Barrio Norte publicó la lista de jugadores convocados para el partido contra La Academia.",
+    "fecha": "2026-05-02",
+    "categoria": "Fútbol",
+    "tags": [
+      "convocados",
+      "primeradivision"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/noticia_DX23SWxjlih.webp",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DX23SWxjlih/",
+    "post_id": "DX23SWxjlih"
   }
 ]
