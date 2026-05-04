@@ -1,34 +1,34 @@
 {
   "equipos": [
     {
-      "name": "Barrio Norte",
-      "pj": 2,
-      "pg": 1,
-      "pe": 1,
-      "pp": 0,
-      "gm": 9,
-      "gc": 2,
-      "dg": 7
-    },
-    {
       "name": "Bancario",
-      "pj": 2,
-      "pg": 1,
+      "pj": 3,
+      "pg": 2,
       "pe": 1,
       "pp": 0,
-      "gm": 3,
+      "gm": 7,
       "gc": 2,
-      "dg": 1
+      "dg": 5
     },
     {
-      "name": "Gualeguay Central",
+      "name": "Barrio Norte",
+      "pj": 3,
+      "pg": 1,
+      "pe": 1,
+      "pp": 1,
+      "gm": 10,
+      "gc": 4,
+      "dg": 6
+    },
+    {
+      "name": "Juventud",
       "pj": 2,
       "pg": 1,
       "pe": 1,
       "pp": 0,
-      "gm": 2,
-      "gc": 1,
-      "dg": 1
+      "gm": 5,
+      "gc": 3,
+      "dg": 2
     },
     {
       "name": "Sociedad Sportiva",
@@ -41,60 +41,64 @@
       "dg": 1
     },
     {
-      "name": "Urquiza",
-      "pj": 2,
+      "name": "Gualeguay Central",
+      "pj": 3,
       "pg": 1,
-      "pe": 0,
-      "pp": 1,
-      "gm": 1,
-      "gc": 1,
-      "dg": 0
-    },
-    {
-      "name": "Juventud",
-      "pj": 1,
-      "pg": 0,
       "pe": 1,
-      "pp": 0,
-      "gm": 0,
-      "gc": 0,
+      "pp": 1,
+      "gm": 3,
+      "gc": 3,
       "dg": 0
     },
     {
       "name": "La Academia",
-      "pj": 2,
-      "pg": 0,
+      "pj": 3,
+      "pg": 1,
       "pe": 1,
       "pp": 1,
-      "gm": 0,
-      "gc": 1,
-      "dg": -1
+      "gm": 2,
+      "gc": 2,
+      "dg": 0
     },
     {
       "name": "Quilmes",
-      "pj": 1,
-      "pg": 0,
+      "pj": 2,
+      "pg": 1,
       "pe": 0,
       "pp": 1,
-      "gm": 0,
-      "gc": 1,
-      "dg": -1
+      "gm": 2,
+      "gc": 2,
+      "dg": 0
     },
     {
-      "name": "Libertad",
-      "pj": 2,
-      "pg": 0,
+      "name": "Urquiza",
+      "pj": 3,
+      "pg": 1,
       "pe": 0,
       "pp": 2,
       "gm": 1,
-      "gc": 9,
-      "dg": -8
+      "gc": 5,
+      "dg": -4
+    },
+    {
+      "name": "Libertad",
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gm": 4,
+      "gc": 14,
+      "dg": -10
     }
   ],
   "partidos_procesados": [
     "Fecha 2|Gualeguay Central|Juventud",
     "Fecha 2|Sociedad Sportiva|Urquiza",
     "Fecha 2|Barrio Norte|Libertad",
-    "Fecha 2|Bancario|La Academia"
+    "Fecha 2|Bancario|La Academia",
+    "Fecha 3|Juventud|Libertad",
+    "Fecha 3|Gualeguay Central|Quilmes",
+    "Fecha 3|Bancario|Urquiza",
+    "Fecha 3|Barrio Norte|La Academia"
   ]
 }
