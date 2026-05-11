@@ -140,7 +140,7 @@ export const TOURNAMENT_CONTENT = {
   "oficial-2025-fem": {
     results: [
       { round: "Fecha 1", date: "06/04", condition: "Local", rival: "Bancario", score: "2 - 0", competition: "Torneo Oficial" },
-      { round: "Fecha 2", date: "13/04", condition: "Local", rival: "Aldea", score: "0 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 2", date: "13/04", condition: "Local", rival: "Aldea Asunción", score: "0 - 0", competition: "Torneo Oficial" },
       { round: "Fecha 3", date: "20/04", condition: "Visitante", rival: "Urquiza", score: "1 - 0", competition: "Torneo Oficial" },
       { round: "Fecha 4", date: "27/04", condition: "Local", rival: "Central", score: "1 - 2", competition: "Torneo Oficial" },
       { round: "Fecha 5", date: "04/05", condition: "Visitante", rival: "Sportiva", score: "1 - 1", competition: "Torneo Oficial" },
@@ -149,7 +149,7 @@ export const TOURNAMENT_CONTENT = {
       { round: "Fecha 8", date: "01/06", condition: "Local", rival: "Juventud", score: "3 - 1", competition: "Torneo Oficial" },
       { round: "Fecha 9", date: "08/06", condition: "Visitante", rival: "El Progreso", score: "1 - 0", competition: "Torneo Oficial" },
       { round: "Fecha 10", date: "06/06", condition: "Visitante", rival: "Bancario", score: "2 - 2", competition: "Torneo Oficial" },
-      { round: "Fecha 11", date: "22/06", condition: "Visitante", rival: "Aldea", score: "0 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 11", date: "22/06", condition: "Visitante", rival: "Aldea Asunción", score: "0 - 0", competition: "Torneo Oficial" },
       { round: "Fecha 12", date: "29/06", condition: "Local", rival: "Urquiza", score: "2 - 4", competition: "Torneo Oficial" },
       { round: "Fecha 13", date: "05/07", condition: "Visitante", rival: "Central", score: "3 - 1", competition: "Torneo Oficial" },
       { round: "Fecha 14", date: "13/07", condition: "Local", rival: "Sportiva", score: "2 - 1", competition: "Torneo Oficial" },

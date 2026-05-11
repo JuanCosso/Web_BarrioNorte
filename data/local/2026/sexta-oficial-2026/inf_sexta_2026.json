@@ -18,7 +18,7 @@
       "pp": 1,
       "gm": 2,
       "gc": 0,
-      "dg": 7
+      "dg": 2
     },
     {
       "name": "Barrio Norte",
@@ -88,7 +88,7 @@
       "pp": 2,
       "gm": 0,
       "gc": 2,
-      "dg": -8
+      "dg": -2
     }
   ],
   "partidos_procesados": [

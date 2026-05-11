@@ -43,22 +43,22 @@
     {
       "name": "Barrio Norte",
       "pj": 3,
-      "pg": 1,
-      "pe": 1,
+      "pg": 2,
+      "pe": 0,
       "pp": 1,
       "gm": 0,
       "gc": 0,
-      "dg": 0
+      "dg": 1
     },
     {
       "name": "Bancario",
       "pj": 3,
       "pg": 1,
-      "pe": 1,
-      "pp": 1,
+      "pe": 0,
+      "pp": 2,
       "gm": 0,
       "gc": 0,
-      "dg": -3
+      "dg": -4
     },
     {
       "name": "Quilmes",

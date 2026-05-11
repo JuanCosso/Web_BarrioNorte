@@ -4,7 +4,7 @@
     "date": "19/04",
     "condition": "Visitante",
     "rival": "Bancario",
-    "score": "0 - 0",
+    "score": "0 - 1",
     "competition": "Torneo Oficial"
   },
   {
@@ -21,6 +21,14 @@
     "condition": "Visitante",
     "rival": "La Academia",
     "score": "0 - 2",
+    "competition": "Torneo Oficial"
+  },
+  {
+    "round": "Fecha 4",
+    "date": "",
+    "condition": "Local",
+    "rival": "Urquiza",
+    "score": "1 - 1",
     "competition": "Torneo Oficial"
   }
 ]
