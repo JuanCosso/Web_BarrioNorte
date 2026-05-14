@@ -54,8 +54,8 @@
       "name": "La Academia",
       "pj": 4,
       "pg": 1,
-      "pe": 1,
-      "pp": 2,
+      "pe": 2,
+      "pp": 1,
       "gm": 4,
       "gc": 11,
       "dg": -7
@@ -68,7 +68,7 @@
       "pp": 2,
       "gm": 8,
       "gc": 7,
-      "dg": -5
+      "dg": -1
     },
     {
       "name": "Barrio Norte",
