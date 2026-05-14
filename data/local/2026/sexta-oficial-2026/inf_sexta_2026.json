@@ -2,63 +2,63 @@
   "equipos": [
     {
       "name": "La Academia",
-      "pj": 5,
-      "pg": 5,
-      "pe": 0,
-      "pp": 0,
-      "gm": 11,
-      "gc": 1,
-      "dg": 10
-    },
-    {
-      "name": "Bancario",
-      "pj": 6,
+      "pj": 4,
       "pg": 4,
       "pe": 0,
-      "pp": 2,
-      "gm": 14,
-      "gc": 4,
-      "dg": 10
+      "pp": 0,
+      "gm": 8,
+      "gc": 1,
+      "dg": 7
     },
     {
       "name": "Barrio Norte",
-      "pj": 5,
-      "pg": 4,
+      "pj": 4,
+      "pg": 3,
       "pe": 0,
       "pp": 1,
-      "gm": 7,
+      "gm": 5,
       "gc": 3,
-      "dg": 4
+      "dg": 2
     },
     {
       "name": "Sociedad Sportiva",
-      "pj": 6,
+      "pj": 4,
       "pg": 2,
-      "pe": 2,
+      "pe": 1,
+      "pp": 1,
+      "gm": 2,
+      "gc": 1,
+      "dg": 1
+    },
+    {
+      "name": "Bancario",
+      "pj": 4,
+      "pg": 2,
+      "pe": 0,
       "pp": 2,
-      "gm": 3,
+      "gm": 7,
       "gc": 4,
-      "dg": -1
+      "dg": 3
     },
     {
       "name": "Gualeguay Central",
-      "pj": 4,
+      "pj": 3,
       "pg": 1,
-      "pe": 3,
+      "pe": 2,
       "pp": 0,
       "gm": 4,
       "gc": 0,
       "dg": 4
     },
     {
-      "name": "Libertad",
-      "pj": 5,
+      "name": "Urquiza",
+      "pj": 4,
       "pg": 1,
-      "pe": 1,
+      "pe": 0,
       "pp": 3,
-      "gm": 3,
-      "gc": 8,
-      "dg": -5
+      "gm": 1,
+      "gc": 4,
+      "dg": -3
     },
     {
       "name": "Quilmes",
@@ -71,32 +71,24 @@
       "dg": -4
     },
     {
-      "name": "Urquiza",
-      "pj": 6,
-      "pg": 1,
-      "pe": 0,
-      "pp": 5,
-      "gm": 1,
-      "gc": 9,
-      "dg": -8
+      "name": "Libertad",
+      "pj": 3,
+      "pg": 0,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 4,
+      "dg": -4
     },
     {
       "name": "El Progreso",
-      "pj": 5,
+      "pj": 4,
       "pg": 0,
       "pe": 0,
-      "pp": 5,
+      "pp": 4,
       "gm": 2,
-      "gc": 21,
-      "dg": -19
+      "gc": 17,
+      "dg": -15
     }
-  ],
-  "partidos_procesados": [
-    "Fecha 9|Barrio Norte|Urquiza",
-    "Fecha 9|Bancario|Urquiza",
-    "Fecha 9|Bancario|El Progreso",
-    "Fecha 9|Libertad|Sociedad Sportiva",
-    "Fecha 9|Gualeguay Central|Sociedad Sportiva",
-    "Fecha 9|La Academia|Libertad"
   ]
 }
