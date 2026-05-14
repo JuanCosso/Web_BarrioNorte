@@ -1,0 +1,104 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 3,
+      "pg": 3,
+      "pe": 0,
+      "pp": 0,
+      "gm": 8,
+      "gc": 0,
+      "dg": 8
+    },
+    {
+      "name": "Bancario",
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gm": 4,
+      "gc": 3,
+      "dg": 1
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 2,
+      "pg": 1,
+      "pe": 1,
+      "pp": 0,
+      "gm": 1,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 2,
+      "pg": 1,
+      "pe": 0,
+      "pp": 1,
+      "gm": 2,
+      "gc": 3,
+      "dg": -1
+    },
+    {
+      "name": "Urquiza",
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gm": 4,
+      "gc": 3,
+      "dg": 1
+    },
+    {
+      "name": "La Academia",
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gm": 4,
+      "gc": 8,
+      "dg": -4
+    },
+    {
+      "name": "El Progreso",
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 0
+    },
+    {
+      "name": "Libertad",
+      "pj": 2,
+      "pg": 0,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 2,
+      "dg": -2
+    },
+    {
+      "name": "Quilmes",
+      "pj": 2,
+      "pg": 0,
+      "pe": 0,
+      "pp": 2,
+      "gm": 0,
+      "gc": 4,
+      "dg": -4
+    }
+  ],
+  "partidos_procesados": [
+    "Fecha 2|El Progreso|Quilmes (Sin resultado)",
+    "Fecha 2|Sociedad Sportiva|Urquiza",
+    "Fecha 2|Barrio Norte|Libertad",
+    "Fecha 2|Bancario|La Academia",
+    "Fecha 3|Gualeguay Central|Quilmes",
+    "Fecha 3|Bancario|Urquiza",
+    "Fecha 3|El Progreso|S (Sin resultado)",
+    "Fecha 3|Barrio Norte|La Academia"
+  ]
+}
