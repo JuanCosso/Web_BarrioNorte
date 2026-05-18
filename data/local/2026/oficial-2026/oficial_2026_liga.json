@@ -2,103 +2,103 @@
   "equipos": [
     {
       "name": "Juventud",
-      "pj": 4,
-      "pg": 4,
+      "pj": 5,
+      "pg": 5,
       "pe": 0,
       "pp": 0,
-      "gm": 8,
+      "gm": 9,
       "gc": 1,
-      "dg": 7
-    },
-    {
-      "name": "Sociedad Sportiva",
-      "pj": 4,
-      "pg": 3,
-      "pe": 1,
-      "pp": 0,
-      "gm": 11,
-      "gc": 1,
-      "dg": 10
+      "dg": 8
     },
     {
       "name": "Urquiza",
-      "pj": 4,
-      "pg": 2,
-      "pe": 3,
+      "pj": 5,
+      "pg": 3,
+      "pe": 2,
       "pp": 0,
-      "gm": 7,
+      "gm": 8,
       "gc": 2,
-      "dg": 5
+      "dg": 6
     },
     {
       "name": "Barrio Norte",
-      "pj": 4,
-      "pg": 2,
+      "pj": 5,
+      "pg": 3,
       "pe": 1,
       "pp": 1,
-      "gm": 4,
+      "gm": 13,
       "gc": 3,
-      "dg": 1
+      "dg": 10
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 5,
+      "pg": 3,
+      "pe": 1,
+      "pp": 1,
+      "gm": 11,
+      "gc": 2,
+      "dg": 9
     },
     {
       "name": "Bancario",
-      "pj": 4,
-      "pg": 2,
+      "pj": 5,
+      "pg": 3,
       "pe": 0,
       "pp": 2,
-      "gm": 4,
-      "gc": 6,
-      "dg": -2
+      "gm": 6,
+      "gc": 7,
+      "dg": -1
     },
     {
       "name": "Libertad",
-      "pj": 4,
-      "pg": 1,
+      "pj": 5,
+      "pg": 2,
       "pe": 1,
       "pp": 2,
-      "gm": 7,
-      "gc": 7,
-      "dg": 0
+      "gm": 9,
+      "gc": 8,
+      "dg": 1
     },
     {
       "name": "La Academia",
-      "pj": 4,
+      "pj": 5,
       "pg": 1,
       "pe": 0,
-      "pp": 3,
+      "pp": 4,
       "gm": 4,
-      "gc": 11,
-      "dg": -7
+      "gc": 12,
+      "dg": -8
     },
     {
       "name": "Quilmes",
-      "pj": 4,
+      "pj": 5,
       "pg": 0,
       "pe": 2,
       "pp": 3,
-      "gm": 4,
-      "gc": 6,
-      "dg": -2
+      "gm": 5,
+      "gc": 8,
+      "dg": -3
     },
     {
       "name": "Gualeguay Central",
-      "pj": 4,
+      "pj": 5,
       "pg": 0,
       "pe": 2,
-      "pp": 2,
-      "gm": 4,
-      "gc": 6,
-      "dg": -2
+      "pp": 3,
+      "gm": 5,
+      "gc": 8,
+      "dg": -3
     },
     {
       "name": "El Progreso",
-      "pj": 4,
+      "pj": 5,
       "pg": 0,
       "pe": 1,
-      "pp": 3,
+      "pp": 4,
       "gm": 2,
-      "gc": 12,
-      "dg": -10
+      "gc": 21,
+      "dg": -19
     }
   ]
 }
