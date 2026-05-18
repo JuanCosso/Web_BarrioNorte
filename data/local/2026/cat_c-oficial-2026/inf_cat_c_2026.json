@@ -13,9 +13,9 @@
     {
       "name": "La Academia",
       "pj": 4,
-      "pg": 2,
-      "pe": 1,
-      "pp": 1,
+      "pg": 4,
+      "pe": 0,
+      "pp": 0,
       "gm": 12,
       "gc": 4,
       "dg": 8
