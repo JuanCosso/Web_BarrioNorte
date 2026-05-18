@@ -2,63 +2,63 @@
   "equipos": [
     {
       "name": "Urquiza",
+      "pj": 5,
+      "pg": 5,
+      "pe": 0,
+      "pp": 0,
+      "gm": 14,
+      "gc": 0,
+      "dg": 14
+    },
+    {
+      "name": "El Progreso",
       "pj": 4,
       "pg": 4,
       "pe": 0,
       "pp": 0,
       "gm": 11,
-      "gc": 0,
-      "dg": 11
-    },
-    {
-      "name": "El Progreso",
-      "pj": 3,
-      "pg": 3,
-      "pe": 0,
-      "pp": 0,
-      "gm": 9,
-      "gc": 1,
-      "dg": 8
+      "gc": 2,
+      "dg": 9
     },
     {
       "name": "Gualeguay Central",
-      "pj": 4,
-      "pg": 2,
+      "pj": 5,
+      "pg": 3,
       "pe": 1,
       "pp": 1,
-      "gm": 5,
-      "gc": 5,
-      "dg": 5
-    },
-    {
-      "name": "Aldea Asuncion",
-      "pj": 4,
-      "pg": 2,
-      "pe": 1,
-      "pp": 1,
-      "gm": 5,
-      "gc": 5,
-      "dg": 0
+      "gm": 9,
+      "gc": 6,
+      "dg": 3
     },
     {
       "name": "Libertad",
-      "pj": 3,
-      "pg": 2,
+      "pj": 4,
+      "pg": 3,
       "pe": 0,
       "pp": 1,
-      "gm": 4,
+      "gm": 6,
       "gc": 3,
-      "dg": 1
+      "dg": 3
     },
     {
-      "name": "Bancario",
-      "pj": 4,
-      "pg": 1,
-      "pe": 0,
-      "pp": 3,
+      "name": "Aldea Asuncion",
+      "pj": 5,
+      "pg": 2,
+      "pe": 1,
+      "pp": 2,
       "gm": 5,
       "gc": 8,
       "dg": -3
+    },
+    {
+      "name": "Bancario",
+      "pj": 5,
+      "pg": 1,
+      "pe": 0,
+      "pp": 4,
+      "gm": 6,
+      "gc": 12,
+      "dg": -6
     },
     {
       "name": "Sociedad Sportiva",
@@ -72,23 +72,23 @@
     },
     {
       "name": "Barrio Norte",
-      "pj": 4,
+      "pj": 5,
       "pg": 0,
       "pe": 1,
-      "pp": 3,
-      "gm": 2,
-      "gc": 9,
-      "dg": -7
+      "pp": 4,
+      "gm": 3,
+      "gc": 11,
+      "dg": -8
     },
     {
       "name": "Quilmes",
-      "pj": 3,
+      "pj": 4,
       "pg": 0,
       "pe": 0,
-      "pp": 3,
+      "pp": 4,
       "gm": 1,
-      "gc": 11,
-      "dg": -10
+      "gc": 13,
+      "dg": -12
     }
   ]
 }
