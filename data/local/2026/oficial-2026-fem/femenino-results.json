@@ -25,7 +25,7 @@
   },
   {
     "round": "Fecha 4",
-    "date": "",
+    "date": "10/05",
     "condition": "Local",
     "rival": "Urquiza",
     "score": "0 - 3",
@@ -33,18 +33,10 @@
   },
   {
     "round": "Fecha 5",
-    "date": "",
+    "date": "17/05",
     "condition": "Visitante",
     "rival": "El Progreso",
-    "score": "1 - 2",
-    "competition": "Torneo Oficial"
-  },
-  {
-    "round": "Fecha 5",
-    "date": "",
-    "condition": "Visitante",
-    "rival": "Gualeguay Central",
-    "score": "1 - 4",
+    "score": "2 - 1",
     "competition": "Torneo Oficial"
   }
 ]

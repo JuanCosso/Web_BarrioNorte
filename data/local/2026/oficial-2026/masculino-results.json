@@ -32,19 +32,11 @@
     "competition": "Torneo Oficial"
   },
   {
-    "round": "Fecha 1",
-    "date": "10/05/2026",
-    "condition": "Local",
-    "rival": "Urquiza",
-    "score": "0 - 3",
-    "competition": "Torneo Oficial"
-  },
-  {
     "round": "Fecha 5",
-    "date": "",
+    "date": "17/05",
     "condition": "Visitante",
     "rival": "El Progreso",
-    "score": "9 - 0",
+    "score": "0 - 9",
     "competition": "Torneo Oficial"
   }
 ]
