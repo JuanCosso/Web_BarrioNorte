@@ -1,0 +1,104 @@
+{
+  "equipos": [
+    {
+      "name": "Juventud",
+      "pj": 5,
+      "pg": 5,
+      "pe": 0,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 8
+    },
+    {
+      "name": "Urquiza",
+      "pj": 5,
+      "pg": 3,
+      "pe": 2,
+      "pp": 0,
+      "gm": 0,
+      "gc": 0,
+      "dg": 6
+    },
+    {
+      "name": "Barrio Norte",
+      "pj": 5,
+      "pg": 3,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 10
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 5,
+      "pg": 3,
+      "pe": 1,
+      "pp": 1,
+      "gm": 0,
+      "gc": 0,
+      "dg": 9
+    },
+    {
+      "name": "Bancario",
+      "pj": 5,
+      "pg": 3,
+      "pe": 0,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": -1
+    },
+    {
+      "name": "Libertad",
+      "pj": 5,
+      "pg": 2,
+      "pe": 1,
+      "pp": 2,
+      "gm": 0,
+      "gc": 0,
+      "dg": 1
+    },
+    {
+      "name": "La Academia",
+      "pj": 5,
+      "pg": 1,
+      "pe": 0,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": -8
+    },
+    {
+      "name": "Quilmes",
+      "pj": 5,
+      "pg": 0,
+      "pe": 2,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": -3
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 5,
+      "pg": 0,
+      "pe": 2,
+      "pp": 3,
+      "gm": 0,
+      "gc": 0,
+      "dg": -3
+    },
+    {
+      "name": "El Progreso",
+      "pj": 5,
+      "pg": 0,
+      "pe": 1,
+      "pp": 4,
+      "gm": 0,
+      "gc": 0,
+      "dg": -19
+    }
+  ]
+}

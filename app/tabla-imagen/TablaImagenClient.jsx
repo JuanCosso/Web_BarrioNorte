@@ -255,12 +255,12 @@ export default function TablaImagenClient({ categorias }) {
         <div style={S.legend}>
           <div style={S.legItem}>
             <div style={{ ...S.legDot, background: "#00c87a" }} />
-            <span style={S.legText}>{cat.greenLegend ?? "Clasificados playoffs"}</span>
+            <span style={S.legText}>{cat.greenLegend ?? "Petit Torneo"}</span>
           </div>
           {cat.yellowLegend && (
             <div style={S.legItem}>
               <div style={{ ...S.legDot, background: "#f5a623" }} />
-              <span style={S.legText}>{cat.yellowLegend}</span>
+              <span style={S.legText}>{cat.yellowLegend ?? "Repechaje"}</span>
             </div>
           )}
         </div>
