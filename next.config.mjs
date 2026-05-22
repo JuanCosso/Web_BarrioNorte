@@ -17,7 +17,11 @@ const nextConfig = {
       },
     ],
   },
-  // resto de tu config existente sin tocar
+  experimental: {
+    outputFileTracingExcludes: {
+      '/api/**/*': ['./public/**/*'],
+    },
+  },
 };
 
-export default nextConfig;  // ← ES module, no module.exports
+export default nextConfig;
