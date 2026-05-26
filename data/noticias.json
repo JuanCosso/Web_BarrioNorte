@@ -384,5 +384,22 @@
     "fuente": "Instagram",
     "url": "https://www.instagram.com/p/DYxnuhGvDip/",
     "post_id": "DYxnuhGvDip"
+  },
+  {
+    "id": 25,
+    "titulo": "Resultados Fecha 6 · Primera Femenino",
+    "resumen": "Urquiza 0-0 Libertad · Barrio Norte 0-5 Gualeguay Central · Aldea Asuncion 0-3 El Progreso · Sociedad Sportiva 3-0 Quilmes (TORNEO FEMENINO 2026).",
+    "fecha": "2026-05-25",
+    "categoria": "Fútbol",
+    "tags": [
+      "Femenino",
+      "Resultados",
+      "Torneo Oficial"
+    ],
+    "destacada": false,
+    "imagen": "/noticias/resultado_1779815893637.webp",
+    "fuente": "Instagram",
+    "url": "https://www.instagram.com/p/DYxnr92zVRo/",
+    "post_id": "DYxnr92zVRo"
   }
 ]
