@@ -2,13 +2,13 @@
   "equipos": [
     {
       "name": "Barrio Norte",
-      "pj": 4,
-      "pg": 3,
+      "pj": 5,
+      "pg": 4,
       "pe": 0,
       "pp": 1,
-      "gm": 10,
+      "gm": 11,
       "gc": 2,
-      "dg": 8
+      "dg": 9
     },
     {
       "name": "La Academia",
@@ -32,13 +32,23 @@
     },
     {
       "name": "Gualeguay Central",
-      "pj": 2,
+      "pj": 3,
       "pg": 1,
       "pe": 1,
-      "pp": 0,
+      "pp": 1,
       "gm": 2,
-      "gc": 1,
-      "dg": 1
+      "gc": 2,
+      "dg": 0
+    },
+    {
+      "name": "Urquiza",
+      "pj": 4,
+      "pg": 1,
+      "pe": 1,
+      "pp": 2,
+      "gm": 3,
+      "gc": 14,
+      "dg": -11
     },
     {
       "name": "Bancario",
@@ -51,24 +61,18 @@
       "dg": -3
     },
     {
-      "name": "Urquiza",
-      "pj": 3,
-      "pg": 0,
-      "pe": 1,
-      "pp": 2,
-      "gm": 1,
-      "gc": 13,
-      "dg": -12
-    },
-    {
       "name": "Libertad",
-      "pj": 3,
+      "pj": 4,
       "pg": 0,
       "pe": 0,
-      "pp": 3,
-      "gm": 0,
-      "gc": 4,
-      "dg": -4
+      "pp": 4,
+      "gm": 1,
+      "gc": 6,
+      "dg": -5
     }
+  ],
+  "partidos_procesados": [
+    "Fecha 6|Libertad|Urquiza",
+    "Fecha 6|Barrio Norte|Gualeguay Central"
   ]
 }
