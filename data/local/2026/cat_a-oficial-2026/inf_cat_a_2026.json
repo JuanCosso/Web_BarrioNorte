@@ -2,13 +2,13 @@
   "equipos": [
     {
       "name": "Barrio Norte",
-      "pj": 4,
-      "pg": 4,
+      "pj": 5,
+      "pg": 5,
       "pe": 0,
       "pp": 0,
-      "gm": 10,
+      "gm": 11,
       "gc": 1,
-      "dg": 9
+      "dg": 10
     },
     {
       "name": "Bancario",
@@ -22,19 +22,19 @@
     },
     {
       "name": "Gualeguay Central",
-      "pj": 3,
+      "pj": 4,
       "pg": 2,
       "pe": 1,
-      "pp": 0,
+      "pp": 1,
       "gm": 2,
-      "gc": 0,
-      "dg": 2
+      "gc": 1,
+      "dg": 1
     },
     {
       "name": "Sociedad Sportiva",
-      "pj": 4,
+      "pj": 5,
       "pg": 2,
-      "pe": 0,
+      "pe": 1,
       "pp": 2,
       "gm": 3,
       "gc": 4,
@@ -52,9 +52,9 @@
     },
     {
       "name": "Urquiza",
-      "pj": 4,
+      "pj": 5,
       "pg": 1,
-      "pe": 0,
+      "pe": 1,
       "pp": 3,
       "gm": 5,
       "gc": 5,
@@ -62,9 +62,9 @@
     },
     {
       "name": "Quilmes",
-      "pj": 3,
+      "pj": 4,
       "pg": 1,
-      "pe": 0,
+      "pe": 1,
       "pp": 2,
       "gm": 1,
       "gc": 4,
@@ -72,9 +72,9 @@
     },
     {
       "name": "Libertad",
-      "pj": 3,
+      "pj": 4,
       "pg": 0,
-      "pe": 1,
+      "pe": 2,
       "pp": 2,
       "gm": 0,
       "gc": 3,
@@ -90,5 +90,10 @@
       "gc": 3,
       "dg": -3
     }
+  ],
+  "partidos_procesados": [
+    "Fecha 6|Libertad|Urquiza",
+    "Fecha 6|Barrio Norte|Gualeguay Central",
+    "Fecha 6|Quilmes|Sociedad Sportiva"
   ]
 }
