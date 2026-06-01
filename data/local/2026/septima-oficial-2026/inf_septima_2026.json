@@ -2,33 +2,33 @@
   "equipos": [
     {
       "name": "Sociedad Sportiva",
-      "pj": 5,
-      "pg": 5,
+      "pj": 6,
+      "pg": 6,
       "pe": 0,
       "pp": 0,
-      "gm": 21,
-      "gc": 1,
-      "dg": 20
+      "gm": 23,
+      "gc": 2,
+      "dg": 21
     },
     {
       "name": "Libertad",
-      "pj": 6,
+      "pj": 7,
       "pg": 5,
       "pe": 0,
-      "pp": 1,
-      "gm": 13,
-      "gc": 5,
-      "dg": 8
+      "pp": 2,
+      "gm": 14,
+      "gc": 7,
+      "dg": 7
     },
     {
       "name": "Bancario",
-      "pj": 5,
-      "pg": 4,
+      "pj": 6,
+      "pg": 5,
       "pe": 1,
       "pp": 0,
-      "gm": 16,
+      "gm": 22,
       "gc": 2,
-      "dg": 14
+      "dg": 20
     },
     {
       "name": "Urquiza",
@@ -42,53 +42,53 @@
     },
     {
       "name": "Juventud",
-      "pj": 5,
+      "pj": 6,
       "pg": 2,
       "pe": 0,
-      "pp": 3,
+      "pp": 4,
       "gm": 6,
-      "gc": 11,
-      "dg": -5
+      "gc": 12,
+      "dg": -6
     },
     {
       "name": "La Academia",
-      "pj": 5,
-      "pg": 1,
+      "pj": 6,
+      "pg": 2,
       "pe": 2,
       "pp": 2,
-      "gm": 4,
-      "gc": 12,
-      "dg": -8
-    },
-    {
-      "name": "Barrio Norte",
-      "pj": 5,
-      "pg": 1,
-      "pe": 1,
-      "pp": 3,
-      "gm": 2,
-      "gc": 6,
+      "gm": 9,
+      "gc": 13,
       "dg": -4
     },
     {
+      "name": "Barrio Norte",
+      "pj": 6,
+      "pg": 2,
+      "pe": 1,
+      "pp": 3,
+      "gm": 3,
+      "gc": 6,
+      "dg": -3
+    },
+    {
       "name": "Quilmes",
-      "pj": 5,
+      "pj": 6,
       "pg": 1,
       "pe": 0,
-      "pp": 4,
+      "pp": 5,
       "gm": 9,
-      "gc": 12,
-      "dg": -5
+      "gc": 18,
+      "dg": -9
     },
     {
       "name": "Gualeguay Central",
-      "pj": 6,
+      "pj": 7,
       "pg": 0,
       "pe": 0,
-      "pp": 6,
-      "gm": 3,
-      "gc": 25,
-      "dg": -22
+      "pp": 7,
+      "gm": 4,
+      "gc": 30,
+      "dg": -26
     }
   ],
   "partidos_procesados": [
