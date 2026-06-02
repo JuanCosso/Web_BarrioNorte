@@ -1,6 +1,7 @@
 import HeroSlider from "../components/inicio/HeroSlider";
 import NoticiasYPosiciones from "../components/inicio/NoticiasYPosiciones";
 import FlyerProximoPartido from "../components/inicio/FlyerProximoPartido";
+import PublicidadInicioSuperior from "../components/inicio/PublicidadInicioSuperior";
 
 export default function Home() {
   return (
@@ -23,6 +24,9 @@ export default function Home() {
       <section className="w-full">
         <HeroSlider />
       </section>
+
+      {/* PUBLICIDAD INICIO SUPERIOR */}
+      <PublicidadInicioSuperior />
 
       {/* BLOQUE NOTICIAS + POSICIONES */}
       <NoticiasYPosiciones />

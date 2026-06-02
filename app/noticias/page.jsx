@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import PublicidadNoticiasTop from "../../components/inicio/PublicidadNoticiasTop";
 import { noticias as noticiasData } from "../../data/noticias";
 
 const ITEMS_INICIALES = 8;
@@ -92,13 +93,17 @@ export default function NoticiasPage() {
       </header>
 
       <div className="container mx-auto w-full px-4 py-8 md:px-6 lg:px-8">
-        <NewsFilters
-          busqueda={busqueda}
-          onBusquedaChange={handleBusquedaChange}
-          categoriaSeleccionada={categoriaSeleccionada}
-          onCategoriaChange={handleCategoriaChange}
-          categorias={categorias}
-        />
+        <PublicidadNoticiasTop />
+
+        <section className="mt-8">
+          <NewsFilters
+            busqueda={busqueda}
+            onBusquedaChange={handleBusquedaChange}
+            categoriaSeleccionada={categoriaSeleccionada}
+            onCategoriaChange={handleCategoriaChange}
+            categorias={categorias}
+          />
+        </section>
 
         <section className="mt-8">
           {noticiasVisibles.length === 0 ? (
