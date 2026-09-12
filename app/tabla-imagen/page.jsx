@@ -30,8 +30,8 @@ const CATEGORIAS = {
     badge:        "Masculino",
     tournament:   "Torneo Oficial 2026",
     scheme:       "liga",        // top 3 verde · 4-7 amarillo
-    greenLegend:  "Clasificados playoffs",
-    yellowLegend: "Repechaje / Petit",
+    greenLegend:  "Petit Torneo",
+    yellowLegend: "Repechaje",
     equipos:      ligaMascData.equipos,
   },
   primera_fem: {
@@ -39,7 +39,7 @@ const CATEGORIAS = {
     badge:       "Femenino",
     tournament:  "Torneo Oficial 2026",
     scheme:      "fem2026",      // top 4 verde · sin amarillo
-    greenLegend: "Clasifican a playoffs",
+    greenLegend: "Playoffs",
     equipos:     ligaFemData.equipos,
   },
 
@@ -49,7 +49,7 @@ const CATEGORIAS = {
     badge:       "Inferiores",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     terceraData.equipos,
   },
   cuarta: {
@@ -57,7 +57,7 @@ const CATEGORIAS = {
     badge:       "Inferiores",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     cuartaData.equipos,
   },
   quinta: {
@@ -65,7 +65,7 @@ const CATEGORIAS = {
     badge:       "Inferiores",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     quintaData.equipos,
   },
   sexta: {
@@ -73,7 +73,7 @@ const CATEGORIAS = {
     badge:       "Inferiores",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     sextaData.equipos,
   },
   septima: {
@@ -81,7 +81,7 @@ const CATEGORIAS = {
     badge:       "Inferiores",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     septimaData.equipos,
   },
 
@@ -91,7 +91,7 @@ const CATEGORIAS = {
     badge:       "Infantiles",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     catAData.equipos,
   },
   cat_b: {
@@ -99,7 +99,7 @@ const CATEGORIAS = {
     badge:       "Infantiles",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     catBData.equipos,
   },
   cat_c: {
@@ -107,7 +107,7 @@ const CATEGORIAS = {
     badge:       "Infantiles",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     catCData.equipos,
   },
   cat_d: {
@@ -115,7 +115,7 @@ const CATEGORIAS = {
     badge:       "Infantiles",
     tournament:  "Torneo Oficial 2026",
     scheme:      "top4",
-    greenLegend: "Clasificados playoffs",
+    greenLegend: "Playoffs",
     equipos:     catDData.equipos,
   },
 };

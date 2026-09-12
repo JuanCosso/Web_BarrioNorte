@@ -2,93 +2,93 @@
   "equipos": [
     {
       "name": "Sociedad Sportiva",
-      "pj": 3,
-      "pg": 3,
-      "pe": 0,
+      "pj": 7,
+      "pg": 6,
+      "pe": 1,
       "pp": 0,
-      "gm": 15,
-      "gc": 1,
-      "dg": 14
-    },
-    {
-      "name": "Libertad",
-      "pj": 4,
-      "pg": 3,
-      "pe": 0,
-      "pp": 1,
-      "gm": 7,
-      "gc": 4,
-      "dg": 3
+      "gm": 24,
+      "gc": 3,
+      "dg": 21
     },
     {
       "name": "Bancario",
-      "pj": 3,
-      "pg": 2,
-      "pe": 1,
+      "pj": 7,
+      "pg": 5,
+      "pe": 2,
       "pp": 0,
-      "gm": 6,
-      "gc": 2,
-      "dg": 4
+      "gm": 23,
+      "gc": 3,
+      "dg": 20
     },
     {
-      "name": "Juventud",
-      "pj": 3,
-      "pg": 2,
+      "name": "Libertad",
+      "pj": 7,
+      "pg": 5,
       "pe": 0,
-      "pp": 1,
-      "gm": 6,
-      "gc": 3,
-      "dg": 3
+      "pp": 2,
+      "gm": 14,
+      "gc": 7,
+      "dg": 7
     },
     {
       "name": "Urquiza",
-      "pj": 4,
-      "pg": 2,
+      "pj": 7,
+      "pg": 4,
       "pe": 0,
-      "pp": 2,
-      "gm": 6,
-      "gc": 4,
+      "pp": 3,
+      "gm": 10,
+      "gc": 8,
       "dg": 2
     },
     {
       "name": "La Academia",
-      "pj": 4,
-      "pg": 1,
+      "pj": 7,
+      "pg": 3,
       "pe": 2,
-      "pp": 1,
-      "gm": 4,
-      "gc": 11,
-      "dg": -7
-    },
-    {
-      "name": "Quilmes",
-      "pj": 3,
-      "pg": 1,
-      "pe": 0,
       "pp": 2,
-      "gm": 8,
-      "gc": 7,
-      "dg": -1
+      "gm": 13,
+      "gc": 13,
+      "dg": 0
     },
     {
       "name": "Barrio Norte",
-      "pj": 4,
-      "pg": 0,
-      "pe": 1,
+      "pj": 7,
+      "pg": 2,
+      "pe": 2,
       "pp": 3,
-      "gm": 0,
-      "gc": 5,
-      "dg": -5
+      "gm": 4,
+      "gc": 7,
+      "dg": -3
+    },
+    {
+      "name": "Juventud",
+      "pj": 7,
+      "pg": 2,
+      "pe": 0,
+      "pp": 5,
+      "gm": 6,
+      "gc": 16,
+      "dg": -10
+    },
+    {
+      "name": "Quilmes",
+      "pj": 7,
+      "pg": 1,
+      "pe": 1,
+      "pp": 5,
+      "gm": 10,
+      "gc": 19,
+      "dg": -9
     },
     {
       "name": "Gualeguay Central",
-      "pj": 4,
+      "pj": 8,
       "pg": 0,
       "pe": 0,
-      "pp": 4,
-      "gm": 2,
-      "gc": 17,
-      "dg": -15
+      "pp": 8,
+      "gm": 5,
+      "gc": 33,
+      "dg": -28
     }
   ]
 }

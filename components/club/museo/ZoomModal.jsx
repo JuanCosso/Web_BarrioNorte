@@ -76,7 +76,7 @@ const IconNext = () => (
 
 export default function ZoomModalV2({ open, item, items = [], onClose }) {
   const slides = useMemo(
-    () => (items.length > 0 ? items.map(toSlide) : item ? [toSlide(item)] : []),
+    () => (items.length > 0 ? items.map(toSlide).filter(Boolean) : item ? [toSlide(item)].filter(Boolean) : []),
     [items, item]
   );
 

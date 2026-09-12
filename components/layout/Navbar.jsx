@@ -17,14 +17,14 @@ const navigation = [
       { name: "Museo Online", href: "/club/museo" },
     ],
   },
-  {
+  /*{
     name: "Socios",
     href: "/socios",
     submenu: [
       { name: "Montos 2026", href: "/socios/montos" },
       { name: "Directivos", href: "/socios/directivos" },
     ],
-  },
+  },*/
   {
     name: "Disciplinas",
     href: "/disciplinas",
@@ -36,7 +36,7 @@ const navigation = [
       { name: "Bochas", href: "/disciplinas/bochas" },
       { name: "Ciclismo", href: "/disciplinas/ciclismo" },
     ],
-  },
+  },/*
   {
     name: "Tienda",
     href: "/tienda",
@@ -44,7 +44,7 @@ const navigation = [
       { name: "Online", href: "/tienda/catalogo" },
       { name: "Planeta Fútbol", href: "/tienda/planetafutbol" },
     ],
-  },
+  },*/
   {
     name: "Samba Verá",
     href: "/samba-vera",

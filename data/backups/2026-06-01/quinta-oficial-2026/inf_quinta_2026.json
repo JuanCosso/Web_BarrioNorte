@@ -1,0 +1,92 @@
+{
+  "equipos": [
+    {
+      "name": "Quilmes",
+      "pj": 5,
+      "pg": 2,
+      "pe": 2,
+      "pp": 1,
+      "gm": 9,
+      "gc": 7,
+      "dg": 2
+    },
+    {
+      "name": "Urquiza",
+      "pj": 5,
+      "pg": 2,
+      "pe": 3,
+      "pp": 0,
+      "gm": 6,
+      "gc": 4,
+      "dg": 2
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 4,
+      "pg": 3,
+      "pe": 1,
+      "pp": 0,
+      "gm": 8,
+      "gc": 1,
+      "dg": 7
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 5,
+      "pg": 2,
+      "pe": 1,
+      "pp": 2,
+      "gm": 5,
+      "gc": 5,
+      "dg": 0
+    },
+    {
+      "name": "Barrio Norte",
+      "pj": 5,
+      "pg": 2,
+      "pe": 1,
+      "pp": 2,
+      "gm": 6,
+      "gc": 7,
+      "dg": -1
+    },
+    {
+      "name": "Bancario",
+      "pj": 4,
+      "pg": 2,
+      "pe": 0,
+      "pp": 2,
+      "gm": 10,
+      "gc": 4,
+      "dg": 6
+    },
+    {
+      "name": "Libertad",
+      "pj": 4,
+      "pg": 0,
+      "pe": 2,
+      "pp": 2,
+      "gm": 2,
+      "gc": 5,
+      "dg": -3
+    },
+    {
+      "name": "El Progreso",
+      "pj": 4,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gm": 0,
+      "gc": 13,
+      "dg": -13
+    }
+  ],
+  "partidos_procesados": [
+    "Fecha 5|Libertad|Quilmes",
+    "Fecha 5|Bancario|Gualeguay Central",
+    "Fecha 5|Barrio Norte|El Progreso",
+    "Fecha 6|Libertad|Urquiza",
+    "Fecha 6|Barrio Norte|Gualeguay Central",
+    "Fecha 6|Quilmes|Sociedad Sportiva"
+  ]
+}

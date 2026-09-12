@@ -1,94 +1,94 @@
 {
   "equipos": [
     {
-      "name": "Barrio Norte",
-      "pj": 4,
-      "pg": 2,
-      "pe": 1,
-      "pp": 1,
+      "name": "Sociedad Sportiva",
+      "pj": 6,
+      "pg": 4,
+      "pe": 2,
+      "pp": 0,
       "gm": 12,
-      "gc": 4,
-      "dg": 8
+      "gc": 3,
+      "dg": 9
     },
     {
       "name": "La Academia",
-      "pj": 4,
-      "pg": 2,
+      "pj": 6,
+      "pg": 4,
       "pe": 1,
       "pp": 1,
-      "gm": 8,
-      "gc": 2,
-      "dg": 6
+      "gm": 12,
+      "gc": 3,
+      "dg": 9
     },
     {
       "name": "Bancario",
-      "pj": 3,
-      "pg": 2,
-      "pe": 1,
+      "pj": 6,
+      "pg": 3,
+      "pe": 3,
       "pp": 0,
-      "gm": 7,
-      "gc": 2,
-      "dg": 5
+      "gm": 12,
+      "gc": 5,
+      "dg": 7
     },
     {
-      "name": "Quilmes",
-      "pj": 3,
+      "name": "Barrio Norte",
+      "pj": 6,
       "pg": 2,
-      "pe": 0,
-      "pp": 1,
-      "gm": 4,
-      "gc": 3,
-      "dg": 1
-    },
-    {
-      "name": "Sociedad Sportiva",
-      "pj": 3,
-      "pg": 1,
       "pe": 2,
-      "pp": 0,
-      "gm": 1,
-      "gc": 0,
+      "pp": 2,
+      "gm": 13,
+      "gc": 6,
+      "dg": 7
+    },
+    {
+      "name": "Juventud",
+      "pj": 6,
+      "pg": 2,
+      "pe": 2,
+      "pp": 2,
+      "gm": 8,
+      "gc": 7,
       "dg": 1
     },
     {
       "name": "Gualeguay Central",
-      "pj": 4,
+      "pj": 7,
       "pg": 1,
-      "pe": 2,
-      "pp": 1,
-      "gm": 3,
-      "gc": 3,
-      "dg": 0
-    },
-    {
-      "name": "Juventud",
-      "pj": 3,
-      "pg": 1,
-      "pe": 1,
-      "pp": 1,
+      "pe": 4,
+      "pp": 2,
       "gm": 6,
-      "gc": 5,
-      "dg": 1
+      "gc": 7,
+      "dg": -1
     },
     {
-      "name": "Urquiza",
-      "pj": 4,
-      "pg": 1,
-      "pe": 0,
+      "name": "Quilmes",
+      "pj": 6,
+      "pg": 2,
+      "pe": 1,
       "pp": 3,
-      "gm": 1,
-      "gc": 7,
-      "dg": -6
+      "gm": 7,
+      "gc": 12,
+      "dg": -5
     },
     {
       "name": "Libertad",
-      "pj": 4,
-      "pg": 0,
+      "pj": 7,
+      "pg": 1,
+      "pe": 1,
+      "pp": 5,
+      "gm": 8,
+      "gc": 25,
+      "dg": -17
+    },
+    {
+      "name": "Urquiza",
+      "pj": 6,
+      "pg": 1,
       "pe": 0,
-      "pp": 4,
-      "gm": 4,
-      "gc": 20,
-      "dg": -16
+      "pp": 5,
+      "gm": 2,
+      "gc": 12,
+      "dg": -10
     }
   ]
 }

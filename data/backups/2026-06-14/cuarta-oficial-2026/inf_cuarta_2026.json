@@ -1,0 +1,121 @@
+{
+  "equipos": [
+    {
+      "name": "Barrio Norte",
+      "pj": 8,
+      "pg": 6,
+      "pe": 2,
+      "pp": 0,
+      "gm": 15,
+      "gc": 7,
+      "dg": 8
+    },
+    {
+      "name": "Libertad",
+      "pj": 8,
+      "pg": 4,
+      "pe": 3,
+      "pp": 1,
+      "gm": 15,
+      "gc": 5,
+      "dg": 10
+    },
+    {
+      "name": "Urquiza",
+      "pj": 8,
+      "pg": 4,
+      "pe": 2,
+      "pp": 2,
+      "gm": 10,
+      "gc": 8,
+      "dg": 2
+    },
+    {
+      "name": "Gualeguay Central",
+      "pj": 8,
+      "pg": 3,
+      "pe": 4,
+      "pp": 1,
+      "gm": 10,
+      "gc": 8,
+      "dg": 2
+    },
+    {
+      "name": "Sociedad Sportiva",
+      "pj": 8,
+      "pg": 3,
+      "pe": 3,
+      "pp": 2,
+      "gm": 9,
+      "gc": 6,
+      "dg": 3
+    },
+    {
+      "name": "La Academia",
+      "pj": 8,
+      "pg": 2,
+      "pe": 2,
+      "pp": 4,
+      "gm": 8,
+      "gc": 10,
+      "dg": -2
+    },
+    {
+      "name": "Bancario",
+      "pj": 8,
+      "pg": 1,
+      "pe": 4,
+      "pp": 3,
+      "gm": 5,
+      "gc": 7,
+      "dg": -2
+    },
+    {
+      "name": "El Progreso",
+      "pj": 8,
+      "pg": 1,
+      "pe": 3,
+      "pp": 4,
+      "gm": 7,
+      "gc": 12,
+      "dg": -5
+    },
+    {
+      "name": "Juventud",
+      "pj": 8,
+      "pg": 1,
+      "pe": 3,
+      "pp": 4,
+      "gm": 4,
+      "gc": 10,
+      "dg": -6
+    },
+    {
+      "name": "Quilmes",
+      "pj": 8,
+      "pg": 1,
+      "pe": 2,
+      "pp": 5,
+      "gm": 7,
+      "gc": 17,
+      "dg": -10
+    }
+  ],
+  "partidos_procesados": [
+    "Fecha 5|Libertad|Quilmes",
+    "Fecha 5|Juventud|Sociedad Sportiva",
+    "Fecha 5|Bancario|Gualeguay Central",
+    "Fecha 5|Barrio Norte|El Progreso",
+    "Fecha 5|La Academia|Urquiza",
+    "Fecha 6|Libertad|Urquiza",
+    "Fecha 6|Barrio Norte|Gualeguay Central",
+    "Fecha 6|Bancario|Juventud",
+    "Fecha 6|Quilmes|Sociedad Sportiva",
+    "Fecha 6|El Progreso|La Academia",
+    "Fecha 8|El Progreso|Libertad",
+    "Fecha 8|Gualeguay Central|Urquiza",
+    "Fecha 8|Juventud|La Academia",
+    "Fecha 8|Barrio Norte|Quilmes",
+    "Fecha 8|Bancario|Sociedad Sportiva"
+  ]
+}
