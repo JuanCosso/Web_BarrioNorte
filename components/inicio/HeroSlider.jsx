@@ -10,44 +10,39 @@ const slides = [
     id: 1,
     src: "/inicio/imagen-1.webp",
     alt: "Campaña de socios",
-    preTitle: null,
     title: "SUMATE A LA",
     highlight: "FAMILIA NORTEÑA",
-    button: null,
-    link: null,
-    layout: "left_split",
+    button: "ASOCIATE",
+    link: "/socios/montos",
+    layout: "center_socios",
   },
   {
     id: 2,
     src: "/inicio/imagen-2.webp",
-    alt: "Nuevas Camisetas 2025",
-    preTitle: "YA DISPONIBLES",
-    title: "CAMISETAS",
-    highlight: "BARRIO NORTE",
-    extraText: "2025",
-    button: "COMPRAR",
-    link: "/tienda",
-    layout: "center_bold",
+    alt: "Samba Verá - Avanza y Arraza",
+    title: "SAMBA VERÁ",
+    highlight: "AVANZA Y ARRAZA",
+    button: "CONOCÉ LA COMPARSA",
+    link: "/samba-vera/comparsa",
+    layout: "center_samba",
   },
   {
     id: 3,
     src: "/inicio/imagen-3.webp",
-    alt: "Historia de las camisetas",
-    preTitle: null,
+    alt: "Museo Histórico - La piel del Norte",
     title: "LA PIEL DEL NORTE",
-    highlight: "A LO LARGO DE LA HISTORIA",
+    subtitle: "A LO LARGO DE LA HISTORIA",
     button: "MUSEO ONLINE",
-    link: "/museo",
-    layout: "full_width",
+    link: "/club/museo",
+    layout: "center_museo",
   },
 ];
 
 // 🔸 Clases compartidas para el botón CTA
 const ctaButtonClass =
-  "border-2 border-white text-white hover:bg-white hover:text-black " +
-  "text-lg md:text-xl font-bold py-3 px-10 rounded " +
-  "transition-all duration-300 uppercase tracking-widest hover:scale-105 " +
-  "w-[260px] max-w-full";
+  "inline-flex items-center justify-center border-2 border-white text-white hover:bg-white hover:text-black " +
+  "text-base md:text-lg font-bold py-3 px-8 rounded-lg " +
+  "transition-all duration-300 uppercase tracking-widest hover:scale-105 shadow-lg";
 
 // 🔸 Clases compartidas para las flechas (Solución al error de hidratación)
 const arrowButtonClass =
@@ -58,6 +53,7 @@ const arrowButtonClass =
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const nextSlide = () => {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -67,17 +63,24 @@ export default function HeroSlider() {
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
-  // Autoplay
+  // Autoplay con pausa al interactuar
   useEffect(() => {
+    if (isPaused) return;
     const slideInterval = setInterval(() => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 8000);
+    }, 7500);
 
     return () => clearInterval(slideInterval);
-  }, []);
+  }, [isPaused]);
 
   return (
-    <div className="relative w-full h-[60vh] md:h-[85vh] overflow-hidden group bg-black">
+    <div
+      className="relative w-full h-[60vh] md:h-[85vh] overflow-hidden group bg-black"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
+    >
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -99,55 +102,55 @@ export default function HeroSlider() {
 
           {/* 3. CONTENIDO DE TEXTO */}
           <div className="absolute inset-0 flex flex-col items-center justify-center px-4 md:px-20 text-white z-10">
-            {/* --- DISEÑO 1: SOCIOS --- */}
-            {slide.layout === "left_split" && (
-              <div className="w-full flex flex-col md:flex-row items-center justify-between mt-10">
-                <div className="md:w-3/4 text-left animate-fadeIn ml-8 sm:ml-12 md:ml-0">
-                  <h2 className="text-5xl md:text-8xl font-black uppercase leading-tight italic drop-shadow-lg">
-                    {slide.title} <br />
-                    <span className="text-red-600">{slide.highlight}</span>
-                  </h2>
-                </div>
-              </div>
-            )}
-
-            {/* --- DISEÑO 2: TIENDA --- */}
-            {slide.layout === "center_bold" && (
-              <div className="text-center animate-fadeInUp max-w-5xl flex flex-col items-center">
-                <h2 className="text-sm md:text-lg font-bold uppercase tracking-[0.2em] text-white">
-                  {slide.preTitle}
+            {/* --- DISEÑO 1: SOCIOS (CENTRADO) --- */}
+            {slide.layout === "center_socios" && (
+              <div className="w-full text-center animate-fadeIn flex flex-col items-center justify-center max-w-5xl mx-auto px-4">
+                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-tight italic drop-shadow-2xl text-white">
+                  {slide.title} <br />
+                  <span className="text-red-600 block whitespace-nowrap">{slide.highlight}</span>
                 </h2>
-
-                <h3 className="text-4xl md:text-7xl font-black uppercase text-white leading-tight drop-shadow-xl mb-8">
-                  {slide.title} <br className="hidden md:block" />
-                  <span className="text-red-600 mr-3">{slide.highlight}</span>
-                  <span className="text-white">{slide.extraText}</span>
-                </h3>
-
-                <div className="mt-4 flex justify-center">
-                  <Link href={slide.link || "#"}>
-                    <button className={ctaButtonClass}>{slide.button}</button>
-                  </Link>
-                </div>
+                {slide.button && (
+                  <div className="mt-6 sm:mt-8 flex justify-center">
+                    <Link href={slide.link || "#"} className={ctaButtonClass}>
+                      {slide.button}
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
 
-            {/* --- DISEÑO 3: HISTORIA --- */}
-            {slide.layout === "full_width" && (
-              <div className="w-full text-center animate-fadeIn flex flex-col items-center">
-                <div className="mb-8 drop-shadow-[0_0_12px_rgba(220,38,38,0.9)]">
-                  <h2 className="text-4xl md:text-7xl font-extrabold uppercase leading-tight text-white">
-                    {slide.title} <br className="md:hidden" />
-                    <span className="block md:inline mt-2 md:mt-0 md:ml-4">
-                      {slide.highlight}
-                    </span>
-                  </h2>
-                </div>
-
+            {/* --- DISEÑO 2: COMPARSA SAMBA VERÁ (MISMA FUENTE, ROJO E ITÁLICA) --- */}
+            {slide.layout === "center_samba" && (
+              <div className="text-center animate-fadeInUp max-w-5xl flex flex-col items-center justify-center mx-auto px-4">
+                <h2 className="text-4xl sm:text-6xl md:text-8xl font-black uppercase leading-tight text-white drop-shadow-2xl">
+                  {slide.title} <br />
+                  <span className="text-red-600 italic block whitespace-nowrap">
+                    {slide.highlight}
+                  </span>
+                </h2>
                 {slide.button && (
-                  <div className="mt-4 flex justify-center">
-                    <Link href={slide.link || "#"}>
-                      <button className={ctaButtonClass}>{slide.button}</button>
+                  <div className="mt-6 sm:mt-8 flex justify-center">
+                    <Link href={slide.link || "#"} className={ctaButtonClass}>
+                      {slide.button}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* --- DISEÑO 3: MUSEO (RETRO ATHLETIC, NORTE EN MAYÚSCULAS) --- */}
+            {slide.layout === "center_museo" && (
+              <div className="w-full text-center animate-fadeIn flex flex-col items-center justify-center max-w-5xl mx-auto px-4">
+                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase italic tracking-wider drop-shadow-2xl text-white">
+                  LA PIEL DEL <span className="text-red-600">NORTE</span>
+                </h2>
+                <p className="mt-2 sm:mt-4 text-xs sm:text-lg md:text-2xl font-bold uppercase tracking-[0.3em] text-gray-200 drop-shadow-lg">
+                  {slide.subtitle}
+                </p>
+                {slide.button && (
+                  <div className="mt-6 sm:mt-8 flex justify-center">
+                    <Link href={slide.link || "#"} className={ctaButtonClass}>
+                      {slide.button}
                     </Link>
                   </div>
                 )}

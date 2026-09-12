@@ -1,4 +1,5 @@
 import HeroSlider from "../components/inicio/HeroSlider";
+import PublicidadInicioSuperior from "../components/inicio/PublicidadInicioSuperior";
 import NoticiasYPosiciones from "../components/inicio/NoticiasYPosiciones";
 import FlyerProximoPartido from "../components/inicio/FlyerProximoPartido";
 
@@ -24,11 +25,16 @@ export default function Home() {
         <HeroSlider />
       </section>
 
+      {/* ESPACIOS DE PUBLICIDAD COMERCIAL */}
+      <PublicidadInicioSuperior />
+
       {/* BLOQUE NOTICIAS + POSICIONES */}
       <NoticiasYPosiciones />
 
-      {/* Flyer próximo partido */}
-      <FlyerProximoPartido />
+      {/* Flyer próximo partido (con margen inferior exclusivo para espacio en blanco antes del footer) */}
+      <section className="w-full mb-14 sm:mb-20">
+        <FlyerProximoPartido />
+      </section>
     </div>
   );
 }

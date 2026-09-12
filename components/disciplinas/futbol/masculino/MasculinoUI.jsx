@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 /* ========= helpers ========= */
@@ -639,49 +639,129 @@ function ScorePill({ children }) {
 
 export function UltimosPartidosCard({ items }) {
   const safe = Array.isArray(items) ? items : [];
+  const [filter, setFilter] = useState("all");
+
+  // Reset filter when tournament items change
+  useEffect(() => {
+    setFilter("all");
+  }, [items]);
+
+  // Extraer fases dinámicamente según las competencias reales presentes en los partidos
+  const phases = useMemo(() => {
+    const map = new Map();
+    for (const m of safe) {
+      const comp = String(m.competition || "").trim();
+      if (!comp) continue;
+      map.set(comp, (map.get(comp) || 0) + 1);
+    }
+    return Array.from(map.entries()).map(([name, count]) => ({
+      name,
+      count,
+    }));
+  }, [safe]);
+
+  const filtered = useMemo(() => {
+    if (filter === "all") return safe;
+    return safe.filter((m) => (m.competition || "").trim() === filter);
+  }, [safe, filter]);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 text-gray-900 min-w-0">
-      <div className="flex items-center justify-between mb-3 min-w-0 gap-3">
-        <h3 className="text-sm font-semibold text-gray-800">Partidos</h3>
-        <span className="text-xs text-gray-500">Resultados</span>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200/80 p-4 text-gray-900 min-w-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 min-w-0 gap-2 pb-2 border-b border-gray-100">
+        <div>
+          <h3 className="text-sm font-extrabold uppercase tracking-wide text-gray-900">
+            Partidos y Resultados
+          </h3>
+        </div>
+
+        {/* Mini navegador dinámico por fases del torneo (1 a 3 fases según el torneo) */}
+        {phases.length > 1 && (
+          <div className="inline-flex flex-wrap rounded-lg bg-gray-100 p-0.5 text-xs font-bold self-start sm:self-auto gap-0.5">
+            <button
+              type="button"
+              onClick={() => setFilter("all")}
+              className={`px-2.5 py-1 rounded-md transition-all ${
+                filter === "all" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              Todos ({safe.length})
+            </button>
+            {phases.map((p) => {
+              const isSelected = filter === p.name;
+              return (
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => setFilter(p.name)}
+                  className={`px-2.5 py-1 rounded-md transition-all ${
+                    isSelected ? "bg-red-600 text-white shadow-sm" : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  {p.name} ({p.count})
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {safe.length === 0 ? (
-        <p className="text-sm text-gray-600">No hay partidos cargados para este torneo.</p>
+      {filtered.length === 0 ? (
+        <p className="text-xs text-gray-500 py-3 text-center">No hay partidos cargados para esta selección.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 min-w-0">
-          {safe.map((m, i) => {
-            // CAMBIO: Usamos directamente lo que venga en el config.
-            // Ya no forzamos "Fecha" ni validamos texto. Tú tienes el control.
-            const roundLabel = m.round || ""; 
-            
-            // CAMBIO: Priorizamos competition, pero si quieres usar otro campo, tienes libertad.
-            const compLabel = m.competition || "";
-
-            // Filtramos los que estén vacíos para que no queden espacios raros en el join
-            const metaParts = [m.date, roundLabel, compLabel].filter(Boolean);
-
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 min-w-0">
+          {filtered.map((m, i) => {
             const isAway = (m.condition || "").toLowerCase().includes("visit");
-            const matchup = isAway ? `${m.rival} - Barrio Norte` : `Barrio Norte - ${m.rival}`;
+            const roundLabel = m.round || "";
+            const dateLabel = m.date || "";
+            const compLabel = (m.competition || "").trim();
 
             return (
               <div
                 key={`${m.date}-${m.rival}-${i}`}
-                className="rounded-lg border border-gray-100 bg-gray-50/70 p-3 flex items-start justify-between gap-3 min-w-0"
+                className="rounded-xl border border-gray-100 bg-gray-50/70 hover:bg-white hover:border-gray-200/90 hover:shadow-xs px-3.5 py-2.5 flex items-center justify-between gap-3 text-xs transition-all min-w-0"
               >
-                <div className="min-w-0">
-                  <p className="text-[11px] text-gray-500 leading-tight whitespace-normal">
-                    {/* Aquí se unen: Fecha · Ronda · Torneo */}
-                    {metaParts.join(" · ")}
-                  </p>
-                  <p className="mt-0.5 text-sm font-semibold text-gray-900 leading-snug whitespace-normal break-words">
-                    {matchup}
-                  </p>
+                {/* Meta: Fecha & Ronda (debajo de DD/MM) */}
+                <div className="shrink-0 flex flex-col justify-center min-w-[58px]">
+                  <span className="font-bold text-gray-900 text-xs leading-none">{dateLabel}</span>
+                  {roundLabel && (
+                    <span className="text-[10.5px] font-medium text-gray-500 mt-1 leading-none truncate max-w-[68px]">
+                      {roundLabel}
+                    </span>
+                  )}
                 </div>
 
-                <div className="shrink-0 px-2 py-1 rounded-md text-xs font-black bg-red-50 text-red-600">
-                  {m.score}
+                {/* Matchup + Fase escrita en pequeño arriba */}
+                <div className="min-w-0 flex-1 flex flex-col justify-center">
+                  {compLabel && (
+                    <span className="text-[9.5px] font-medium uppercase tracking-wider text-gray-400 leading-none mb-1 truncate">
+                      {compLabel}
+                    </span>
+                  )}
+                  <div className="truncate text-xs leading-tight">
+                    {isAway ? (
+                      <span className="truncate">
+                        <span className="font-semibold text-gray-700">{m.rival}</span>
+                        <span className="text-gray-400 mx-1">-</span>
+                        <span className="font-bold text-red-600">Barrio Norte</span>
+                      </span>
+                    ) : (
+                      <span className="truncate">
+                        <span className="font-bold text-red-600">Barrio Norte</span>
+                        <span className="text-gray-400 mx-1">-</span>
+                        <span className="font-semibold text-gray-700">{m.rival}</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Condición compacta L/V */}
+                <span className="shrink-0 text-[10px] font-bold text-gray-500 bg-gray-200/70 px-1.5 py-0.5 rounded">
+                  {isAway ? "V" : "L"}
+                </span>
+
+                {/* Tanteador */}
+                <div className="shrink-0 font-mono font-black text-xs px-2.5 py-1 rounded bg-gray-900 text-white min-w-[42px] text-center">
+                  {m.score || "—"}
                 </div>
               </div>
             );
@@ -692,7 +772,7 @@ export function UltimosPartidosCard({ items }) {
   );
 }
 
-/* ========= people ========= */
+/* ========= people (cuerpo técnico & plantel) ========= */
 
 export function PeopleCard({ title, subtitle, items, layout = "list", columns = 1 }) {
   const isGrid = layout === "grid";
@@ -700,33 +780,66 @@ export function PeopleCard({ title, subtitle, items, layout = "list", columns = 
   const safe = Array.isArray(items) ? items : [];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 text-gray-900 h-full min-w-0">
-      <div className="flex items-center justify-between mb-3 min-w-0 gap-3">
-        <h3 className="text-sm font-semibold text-gray-800">{title}</h3>
-        <span className="text-xs text-gray-500">{subtitle}</span>
-      </div>
-
-      {safe.length === 0 ? (
-        <p className="text-sm text-gray-600">Sin datos cargados.</p>
-      ) : isGrid ? (
-        <div className={`grid grid-cols-1 ${gridColsClass} gap-3 min-w-0`}>
-          {safe.map((p, i) => (
-            <div key={`${p.name}-${i}`} className="rounded-lg border border-gray-100 bg-gray-50/70 p-3 min-w-0">
-              <p className="font-semibold text-gray-900 leading-tight">{p.name}</p>
-              <p className="text-xs text-gray-500">{p.role}</p>
-            </div>
-          ))}
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200/80 p-4 text-gray-900 h-full min-w-0 flex flex-col justify-between">
+      <div>
+        <div className="flex items-center justify-between mb-3 min-w-0 gap-2 pb-2 border-b border-gray-100">
+          <div>
+            <h3 className="text-sm font-extrabold uppercase tracking-wide text-gray-900">
+              {title}
+            </h3>
+            {subtitle ? <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p> : null}
+          </div>
         </div>
-      ) : (
-        <ul className="divide-y divide-gray-100 min-w-0">
-          {safe.map((p, i) => (
-            <li key={`${p.name}-${i}`} className="py-2 min-w-0">
-              <p className="font-semibold text-gray-900">{p.name}</p>
-              <p className="text-xs text-gray-500">{p.role}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+
+        {safe.length === 0 ? (
+          <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50/50 p-6 text-center my-auto">
+            <div className="relative w-10 h-10 mx-auto mb-2 opacity-30">
+              <Image src="/escudos/BarrioNorte_V1.png" alt="Escudo CABN" fill className="object-contain grayscale" />
+            </div>
+            <p className="text-xs font-bold text-gray-700">Nómina en archivo digital</p>
+            <p className="text-[11px] text-gray-500 mt-1 max-w-xs mx-auto">
+              La información histórica de esta temporada se encuentra en proceso de recopilación oficial.
+            </p>
+          </div>
+        ) : isGrid ? (
+          <div className={`grid grid-cols-1 ${gridColsClass} gap-2 min-w-0`}>
+            {safe.map((p, i) => (
+              <div
+                key={`${p.name}-${i}`}
+                className="rounded-lg border border-gray-100 bg-gray-50/60 p-2.5 flex items-center gap-2.5 hover:bg-white hover:border-gray-200 transition-all min-w-0"
+              >
+                <div className="w-7 h-7 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-xs font-black shrink-0 border border-red-100">
+                  {i + 1}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-xs sm:text-sm text-gray-900 truncate">{p.name}</p>
+                  <p className="text-[11px] text-gray-500 font-medium truncate">{p.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-2 min-w-0">
+            {safe.map((p, i) => (
+              <div
+                key={`${p.name}-${i}`}
+                className="rounded-lg border border-gray-100 bg-gray-50/70 p-2.5 flex items-center justify-between gap-3 hover:bg-white hover:border-gray-200 transition-all min-w-0"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-full bg-red-50 border border-red-100 text-red-600 flex items-center justify-center text-xs font-black shrink-0">
+                    {p.name.charAt(0)}
+                  </div>
+                  <p className="font-bold text-xs sm:text-sm text-gray-900 leading-tight truncate">{p.name}</p>
+                </div>
+
+                <span className="shrink-0 inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-red-50 text-red-600 border border-red-200">
+                  {p.role}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -734,44 +847,38 @@ export function PeopleCard({ title, subtitle, items, layout = "list", columns = 
 /* ========= palmarés ========= */
 
 export function PalmaresCard({ items }) {
-    const safe = Array.isArray(items) ? items : [];
-  
-    return (
-      <div className="bg-white rounded-lg shadow-sm p-3 text-gray-900 min-w-0">
-        <ul className="divide-y divide-gray-100 min-w-0">
-          {safe.map((t, i) => (
-            <li
-              key={`${t.title}-${t.year}-${i}`}
-              className="py-2 flex items-center justify-between gap-3 min-w-0"
-            >
-              <span className="min-w-0 text-[13px] leading-snug font-semibold italic text-gray-900 whitespace-normal break-words">
-                {t.title}
-              </span>
-  
-              <span
-                className="
-                  shrink-0
-                  inline-flex items-center justify-center
-                  h-7 min-w-[56px] px-3
-                  rounded-full
-                  bg-red-600 text-white
-                  text-xs font-bold
-                  leading-none
-                  tabular-nums
-                  shadow-sm
-                "
-              >
-                {t.year}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-  
+  const safe = Array.isArray(items) ? items : [];
 
-/* ========= selector ========= */
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200/80 p-4 text-gray-900 min-w-0">
+      <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-100">
+        <h3 className="text-sm font-extrabold uppercase tracking-wide text-gray-900">
+          Palmarés
+        </h3>
+        <span className="text-xs font-semibold text-gray-500">
+          {safe.length} Títulos
+        </span>
+      </div>
+
+      <ul className="divide-y divide-gray-100 min-w-0">
+        {safe.map((t, i) => (
+          <li key={`${t.title}-${t.year}-${i}`} className="py-2 flex items-center justify-between gap-2.5 min-w-0">
+            <span className="min-w-0 text-xs leading-snug font-semibold text-gray-800 whitespace-normal break-words flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0" />
+              {t.title}
+            </span>
+
+            <span className="shrink-0 inline-flex items-center justify-center h-5 min-w-[46px] px-2 rounded-full bg-red-600 text-white text-[11px] font-black leading-none tabular-nums shadow-sm">
+              {t.year}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* ========= selector de torneo (aditivo compacto) ========= */
 
 export function TournamentSelector({ tournaments, value, onChange }) {
   const list = Array.isArray(tournaments) ? tournaments : [];
@@ -779,46 +886,51 @@ export function TournamentSelector({ tournaments, value, onChange }) {
 
   if (!list.length) return null;
 
+  const CHAMPION_IDS = new Set([
+    "oficial-2024",
+    "preparacion-2024",
+    "oficial-2022",
+    "oficial-2021-22",
+  ]);
+
+  // Mostrar ordenado de más reciente a más antiguo
+  const reversedList = [...list].reverse();
+
   return (
-    <div className="bg-white rounded-lg shadow-sm p-3 min-w-0">
-      <div className="flex items-center justify-between gap-3 min-w-0">
-        <p className="text-sm font-semibold text-gray-800">Ver torneos</p>
-        <span className="text-xs text-gray-500">Repasá torneos recientes</span>
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white px-4 py-2.5 rounded-xl border border-gray-200/80 shadow-sm text-gray-900">
+      <div className="flex items-center gap-2 min-w-0">
+        <span className="text-xs font-bold uppercase tracking-wide text-gray-500 shrink-0">Torneo:</span>
+        <span className="text-xs sm:text-sm font-black text-gray-900 truncate">{selected?.label}</span>
+        {CHAMPION_IDS.has(selected?.id) && (
+          <span className="shrink-0 text-[10px] font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-200 px-1.5 py-0.5 rounded">
+            Campeón
+          </span>
+        )}
       </div>
 
-      {/* Móvil: select */}
-      <div className="mt-2 sm:hidden">
-        <label className="sr-only">Seleccionar torneo</label>
-        <select
-          value={selected?.id}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-600/40"
-        >
-          {list.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Desktop/tablet: pills */}
-      <div className="mt-2 hidden sm:block">
-        <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-w-0">
-          {list.map((t) => {
-            const active = t.id === selected?.id;
-            return (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => onChange(t.id)}
-                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-extrabold border transition
-                  ${active ? "bg-red-600 text-white border-red-600" : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"}`}
-              >
-                {t.label}
-              </button>
-            );
-          })}
+      {/* Selector desplegable compacto */}
+      <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+        <label htmlFor="select-torneo" className="text-xs font-medium text-gray-500 hidden sm:inline">
+          Cambiar torneo:
+        </label>
+        <div className="relative">
+          <select
+            id="select-torneo"
+            value={selected?.id}
+            onChange={(e) => onChange(e.target.value)}
+            className="appearance-none rounded-lg border border-gray-300 bg-gray-50 pl-3 pr-8 py-1 text-xs font-bold text-gray-900 shadow-sm focus:border-red-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-red-600 cursor-pointer"
+          >
+            {reversedList.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label} {CHAMPION_IDS.has(t.id) ? "(Campeón)" : ""}
+              </option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-500">
+            <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

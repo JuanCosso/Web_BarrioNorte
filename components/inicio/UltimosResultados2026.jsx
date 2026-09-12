@@ -75,7 +75,7 @@ export default function UltimosResultados2026() {
   if (masc.length === 0 && fem.length === 0) return null;
 
   return (
-    <div className="h-full bg-white rounded-lg shadow-sm border border-gray-100 p-4 flex flex-col gap-4">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 flex flex-col gap-4">
       <p className="text-sm font-semibold text-gray-800">Últimos resultados</p>
       <ResultadoStrip label="Masculino" results={masc} />
       <ResultadoStrip label="Femenino"  results={fem} />

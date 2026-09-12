@@ -21,11 +21,9 @@ export default function NoticiasYPosiciones() {
           <ListaNoticias />
         </div>
         {/* columna derecha */}
-        <div className="flex flex-col gap-4 w-full h-full">
+        <div className="flex flex-col gap-4 w-full">
           <PublicidadBono />
-          <div className="flex-1">
-            <UltimosResultados2026 />
-          </div>
+          <UltimosResultados2026 />
         </div>
       </div>
 

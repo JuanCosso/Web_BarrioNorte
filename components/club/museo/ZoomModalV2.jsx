@@ -20,7 +20,7 @@ function toSlide(item) {
 
   const tipo    = item.tipo ? `  ·  ${item.tipo.toUpperCase()}` : "";
   const trofeos = item.hitos?.length
-    ? "  ·  " + item.hitos.map((h) => `🏆 ${h.titulo}`).join("  ·  ")
+    ? "  ·  " + item.hitos.map((h) => `${h.titulo}`).join("  ·  ")
     : "";
 
   const isEscudo = !item.temporada && Boolean(item.periodo);

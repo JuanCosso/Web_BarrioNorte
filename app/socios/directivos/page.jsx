@@ -1,11 +1,19 @@
 // app/socios/directivos/page.jsx
 import Image from "next/image";
 
-// BRAND_RED se mantiene SOLO para el encabezado de sección (#BC1717)
-const BRAND_RED = "#BC1717";
+export const metadata = {
+  title: "Comisión Directiva | Club Atlético Barrio Norte",
+  description: "Autoridades del Club Atlético Barrio Norte. Período 2024-2026.",
+};
 
-const PRINCIPALES = [
-  { role: "Presidente", name: "Rubén A. Garibotti", imgSrc: "/directivos/garibotti.jpg" },
+const PRESIDENTE = {
+  role: "Presidente",
+  name: "Rubén A. Garibotti",
+  imgSrc: "/directivos/garibotti.jpg",
+  badge: "Máxima Autoridad",
+};
+
+const EJECUTIVOS = [
   { role: "Vicepresidente", name: "Pablo O. Denardi" },
   { role: "Secretario", name: "Alexis E. González" },
   { role: "Prosecretaria", name: "Maite M. Vecchio" },
@@ -27,7 +35,11 @@ const VOCALES_SUPLENTES = [
   "Luciano H. Garibotti",
 ];
 
-const REVISORES = ["Edelmiro Fumaneri", "Natalia Di Lorenzi", "Alejandra Borro"];
+const REVISORES = [
+  "Edelmiro Fumaneri",
+  "Natalia Di Lorenzi",
+  "Alejandra Borro",
+];
 
 function initials(name) {
   const parts = String(name).trim().split(/\s+/);
@@ -36,130 +48,140 @@ function initials(name) {
   return (a + b).toUpperCase();
 }
 
-function PersonCard({ role, name, imgSrc }) {
+function ExecutiveCard({ role, name }) {
   return (
-    <article className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 shadow-sm">
-      <div className="flex items-start gap-4">
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl bg-neutral-100">
-          {imgSrc ? (
-            <Image
-              src={imgSrc}
-              alt={name}
-              fill
-              sizes="48px"
-              className="object-cover"
-            />
-          ) : (
-            // Decorativo: tint rgba se mantiene
-            <div
-              className="h-full w-full grid place-items-center text-sm font-extrabold text-neutral-900"
-              style={{ background: "rgba(188, 23, 23, 0.10)" }}
-              aria-hidden="true"
-            >
-              {initials(name)}
-            </div>
-          )}
+    <article className="rounded-2xl border border-gray-200 bg-white p-5 shadow-xs transition-all hover:shadow-md hover:border-red-200">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-sm font-black text-[#B71C1C] flex-shrink-0 shadow-xs">
+          {initials(name)}
         </div>
-
         <div className="min-w-0">
-          <p className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
+          <span className="inline-block text-[11px] font-extrabold uppercase tracking-wider text-[#B71C1C]">
             {role}
-          </p>
-          <p className="mt-1 text-base sm:text-lg font-extrabold text-neutral-900 break-words">
+          </span>
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 truncate">
             {name}
-          </p>
-
-          {/* Contenido: barra decorativa de acento → bg-red-600 */}
-          <div className="mt-3 h-1 w-12 rounded-full bg-red-600" />
+          </h3>
         </div>
       </div>
-
-      {/* Decorativo: blur ambiente → rgba se mantiene */}
-      <div
-        className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full blur-2xl"
-        style={{ background: "rgba(188, 23, 23, 0.08)" }}
-        aria-hidden="true"
-      />
     </article>
   );
 }
 
-function NamesBlock({ title, items }) {
+function CommitteeSection({ title, subtitle, items }) {
   return (
-    <section className="rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 shadow-sm">
-      <h2 className="text-base sm:text-lg font-extrabold text-neutral-900">
-        {title}
-      </h2>
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xs">
+      <div className="border-b border-gray-100 pb-3 mb-4">
+        <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+        {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
+      </div>
 
-      <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-        {items.map((n) => (
+      <ul className="grid gap-2.5 sm:grid-cols-2">
+        {items.map((person) => (
           <li
-            key={n}
-            className="rounded-xl bg-neutral-50 px-3 py-2 text-sm text-neutral-800"
+            key={person}
+            className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-50 border border-gray-100 text-sm font-semibold text-gray-800"
           >
-            {n}
+            <span className="w-2 h-2 rounded-full bg-[#B71C1C] flex-shrink-0" />
+            <span>{person}</span>
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 }
 
 export default function DirectivosPage() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-neutral-50 text-neutral-900">
-      {/* Header */}
+    <main className="min-h-screen bg-gray-50 text-gray-900 pb-16">
+      {/* HEADER INSTITUCIONAL */}
       <header className="border-b border-gray-200 bg-white">
-        <div className="container mx-auto px-4 pt-8 pb-10 sm:pt-10 sm:pb-12">
-          <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-neutral-800 font-semibold text-center mb-3">
-            AUTORIDADES DEL CLUB
+        <div className="container mx-auto px-4 pt-8 pb-10 sm:pt-10 sm:pb-12 text-center">
+          <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-gray-900 font-semibold mb-2">
+            AUTORIDADES INSTITUCIONALES
           </p>
-
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 text-center">
-            Conocé a la{" "}
-            {/* Encabezado de sección: se mantiene #BC1717 */}
-            <span className="italic" style={{ color: BRAND_RED }}>
-              Comisión
-            </span>{" "}
-            Directiva
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900">
+            Comisión <span className="text-[#B71C1C] italic">Directiva</span>
           </h1>
         </div>
       </header>
 
-      {/* Contenido */}
-      <section className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <h2 className="text-xl sm:text-2xl font-extrabold text-neutral-900">
-            Período 2024-26
-          </h2>
-          <p className="text-xs text-neutral-500">Club Atlético Barrio Norte</p>
-        </div>
+      <div className="container mx-auto max-w-6xl px-4 pt-8 sm:pt-10 space-y-10">
+        {/* PRESIDENCIA DESTACADA */}
+        <section>
+          <div className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-md border-2 border-red-100 flex-shrink-0 bg-gray-100">
+                <Image
+                  src={PRESIDENTE.imgSrc}
+                  alt={PRESIDENTE.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
 
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PRINCIPALES.map((p) => (
-            <PersonCard
-              key={`${p.role}-${p.name}`}
-              role={p.role}
-              name={p.name}
-              imgSrc={p.imgSrc}
-            />
-          ))}
-        </div>
+              <div className="text-center sm:text-left space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-100">
+                  {PRESIDENTE.role}
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900">
+                  {PRESIDENTE.name}
+                </h2>
+                <p className="text-sm text-gray-600 max-w-xl">
+                  Al frente de la conducción de Barrio Norte, promoviendo el crecimiento deportivo, social y patrimonial de nuestra institución en Gualeguay.
+                </p>
+                <div className="pt-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  Período 2024 — 2026
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-12">
+        {/* MESA EJECUTIVA */}
+        <section>
+          <div className="mb-4">
+            <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#B71C1C]">
+              CONDUCCIÓN
+            </span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900">Mesa Ejecutiva</h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {EJECUTIVOS.map((ej) => (
+              <ExecutiveCard key={ej.role} role={ej.role} name={ej.name} />
+            ))}
+          </div>
+        </section>
+
+        {/* VOCALES Y REVISORES */}
+        <section className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <NamesBlock title="Vocales titulares" items={VOCALES_TITULARES} />
+            <CommitteeSection
+              title="Vocales Titulares"
+              subtitle="Integrantes del órgano deliberativo"
+              items={VOCALES_TITULARES}
+            />
           </div>
 
           <div className="lg:col-span-6">
-            <NamesBlock title="Vocales suplentes" items={VOCALES_SUPLENTES} />
+            <CommitteeSection
+              title="Vocales Suplentes"
+              subtitle="Colaboradores de la comisión"
+              items={VOCALES_SUPLENTES}
+            />
           </div>
 
           <div className="lg:col-span-12">
-            <NamesBlock title="Revisores de cuentas" items={REVISORES} />
+            <CommitteeSection
+              title="Revisores de Cuentas"
+              subtitle="Comisión fiscalizadora y control patrimonial"
+              items={REVISORES}
+            />
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
-}
+}

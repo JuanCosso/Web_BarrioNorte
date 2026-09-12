@@ -293,6 +293,11 @@ export default function Masculino({ nav, active, onChange }) {
       <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-gray-50">
         <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10 py-8">
           <div className="space-y-6">
+            {/* SELECTOR DE TORNEO (ENCABEZA LA SECCIÓN COMPETITIVA) */}
+            <div className="w-full min-w-0">
+              <TournamentSelector tournaments={TOURNAMENTS} value={tournamentId} onChange={handleTournamentChange} />
+            </div>
+
             {/* TABLAS (izq) + PALMARÉS (der) */}
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-6 items-start">
               {/* TABLAS */}
@@ -407,11 +412,6 @@ export default function Masculino({ nav, active, onChange }) {
                 <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 mb-3">Palmarés</h2>
                 <PalmaresCard items={TITLES} />
               </aside>
-            </div>
-
-            {/* SELECTOR DE TORNEO */}
-            <div className="w-full min-w-0">
-              <TournamentSelector tournaments={TOURNAMENTS} value={tournamentId} onChange={handleTournamentChange} />
             </div>
 
             {/* PARTIDOS (por torneo) */}

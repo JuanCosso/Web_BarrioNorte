@@ -10,44 +10,45 @@ const navigation = [
   { name: "Noticias", href: "/noticias" },
   {
     name: "Club",
-    href: "/club",
+    href: "/club/historia",
     submenu: [
       { name: "Historia", href: "/club/historia" },
       { name: "Estadio", href: "/club/estadio" },
       { name: "Museo Online", href: "/club/museo" },
     ],
   },
-  /*{
+  {
     name: "Socios",
-    href: "/socios",
+    href: "/socios/montos",
     submenu: [
-      { name: "Montos 2026", href: "/socios/montos" },
+      { name: "Asociarme", href: "/socios/montos" },
       { name: "Directivos", href: "/socios/directivos" },
     ],
-  },*/
+  },
+  {
+    name: "Fútbol",
+    href: "/futbol/primera",
+    submenu: [
+      { name: "Primera", href: "/futbol/primera" },
+      { name: "Femenino", href: "/futbol/femenino" },
+      { name: "Inferiores", href: "/futbol/inferiores" },
+      { name: "Infantiles", href: "/futbol/infantiles" },
+    ],
+  },
   {
     name: "Disciplinas",
-    href: "/disciplinas",
+    href: "/disciplinas/tenis",
     submenu: [
-      { name: "Fútbol", href: "/disciplinas/futbol" },
       { name: "Tenis", href: "/disciplinas/tenis" },
       { name: "Gimnasia", href: "/disciplinas/gimnasia" },
       { name: "Billar", href: "/disciplinas/billar" },
       { name: "Bochas", href: "/disciplinas/bochas" },
       { name: "Ciclismo", href: "/disciplinas/ciclismo" },
     ],
-  },/*
-  {
-    name: "Tienda",
-    href: "/tienda",
-    submenu: [
-      { name: "Online", href: "/tienda/catalogo" },
-      { name: "Planeta Fútbol", href: "/tienda/planetafutbol" },
-    ],
-  },*/
+  },
   {
     name: "Samba Verá",
-    href: "/samba-vera",
+    href: "/samba-vera/comparsa",
     submenu: [
       { name: "Carnaval 2026", href: "/samba-vera/comparsa" },
       { name: "Alto Kandombe", href: "/samba-vera/alto-kandombe" },
@@ -65,9 +66,12 @@ export default function Navbar() {
     setActiveSubmenu((prev) => (prev === index ? null : index));
   };
 
-  const isItemActive = (href) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+  const isItemActive = (item) => {
+    if (item.href === "/") return pathname === "/";
+    if (item.submenu) {
+      return item.submenu.some((sub) => pathname.startsWith(sub.href));
+    }
+    return pathname.startsWith(item.href);
   };
 
   // BLOQUEO DE SCROLL DEL BODY CUANDO EL MENÚ MÓVIL ESTÁ ABIERTO (evita que se mueva el fondo)
@@ -113,38 +117,39 @@ export default function Navbar() {
       {/* Contenido */}
       <div className="container mx-auto px-4 h-full relative z-50">
         <div className="flex justify-between items-center h-full">
-          {/* Izquierda */}
+          {/* Izquierda: Escudo sobresaliente + Lema */}
           <div className="flex items-center h-full">
-            <div className="absolute top-0 left-4 z-50 pt-2 filter drop-shadow-lg">
-              <Link
-                href="/"
-                className="group relative block w-28 h-32 md:w-36 md:h-36 transition-transform hover:scale-105"
-              >
-                <Image
-                  src="/escudos/BarrioNorte_V3.png"
-                  alt="Escudo Barrio Norte"
-                  fill
-                  className="object-contain"
-                  priority
-                  quality={100}
-                />
-              </Link>
-            </div>
+            <div className="absolute top-1 left-2 sm:left-4 z-50 filter drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]">
+                <Link
+                  href="/"
+                  className="group relative block w-24 h-28 sm:w-28 sm:h-32 md:w-32 md:h-36 transition-transform duration-300 hover:scale-105"
+                  title="Club Atlético Barrio Norte"
+                >
+                  <Image
+                    src="/escudos/BarrioNorte_V3.png"
+                    alt="Escudo Club Atlético Barrio Norte"
+                    fill
+                    className="object-contain"
+                    priority
+                    quality={100}
+                  />
+                </Link>
+              </div>
 
-            <div className="flex flex-col justify-center ml-28 sm:ml-32 md:ml-36 h-full z-10 pl-2 md:pl-4 transition-all">
-              <span className="text-white/90 text-base sm:text-lg md:text-xl font-normal leading-none mb-1 drop-shadow-sm transition-all">
-                Cada vez
-              </span>
-              <span className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black uppercase leading-none tracking-tight drop-shadow-md transition-all">
-                MÁS GRANDE
-              </span>
+              <div className="flex flex-col justify-center ml-24 sm:ml-28 md:ml-36 h-full z-10 pl-2 md:pl-3 transition-all select-none">
+                <span className="text-white/80 text-xs sm:text-sm md:text-base font-medium leading-none mb-1 drop-shadow-sm transition-all">
+                  Cada vez
+                </span>
+                <span className="text-white text-lg sm:text-2xl md:text-3xl lg:text-3xl font-black uppercase leading-none tracking-tight drop-shadow-md transition-all">
+                  MÁS GRANDE
+                </span>
+              </div>
             </div>
-          </div>
 
           {/* Escritorio */}
           <div className="hidden xl:flex flex-1 items-center justify-end space-x-1">
             {navigation.map((item) => {
-              const isActive = isItemActive(item.href);
+              const isActive = isItemActive(item);
               const linkHref = item.submenu ? item.submenu[0].href : item.href;
 
               return (
@@ -166,7 +171,7 @@ export default function Navbar() {
 
                   {item.submenu && (
                     <div className="absolute left-0 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top">
-                      <div className="w-42 bg-white text-gray-800 shadow-2xl rounded-md overflow-hidden">
+                      <div className="min-w-[170px] bg-white text-gray-800 shadow-2xl rounded-md overflow-hidden">
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}

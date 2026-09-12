@@ -60,7 +60,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-16 bg-[#111111] text-gray-200 pt-16 pb-6">
+    <footer className="relative bg-[#111111] text-gray-200 pt-8 pb-6">
       {/* Capa de textura */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-15 mix-blend-overlay"
@@ -74,7 +74,7 @@ export default function Footer() {
       />
 
       <div className="relative z-10">
-        <div className="container mx-auto px-4 space-y-10">
+        <div className="container mx-auto px-4 space-y-6 sm:space-y-8">
           {/* SPONSORS */}
           <section className="pt-2 sm:pt-3">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -118,10 +118,10 @@ export default function Footer() {
             </div>
           </section>
 
-          {/* RESTO IGUAL QUE TENÍAS */}
-          <section className="grid gap-8 md:grid-cols-3">
-            {/* Marca y lema */}
-            <div className="space-y-3">
+          {/* 3 COLUMNAS: Identidad, Contacto y Redes */}
+          <section className="grid gap-8 md:grid-cols-3 pt-2">
+            {/* 1. Marca, lema y CTA de socio */}
+            <div className="space-y-4">
               <Link href="/" className="flex items-center gap-3">
                 <div className="relative h-14 w-12 sm:h-16 sm:w-14 drop-shadow-lg">
                   <Image
@@ -141,24 +141,24 @@ export default function Footer() {
                 </div>
               </Link>
 
-              <p className="mt-3 max-w-xs text-sm text-gray-400">
-                La institución social y deportiva más pasional de la ciudad de Gualeguay. Sé parte de nuestra familia.
+              <p className="max-w-xs text-sm text-gray-400">
+                La institución social y deportiva más pasional de la ciudad de Gualeguay. Cada vez más grande.
               </p>
             </div>
 
-            {/* Contacto */}
+            {/* 2. Contacto */}
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-[#B71C1C]">
                 Contacto
               </h3>
-              <ul className="mt-3 space-y-2 text-sm text-white">
+              <ul className="mt-4 space-y-3 text-sm text-white">
                 <li>
                   <span className="block text-xs font-semibold uppercase tracking-wide text-gray-400">
                     Dirección
                   </span>
                   <a
                     href="https://www.google.com/maps/place/Club+Atl%C3%A9tico+Barrio+Norte/@-33.1316857,-59.3140357,604m/data=!3m2!1e3!4b1!4m6!3m5!1s0x95b09b6975738951:0xe46c15d507305fe1!8m2!3d-33.1316857!4d-59.3140357!16s%2Fg%2F11fxb0mb8m?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D"
-                    className="hover:text-white hover:underline"
+                    className="hover:text-white hover:underline transition-colors"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -171,18 +171,18 @@ export default function Footer() {
                   </span>
                   <a
                     href="mailto:todobarrionorte1@gmail.com"
-                    className="hover:text-white hover:underline"
+                    className="hover:text-white hover:underline transition-colors"
                   >
                     todobarrionorte1@gmail.com
                   </a>
                 </li>
                 <li>
                   <span className="block text-xs font-semibold uppercase tracking-wide text-gray-400">
-                    Teléfono
+                    WhatsApp
                   </span>
                   <a
                     href="https://wa.me/5493444123456"
-                    className="hover:text-white hover:underline"
+                    className="hover:text-white hover:underline transition-colors"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -192,28 +192,37 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Redes */}
+            {/* 3. Redes Sociales */}
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-[#B71C1C]">
                 Redes sociales
               </h3>
-              <p className="mt-3 text-sm text-gray-400">
-                Seguí al club en las redes para entenrarte las novedades.
+              <p className="mt-4 text-sm text-gray-400">
+                Seguí el día a día, resultados y actividades del club en nuestras redes oficiales.
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-3">
-                {socialLinks.map(({ name, href, Icon }) => (
-                  <a
-                    key={name}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/90 transition hover:border-[#B71C1C] hover:bg-[#B71C1C] hover:text-white"
-                    aria-label={name}
-                  >
-                    <Icon className="h-7 w-7" />
-                  </a>
-                ))}
+              <div className="mt-4 flex flex-wrap items-center gap-4">
+                <div className="flex gap-3">
+                  {socialLinks.map(({ name, href, Icon }) => (
+                    <a
+                      key={name}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/90 transition hover:border-[#B71C1C] hover:bg-[#B71C1C] hover:text-white"
+                      aria-label={name}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </a>
+                  ))}
+                </div>
+
+                <Link
+                  href="/socios/montos"
+                  className="text-xs sm:text-sm font-semibold text-white hover:text-red-400 hover:underline transition-colors"
+                >
+                  Asociate al Norte →
+                </Link>
               </div>
             </div>
           </section>

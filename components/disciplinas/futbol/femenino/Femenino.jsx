@@ -293,6 +293,11 @@ export default function Femenino({ nav, active, onChange }) {
       <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-gray-50">
         <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10 py-8">
           <div className="space-y-6">
+            {/* SELECTOR DE TORNEO */}
+            <div className="w-full min-w-0">
+              <TournamentSelector tournaments={TOURNAMENTS} value={tournamentId} onChange={handleTournamentChange} />
+            </div>
+
             <div className="min-w-0">
               <div className="flex items-end justify-between gap-3 mb-3 min-w-0">
                 <h2 className="text-lg sm:text-xl font-extrabold text-gray-900">Tablas de posiciones</h2>
@@ -335,11 +340,6 @@ export default function Femenino({ nav, active, onChange }) {
                   </div>
                 </div>
               )}
-            </div>
-
-            {/* SELECTOR DE TORNEO */}
-            <div className="w-full min-w-0">
-              <TournamentSelector tournaments={TOURNAMENTS} value={tournamentId} onChange={handleTournamentChange} />
             </div>
 
             {/* RESULTADOS (por torneo) */}

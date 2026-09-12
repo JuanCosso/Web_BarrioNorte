@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo } from "react";
 
 /* ========= CONSTANTS ========= */
@@ -389,6 +390,13 @@ export function PeopleGrid({ title, items }) {
    Importante: NO contiene datos de ninguna rama.
 */
 
+export const DEFAULT_FUTBOL_NAV = [
+  { id: "primera", label: "Primera", href: "/futbol/primera" },
+  { id: "femenino", label: "Femenino", href: "/futbol/femenino" },
+  { id: "inferiores", label: "Inferiores", href: "/futbol/inferiores" },
+  { id: "infantiles", label: "Infantiles", href: "/futbol/infantiles" },
+];
+
 export function FutbolLayout({
   hero,
   nav,
@@ -414,8 +422,8 @@ export function FutbolLayout({
 
   return (
     <div style={{ "--brand": BRAND_RED }} className="min-h-screen bg-gray-50 text-gray-900 overflow-x-hidden">
-      {/* HERO (se mantiene oscuro) */}
-      <section className="relative overflow-hidden text-white">
+      {/* HERO (se mantiene oscuro con altura amplia y foto protagonista) */}
+      <section className="relative overflow-hidden text-white min-h-[58vh] sm:min-h-[68vh] lg:min-h-[76vh] flex flex-col justify-end">
         <div className="absolute inset-0">
           <Image
             src={hero.imageSrc}
@@ -423,13 +431,16 @@ export function FutbolLayout({
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-[center_28%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/70 to-neutral-950" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(188,23,23,0.25),transparent_45%)]" />
+          {/* Sombra superior suave para contraste */}
+          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent" />
+          {/* Gradiente inferior para legibilidad del texto sin tapar a los jugadores */}
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 via-40% to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_85%,rgba(188,23,23,0.32),transparent_50%)]" />
         </div>
 
-        <div className="relative container mx-auto px-4 pt-16 pb-10 sm:pt-20 sm:pb-14">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-10 sm:pt-40 sm:pb-14">
           <div className="max-w-4xl">
             <div className={`flex flex-wrap gap-2 ${hidePills ? "invisible" : ""}`}>
               {pillsForLayout.map((p, i) => (
@@ -452,17 +463,6 @@ export function FutbolLayout({
             ) : null}
 
 
-            {/* NAV PRINCIPAL */}
-            <div className="mt-6">
-              <div className="flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
-                {nav.map((t) => (
-                  <SegTab key={t.id} active={active === t.id} onClick={() => onChange(t.id)}>
-                    {t.label}
-                  </SegTab>
-                ))}
-              </div>
-            </div>
-
             {/* CONTACTO */}
             {contact ? (
               <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
@@ -479,28 +479,6 @@ export function FutbolLayout({
                     {contact.facebookLabel || "Facebook"}
                   </ButtonLink>
                 ) : null}
-              </div>
-            ) : null}
-
-            {/* QUICK FACTS */}
-            {facts.length ? (
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {facts.map((q) => {
-                  const QIcon = q.icon;
-                  return (
-                    <div
-                      key={`${q.label}-${q.value}`}
-                      className="rounded-2xl border border-white/10 bg-white/5 p-4"
-                    >
-                      <div className="flex items-center gap-2 text-white/80">
-                        <QIcon className="h-5 w-5 shrink-0" />
-                        <span className="text-sm">{q.label}</span>
-                      </div>
-                      <div className="mt-2 font-semibold text-white">{q.value}</div>
-                      <div className="text-sm text-white/70">{q.hint}</div>
-                    </div>
-                  );
-                })}
               </div>
             ) : null}
 

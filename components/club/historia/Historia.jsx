@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { HISTORY_DATA } from "./historiaData";
 import EraCard from "./EraCard";
+import HistoryLightbox from "./HistoryLightbox";
 
 /* =========================================================
    Textura de ruido de fondo
@@ -22,16 +24,31 @@ const BackgroundTexture = () => (
    COMPONENTE PRINCIPAL
    ========================================================= */
 export default function Historia() {
+  const [lightbox, setLightbox] = useState({ isOpen: false, src: "", alt: "", caption: "" });
+
+  // Escuchar eventos globales de apertura de lightbox desde fotos o documentos
+  useEffect(() => {
+    const handleOpen = (e) => {
+      const { src, alt, caption } = e.detail || {};
+      if (src) {
+        setLightbox({ isOpen: true, src, alt, caption });
+      }
+    };
+
+    window.addEventListener("openHistoryLightbox", handleOpen);
+    return () => window.removeEventListener("openHistoryLightbox", handleOpen);
+  }, []);
+
   return (
     <section className="relative w-full bg-neutral-950 min-h-screen text-neutral-200 overflow-x-hidden">
       <BackgroundTexture />
 
-      {/* Luces decorativas */}
+      {/* Luces decorativas de ambientación */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-red-900/10 blur-[150px] rounded-full pointer-events-none" />
       <div className="fixed -bottom-24 right-[-120px] w-[520px] h-[520px] bg-white/5 blur-[140px] rounded-full pointer-events-none" />
 
+      {/* CONTENIDO PRINCIPAL */}
       <div className="relative z-10 container mx-auto px-4 md:px-6 py-16 sm:py-20">
-
         {/* ENCABEZADO */}
         <header className="text-center mb-20 sm:mb-24 relative">
           <motion.div
@@ -51,11 +68,10 @@ export default function Historia() {
             />
 
             <motion.h1
-              className="relative text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white uppercase"
-              initial={{ letterSpacing: "-0.03em" }}
+              className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase overflow-visible"
             >
               Nuestra{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-red-600 shimmer">
+              <span className="inline-block pr-3 sm:pr-4 text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-red-600 shimmer">
                 Historia
               </span>
             </motion.h1>
@@ -71,24 +87,32 @@ export default function Historia() {
           </motion.div>
 
           <motion.p
-            className="text-neutral-400 mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-light leading-relaxed"
+            className="text-neutral-300 mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-light leading-relaxed"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
           >
-            Un barrio que crece con identidad y humildad.
+            Más de 75 años de pasión, deporte y gloria en Gualeguay.
           </motion.p>
         </header>
 
-        {/* ERAS */}
+        {/* LISTADO DE ERAS HISTÓRICAS */}
         <div className="flex flex-col gap-24 sm:gap-28 lg:gap-36 pb-20">
           {HISTORY_DATA.map((era, index) => (
             <EraCard key={era.id} era={era} index={index} />
           ))}
         </div>
-
       </div>
+
+      {/* VISOR MODAL LIGHTBOX PARA FOTOS Y DOCUMENTOS */}
+      <HistoryLightbox
+        isOpen={lightbox.isOpen}
+        onClose={() => setLightbox((prev) => ({ ...prev, isOpen: false }))}
+        imageSrc={lightbox.src}
+        imageAlt={lightbox.alt}
+        caption={lightbox.caption}
+      />
 
       <style jsx global>{`
         .shimmer {
@@ -96,8 +120,12 @@ export default function Historia() {
           animation: shimmerMove 3.5s linear infinite;
         }
         @keyframes shimmerMove {
-          0%   { background-position: 0%   0%; }
-          100% { background-position: 200% 0%; }
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 200% 0%;
+          }
         }
       `}</style>
     </section>

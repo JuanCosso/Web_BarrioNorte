@@ -1,31 +1,20 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { MediaFrame } from "./MediaComponents";
+import { MediaFrame, openLightbox } from "./MediaComponents";
 
-/* =========================================================
-   EraCard
-   Renderiza una era individual de la historia.
-
-   Cada era puede usar uno de estos dos modos:
-   ─────────────────────────────────────────────
-   A) MODO CLÁSICO (mayoría de eras)
-      Usa `content` (JSX) + `imageSrc` lateral automática.
-      Props opcionales: floatImage
-
-   B) MODO SECTIONS (eras con layout personalizado)
-      Usa `sections` (array de objetos).
-      No necesita `imageSrc` ni `content`.
-      Cada section controla su propio layout de forma declarativa.
-   ========================================================= */
 export default function EraCard({ era, index }) {
   const isEven = index % 2 === 0;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
+      id={`era-${era.id}`}
+      data-era-section={era.id}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ margin: "-15%", once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="relative group w-full"
+      viewport={{ margin: "-10%", once: true }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="relative group w-full scroll-mt-36"
     >
       {/* Año gigante decorativo de fondo */}
       <div
@@ -57,28 +46,12 @@ export default function EraCard({ era, index }) {
 
 /* =========================================================
    MODO B — SectionsLayout
-   Renderiza un array de secciones con layout configurable.
-
-   Cada section acepta:
-     title          → subtítulo del bloque
-     texts          → array de párrafos ["párrafo 1", "párrafo 2", ...]
-     highlight      → true = card con borde blanco lateral (estilo Fundación)
-
-     imagePosition  → "right" | "left"  (default "right")
-     imageSrc       → ruta de la imagen
-     imageAspect    → ej: "4/3" | "16/9" | "16/10" | "3/4"  (default "4/3")
-     imageContain   → true = object-contain (para docs/cartas), false = cover
-     imageCaption   → pie de foto
-
-     docs           → array de { src, alt } — muestra docs en grilla
-     docsCols       → 1 | 2  (default: 2 si hay 2+ docs, 1 si hay 1)
-     docsCaption    → pie de los docs
    ========================================================= */
 function SectionsLayout({ era, isEven }) {
   return (
     <div className="relative z-10 w-full pt-6">
-      <div className={`relative mb-10 ${!isEven ? "text-right" : ""}`}>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+      <div className={`relative mb-8 ${!isEven ? "text-right" : ""}`}>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">
           {era.title}
         </h2>
         <div className={`h-1 w-20 bg-red-600 rounded-full ${!isEven ? "ml-auto" : ""}`} />
@@ -101,7 +74,7 @@ function SectionBlock({ section }) {
 
   /* ── Bloque de texto ── */
   const textBlock = section.highlight ? (
-    <div className="self-start bg-neutral-900 border-l-4 border-white/70 p-5 rounded-r-lg">
+    <div className="self-start bg-neutral-900 border-l-4 border-white/70 p-5 rounded-r-xl">
       {section.title && (
         <strong className="text-white text-lg block mb-2">{section.title}</strong>
       )}
@@ -125,8 +98,13 @@ function SectionBlock({ section }) {
       <div className="relative group/img">
         <div className="absolute -inset-4 bg-red-600/10 rounded-[2rem] blur-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-1000 pointer-events-none" />
         <div
-          className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-neutral-900 transform transition-transform duration-700 group-hover/img:-translate-y-1"
+          onClick={() => openLightbox(section.imageSrc, section.title, section.imageCaption)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && openLightbox(section.imageSrc, section.title, section.imageCaption)}
+          className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-neutral-900 transform transition-transform duration-700 group-hover/img:-translate-y-1 cursor-zoom-in select-none"
           style={{ aspectRatio }}
+          title="Hacé clic para ampliar"
         >
           <img
             src={section.imageSrc}
@@ -136,6 +114,13 @@ function SectionBlock({ section }) {
           {!section.imageContain && (
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
           )}
+
+          {/* Lupa flotante */}
+          <div className="absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover/img:opacity-100 pointer-events-none border border-white/20">
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+            </svg>
+          </div>
         </div>
       </div>
       {section.imageCaption && (
@@ -151,19 +136,30 @@ function SectionBlock({ section }) {
   const docsBlock = hasDocs ? (
     <div className={`grid grid-cols-${cols} gap-3`}>
       {section.docs.map((doc, i) => (
-        <img
+        <div
           key={i}
-          src={doc.src}
-          alt={doc.alt}
-          className="w-full rounded-lg shadow-lg object-contain"
-        />
+          onClick={() => openLightbox(doc.src, doc.alt, section.docsCaption || doc.alt)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && openLightbox(doc.src, doc.alt, section.docsCaption || doc.alt)}
+          className="group/doc relative cursor-zoom-in overflow-hidden rounded-xl shadow-lg border border-white/10 bg-neutral-900 p-1"
+          title="Hacé clic para ampliar documento"
+        >
+          <img
+            src={doc.src}
+            alt={doc.alt}
+            className="w-full object-contain rounded-lg hover:scale-[1.03] transition-transform duration-300"
+          />
+          <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-[10px] font-bold text-white opacity-0 group-hover/doc:opacity-100 transition-opacity border border-white/20">
+            <span>🔍 Ampliar</span>
+          </div>
+        </div>
       ))}
     </div>
   ) : null;
 
   const mediaBlock = imageBlock || docsBlock;
 
-  /* ── Sin media → ancho completo ── */
   if (!hasMedia) {
     return (
       <div className="text-[15px] sm:text-[16px] md:text-[17px] leading-relaxed text-neutral-300 font-light">
@@ -172,7 +168,6 @@ function SectionBlock({ section }) {
     );
   }
 
-  /* ── Con media → grilla 2 columnas ── */
   return (
     <div
       className="grid grid-cols-1 gap-8 items-start text-[15px] sm:text-[16px] md:text-[17px] leading-relaxed text-neutral-300 font-light"
@@ -185,8 +180,6 @@ function SectionBlock({ section }) {
 
 /* =========================================================
    MODO A — FloatLayout
-   Imagen flotada a la derecha, texto fluye alrededor.
-   Se activa con floatImage: true
    ========================================================= */
 function FloatLayout({ era, index }) {
   const isEven = index % 2 === 0;
@@ -194,8 +187,6 @@ function FloatLayout({ era, index }) {
   return (
     <div className="relative z-10 w-full pt-6 clear-both">
       <div className="history-content text-left text-[15px] sm:text-[16px] md:text-[17px] leading-relaxed text-neutral-300 font-light block">
-        
-        {/* IMAGEN PRINCIPAL: Flota a Izquierda o Derecha según la época */}
         {era.imageSrc && (
           <div
             className={`relative group/img mb-4 w-full sm:w-[42%] ${isEven ? "sm:ml-8" : "sm:mr-8"}`}
@@ -215,15 +206,13 @@ function FloatLayout({ era, index }) {
           </div>
         )}
 
-        {/* TÍTULO PRINCIPAL ("Primeros pasos"): Se alinea al lado opuesto de la foto */}
         <div className={`relative mb-6 ${isEven ? "text-left" : "text-right"}`}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 mt-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-2 mt-2 tracking-tight">
             {era.title}
           </h2>
           <div className={`h-1 w-20 bg-red-600 rounded-full ${isEven ? "" : "ml-auto"}`} />
         </div>
 
-        {/* CONTENIDO (Texto y fotos secundarias) */}
         {era.content}
         
         <div className="clear-both table" />
@@ -234,8 +223,6 @@ function FloatLayout({ era, index }) {
 
 /* =========================================================
    MODO A — FlexLayout
-   Dos columnas: texto | imagen (se alternan izq/der).
-   Layout por defecto para la mayoría de eras.
    ========================================================= */
 function FlexLayout({ era, isEven, index }) {
   return (
@@ -246,7 +233,7 @@ function FlexLayout({ era, isEven, index }) {
     >
       <div className="flex-1 w-full pt-6">
         <div className="relative mb-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">
             {era.title}
           </h2>
           <div className="h-1 w-20 bg-red-600 rounded-full" />
