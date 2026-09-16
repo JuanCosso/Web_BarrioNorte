@@ -1,6 +1,9 @@
+"use client";
+
 // components/layout/Footer.jsx
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const sponsors = [
   { name: "Planeta Fútbol", href: "https://www.instagram.com/planeta_futbollg/", logo: "/sponsors/PlanetaFutBolFIX.png" },
@@ -57,7 +60,12 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className="relative bg-[#111111] text-gray-200 pt-8 pb-6">

@@ -46,6 +46,26 @@ export const equiposConfig = {
       slug: "sociedad-sportiva",
       logo: "/escudos/SociedadSportiva.png",
     },
+    Sportiva: {
+      shortName: "Sociedad Sportiva",
+      slug: "sociedad-sportiva",
+      logo: "/escudos/SociedadSportiva.png",
+    },
+    "Centro Bancario": {
+      shortName: "Bancario",
+      slug: "bancario",
+      logo: "/escudos/Bancario.png",
+    },
+    "Centro Bancario Gualeguay": {
+      shortName: "Bancario",
+      slug: "bancario",
+      logo: "/escudos/Bancario.png",
+    },
+    Central: {
+      shortName: "Gualeguay Central",
+      slug: "gualeguay-central",
+      logo: "/escudos/GualeguayCentral.png",
+    },
     Urquiza: {
       shortName: "Urquiza",
       slug: "urquiza",

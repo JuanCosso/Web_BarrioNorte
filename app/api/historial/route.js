@@ -1,8 +1,7 @@
 // app/api/historial/route.js
 import { NextResponse } from "next/server";
-import fs   from "fs";
-import path from "path";
-import { MATCHES, STATIC_TOURNAMENT_IDS, TOURNAMENT_LABELS } from "../../../lib/historialMatches";
+import { prisma } from "../../../lib/prisma.js";
+import { MATCHES } from "../../../lib/historialMatches";
 
 export const dynamic = "force-dynamic";
 
@@ -11,68 +10,13 @@ function parseScore(score, condition) {
   if (!score || typeof score !== "string") return null;
   const s = score.trim();
   if (!s || s === "-" || /susp/i.test(s)) return null;
-  const [rawA, rawB] = s.split(/\s*-\s*/);
-  const a = parseInt(rawA, 10), b = parseInt(rawB, 10);
+  const match = s.match(/^(\d+)\s*-\s*(\d+)/);
+  if (!match) return null;
+  const a = parseInt(match[1], 10), b = parseInt(match[2], 10);
   if (isNaN(a) || isNaN(b)) return null;
   return /local/i.test(condition || "")
     ? { bn: a, rival: b }
     : { bn: b, rival: a };
-}
-
-// ─── Leer JSONs dinámicos (torneos NO en STATIC_TOURNAMENT_IDS) ──────────────
-// Asigna un `order` alto (800000 + índice) para que queden al final del orden
-// cronológico y el modal los muestre como los más recientes.
-function readDynamicMatches() {
-  const out = [];
-  const base = path.join(process.cwd(), "data", "local");
-  if (!fs.existsSync(base)) return out;
-
-  const years = fs.readdirSync(base, { withFileTypes: true })
-    .filter((e) => e.isDirectory() && /^\d{4}$/.test(e.name))
-    .map((e) => e.name)
-    .sort();
-
-  let idx = 0;
-  for (const year of years) {
-    const yearDir = path.join(base, year);
-    const tournaments = fs.readdirSync(yearDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory())
-      .map((e) => e.name)
-      .sort();
-
-    for (const tid of tournaments) {
-      if (STATIC_TOURNAMENT_IDS.has(tid)) continue;
-
-      const jsonPath = path.join(yearDir, tid, "masculino-results.json");
-      if (!fs.existsSync(jsonPath)) continue;
-
-      let raw;
-      try { raw = JSON.parse(fs.readFileSync(jsonPath, "utf-8")); }
-      catch { continue; }
-      if (!Array.isArray(raw)) continue;
-
-      const label = TOURNAMENT_LABELS[tid] || tid;
-      const yy     = year.slice(2);
-
-      for (const m of raw) {
-        const s = (m.score || "").trim();
-        if (!s || s === "-" || /susp/i.test(s)) continue;
-        const rawDate = (m.date || "").trim();
-        const date    = rawDate && /^\d{2}\/\d{2}$/.test(rawDate)
-          ? `${rawDate}/${yy}`
-          : rawDate;
-        out.push({
-          order:     800000 + idx++,
-          torneo:    label,
-          rival:     (m.rival || "").trim(),
-          condition: m.condition || "Local",
-          score:     s,
-          date,
-        });
-      }
-    }
-  }
-  return out;
 }
 
 // ─── Acumular stats por rival ─────────────────────────────────────────────────
@@ -85,7 +29,9 @@ function buildStats(allMatches) {
     if (!p) continue;
     if (!map[rival]) map[rival] = { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0 };
     const s = map[rival];
-    s.pj++; s.gf += p.bn; s.gc += p.rival;
+    s.pj++;
+    s.gf += p.bn;
+    s.gc += p.rival;
     if (p.bn > p.rival)        s.pg++;
     else if (p.bn === p.rival) s.pe++;
     else                        s.pp++;
@@ -98,16 +44,101 @@ function buildStats(allMatches) {
 // ─── Handler ──────────────────────────────────────────────────────────────────
 export async function GET() {
   try {
-    const dynamic   = readDynamicMatches();
-    const allStatic = MATCHES;                          // de lib/historialMatches.js
-    const all       = [...allStatic, ...dynamic];
+    let allMatches = [];
 
-    const stats   = buildStats(all);
-    const total   = all.filter((m) => parseScore(m.score, m.condition)).length;
+    // 1. Intentar consultar todos los partidos finalizados desde Neon DB
+    try {
+      const dbMatches = await prisma.match.findMany({
+        where: {
+          status: "FINISHED",
+          tournament: { category: "PRIMERA_MASCULINO" },
+          OR: [
+            { homeTeam: { isLocalClub: true } },
+            { awayTeam: { isLocalClub: true } },
+          ],
+          homeScore: { not: null },
+          awayScore: { not: null },
+        },
+        include: {
+          tournament: true,
+          homeTeam: true,
+          awayTeam: true,
+        },
+        orderBy: [
+          { date: "asc" },
+          { roundNumber: "asc" },
+          { id: "asc" },
+        ],
+      });
 
-    // Devolvemos también los matches al cliente (ordenados reciente → antiguo)
-    // para que HistorialSection pueda mostrarlos en el modal sin duplicar datos.
-    const matches = [...all].sort((a, b) => b.order - a.order);
+      if (dbMatches && dbMatches.length > 0) {
+        allMatches = dbMatches.map((m, idx) => {
+          const isHome = m.homeTeam.isLocalClub;
+          const rival = isHome
+            ? (m.awayTeam.shortName || m.awayTeam.name)
+            : (m.homeTeam.shortName || m.homeTeam.name);
+
+          let score = `${m.homeScore} - ${m.awayScore}`;
+          if (
+            m.penaltiesHome !== null &&
+            m.penaltiesAway !== null &&
+            (m.penaltiesHome > 0 || m.penaltiesAway > 0)
+          ) {
+            score += ` (${m.penaltiesHome}-${m.penaltiesAway} pen.)`;
+          }
+
+          let date = m.rawDate || "";
+          if (m.date) {
+            const d = new Date(m.date);
+            const fmt = new Intl.DateTimeFormat("es-AR", {
+              timeZone: "America/Argentina/Buenos_Aires",
+              day: "2-digit",
+              month: "2-digit",
+              year: "2-digit",
+            });
+            date = fmt.format(d);
+          }
+
+          let torneo = m.tournament?.name || m.competition || "Torneo Oficial";
+          if (torneo.toLowerCase().includes("oficial 2021")) {
+            torneo = "Oficial 2021/22";
+          }
+          if (
+            m.roundName &&
+            (m.roundName.includes("Semi") ||
+              m.roundName.includes("Final") ||
+              m.roundName.includes("Petit") ||
+              m.roundName.includes("Cuarto") ||
+              m.roundName.includes("Repechaje")) &&
+            !torneo.includes(m.roundName)
+          ) {
+            torneo = `${torneo} · ${m.roundName}`;
+          }
+
+          return {
+            order: idx + 1,
+            torneo,
+            rival,
+            condition: isHome ? "Local" : "Visitante",
+            score,
+            date,
+          };
+        });
+      }
+    } catch (dbErr) {
+      console.warn("Aviso al consultar historial desde Neon DB, usando estático:", dbErr.message);
+    }
+
+    // 2. Fallback a historial estático si no hay datos en DB
+    if (allMatches.length === 0) {
+      allMatches = MATCHES;
+    }
+
+    const stats = buildStats(allMatches);
+    const total = allMatches.filter((m) => parseScore(m.score, m.condition)).length;
+
+    // Devolvemos los matches ordenados reciente → antiguo para el modal
+    const matches = [...allMatches].sort((a, b) => b.order - a.order);
 
     return NextResponse.json({ stats, matches, total });
   } catch (err) {

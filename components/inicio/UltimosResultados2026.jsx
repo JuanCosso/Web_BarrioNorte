@@ -5,18 +5,35 @@ import { useEffect, useState } from "react";
 
 function colorResultado(score, condition) {
   if (!score || score === "Susp." || score === "-") return "bg-gray-100 text-gray-500";
-  const [g, c] = score.split("-").map((s) => Number(s.trim()));
-  if (isNaN(g) || isNaN(c)) return "bg-gray-100 text-gray-500";
-  const gana = condition === "Local" ? g > c : c > g;
-  const empata = g === c;
-  if (gana)   return "bg-green-100 text-green-700";
-  if (empata) return "bg-yellow-100 text-yellow-700";
+  const match = score.match(/^(\d+)\s*-\s*(\d+)/);
+  if (!match) return "bg-gray-100 text-gray-500";
+  const localGoles = Number(match[1]);
+  const visitanteGoles = Number(match[2]);
+
+  let myGoles = condition === "Local" ? localGoles : visitanteGoles;
+  let rivalGoles = condition === "Local" ? visitanteGoles : localGoles;
+
+  const penMatch = score.match(/\((\d+)\s*-\s*(\d+)\)/);
+  if (penMatch) {
+    const localPen = Number(penMatch[1]);
+    const visitantePen = Number(penMatch[2]);
+    let myPen = condition === "Local" ? localPen : visitantePen;
+    let rivalPen = condition === "Local" ? visitantePen : localPen;
+
+    if (myPen > rivalPen) return "bg-green-100 text-green-700";
+    if (myPen < rivalPen) return "bg-red-100 text-red-700";
+    return "bg-yellow-100 text-yellow-700";
+  }
+
+  if (myGoles > rivalGoles)   return "bg-green-100 text-green-700";
+  if (myGoles === rivalGoles) return "bg-yellow-100 text-yellow-700";
   return "bg-red-100 text-red-700";
 }
 
 function ResultadoStrip({ label, results }) {
   if (!results || results.length === 0) return null;
-  const recientes = results.slice(-2).reverse();
+  const playedResults = results.filter((r) => r.score && r.score !== "-" && r.score !== "Susp.");
+  const recientes = playedResults.slice(-2).reverse();
 
   return (
     <div>
@@ -44,9 +61,9 @@ function ResultadoStrip({ label, results }) {
               vs {r.rival}
             </span>
 
-            {/* Score — mismo estilo pill, ancho fijo para alinear */}
-            <span className={`shrink-0 text-xs font-bold tabular-nums w-12 text-center px-2 py-0.5 rounded-full ${colorResultado(r.score, r.condition)}`}>
-              {r.score}
+            {/* Score — en un solo renglón sin wrap */}
+            <span className={`shrink-0 whitespace-nowrap text-[11px] font-bold tabular-nums text-center px-2 py-0.5 rounded-full ${colorResultado(r.score, r.condition)}`}>
+              {r.score.replace(/^(\d+)\s*-\s*(\d+)/, "$1-$2")}
             </span>
 
           </div>

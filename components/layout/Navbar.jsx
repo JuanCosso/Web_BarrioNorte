@@ -100,6 +100,10 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <nav className="bg-[#B71C1C] text-white shadow-2xl relative z-50 h-24">
       {/* Textura */}

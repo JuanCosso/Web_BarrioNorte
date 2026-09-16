@@ -24,9 +24,9 @@ const LOGOS = {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function parseResult(score, condition) {
   if (!score) return null;
-  const parts = score.split(/\s*-\s*/);
-  if (parts.length !== 2) return null;
-  const a = parseInt(parts[0], 10), b = parseInt(parts[1], 10);
+  const match = score.match(/^(\d+)\s*-\s*(\d+)/);
+  if (!match) return null;
+  const a = parseInt(match[1], 10), b = parseInt(match[2], 10);
   if (isNaN(a) || isNaN(b)) return null;
   const [bn, rv] = /local/i.test(condition) ? [a, b] : [b, a];
   return { bn, rival: rv, result: bn > rv ? "V" : bn === rv ? "E" : "D" };
@@ -116,8 +116,8 @@ function MatchModal({ rivalName, allMatches, onClose }) {
             </thead>
             <tbody>
               {matches.map((m, i) => {
-                const parsed        = parseResult(m.score, m.condition);
-                const [sA, sB = ""] = m.score.split(/\s*-\s*/);
+                const parsed = parseResult(m.score, m.condition);
+                const displayScore = m.score.replace(/^(\d+)\s*-\s*(\d+)/, "$1 – $2");
                 return (
                   <tr key={i} className={`border-b border-gray-50 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/40"}`}>
                     <td className="px-4 py-2.5">
@@ -131,7 +131,7 @@ function MatchModal({ rivalName, allMatches, onClose }) {
                     </td>
                     <td className="px-3 py-2.5 text-center">
                       <span className="text-xs font-bold text-gray-800 tabular-nums whitespace-nowrap">
-                        {sA} – {sB}
+                        {displayScore}
                       </span>
                     </td>
                     <td className="px-3 py-2.5 text-center">

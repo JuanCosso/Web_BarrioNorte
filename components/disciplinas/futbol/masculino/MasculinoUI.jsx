@@ -638,7 +638,66 @@ function ScorePill({ children }) {
 /* ========= resultados ========= */
 
 export function UltimosPartidosCard({ items }) {
-  const safe = Array.isArray(items) ? items : [];
+  const safe = useMemo(() => {
+    if (!Array.isArray(items)) return [];
+
+    return [...items].sort((a, b) => {
+      // 1. Orden cronológico principal si ambos tienen dateISO
+      if (a.dateISO && b.dateISO) {
+        const timeA = new Date(a.dateISO).getTime();
+        const timeB = new Date(b.dateISO).getTime();
+        if (!isNaN(timeA) && !isNaN(timeB) && timeA !== timeB) {
+          return timeA - timeB;
+        }
+      } else if (a.dateISO && !b.dateISO) {
+        return -1;
+      } else if (!a.dateISO && b.dateISO) {
+        return 1;
+      }
+
+      // 2. Orden por competencia / fase si no tienen fecha ISO (Fase regular -> Repechaje -> Petit Torneo)
+      const getCompWeight = (comp) => {
+        const c = (comp || "").toLowerCase();
+        if (c.includes("preparaci")) return 1;
+        if (c.includes("oficial") || c.includes("clasificatorio") || c.includes("regular") || c.includes("grupo")) return 2;
+        if (c.includes("repechaje")) return 3;
+        if (c.includes("petit")) return 4;
+        if (c.includes("playoff") || c.includes("final")) return 5;
+        return 6;
+      };
+      const cA = getCompWeight(a.competition);
+      const cB = getCompWeight(b.competition);
+      if (cA !== cB) return cA - cB;
+
+      // 3. Etapa / ronda
+      const getPhaseWeight = (roundName) => {
+        const r = (roundName || "").toLowerCase();
+        if (r.includes("fecha")) return 1;
+        if (r.includes("repechaje")) return 2;
+        if (r.includes("cuarto")) return 3;
+        if (r.includes("semi")) return 4;
+        if (r.includes("final")) return 5;
+        return 6;
+      };
+      const wA = getPhaseWeight(a.round);
+      const wB = getPhaseWeight(b.round);
+      if (wA !== wB) return wA - wB;
+
+      // 4. Si son fechas regulares, ordenar por número de fecha
+      const numA =
+        a.roundNumber ??
+        (a.round?.match(/\d+/) ? parseInt(a.round.match(/\d+/)[0], 10) : null);
+      const numB =
+        b.roundNumber ??
+        (b.round?.match(/\d+/) ? parseInt(b.round.match(/\d+/)[0], 10) : null);
+      if (numA !== null && numB !== null && numA !== numB) {
+        return numA - numB;
+      }
+
+      return 0;
+    });
+  }, [items]);
+
   const [filter, setFilter] = useState("all");
 
   // Reset filter when tournament items change

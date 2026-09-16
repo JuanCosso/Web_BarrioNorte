@@ -1,7 +1,7 @@
-// components/inicio/ListaNoticias.jsx
 import Image from "next/image";
 import Link from "next/link";
-import { noticias } from "../../data/noticias";
+import { prisma } from "../../lib/prisma";
+import { noticias as fallbackNoticias } from "../../data/noticias";
 
 const CANTIDAD_INICIO = 4;
 
@@ -12,28 +12,41 @@ function formatearFecha(isoDate) {
   return `${day}/${month}/${year}`; // DD/MM/AAAA
 }
 
-// Ordena para que:
-// 1) Las destacadas aparezcan primero
-// 2) Dentro de destacadas y no destacadas, por fecha descendente
-function ordenarNoticias(lista) {
-  return [...lista].sort((a, b) => {
-    if (a.destacada && !b.destacada) return -1;
-    if (!a.destacada && b.destacada) return 1;
+export default async function ListaNoticias() {
+  let ultimasNoticias = [];
 
-    const fechaA = new Date(a.fecha).getTime();
-    const fechaB = new Date(b.fecha).getTime();
-    return fechaB - fechaA;
-  });
-}
+  try {
+    const dbNews = await prisma.news.findMany({
+      orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
+      take: CANTIDAD_INICIO,
+    });
 
-// Devuelve las N noticias aplicando la regla de destacada que "pisa" a la más antigua
-function obtenerUltimasNoticias(lista, cantidad = CANTIDAD_INICIO) {
-  const ordenadas = ordenarNoticias(lista);
-  return ordenadas.slice(0, cantidad);
-}
+    if (dbNews.length > 0) {
+      ultimasNoticias = dbNews.map((n) => ({
+        id: n.id,
+        titulo: n.title,
+        resumen: n.summary,
+        fecha: n.publishedAt.toISOString().split("T")[0],
+        categoria: n.category,
+        tags: n.tags,
+        destacada: n.featured,
+        imagen: n.imageUrl,
+        fuente: n.source,
+        url: n.sourceUrl,
+      }));
+    }
+  } catch (err) {
+    console.warn("Aviso al consultar noticias en inicio:", err.message);
+  }
 
-export default function ListaNoticias() {
-  const ultimasNoticias = obtenerUltimasNoticias(noticias, CANTIDAD_INICIO);
+  if (ultimasNoticias.length === 0) {
+    const ordenadas = [...fallbackNoticias].sort((a, b) => {
+      if (a.destacada && !b.destacada) return -1;
+      if (!a.destacada && b.destacada) return 1;
+      return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
+    });
+    ultimasNoticias = ordenadas.slice(0, CANTIDAD_INICIO);
+  }
 
   if (ultimasNoticias.length === 0) {
     return (

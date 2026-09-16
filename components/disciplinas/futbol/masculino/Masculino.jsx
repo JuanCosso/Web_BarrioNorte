@@ -52,10 +52,8 @@ function withTeamLogos(rows) {
  */
 function enrichTeamData(equipos) {
   const TEAM_SHORT = {
-    "Sociedad Sportiva": "Sportiva",
-    SociedadSportiva: "Sportiva",
-    "Gualeguay Central": "Central",
-    GualeguayCentral: "Central",
+    "Centro Bancario": "Bancario",
+    "Centro Bancario Gualeguay": "Bancario",
   };
 
   const safe = Array.isArray(equipos) ? equipos : [];
@@ -126,28 +124,26 @@ export default function Masculino({ nav, active, onChange }) {
     TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] }
   );
 
-  // Cargar resultados dinámicamente del API cuando sea oficial-2026
+  // Cargar resultados, cuerpo técnico y plantel dinámicamente desde Neon DB vía API
   useEffect(() => {
     async function loadResults() {
       const baseContent = TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] };
       
-      // Si es oficial-2026 o femenino 2026, intenta cargar desde el API
-      if (tournamentId.includes("2026")) {
-        try {
-          const category = tournamentId.includes("fem") ? "femenino" : "masculino";
-          const response = await fetch(
-            `/api/resultados?tournament=${encodeURIComponent(tournamentId)}&category=${encodeURIComponent(category)}`
-          );
-          if (response.ok) {
-            const data = await response.json();
-            if (Array.isArray(data.results) && data.results.length > 0) {
-              setContent({ ...baseContent, results: data.results });
-              return;
-            }
-          }
-        } catch (e) {
-          // Si falla, usa el del config
+      try {
+        const category = tournamentId.includes("fem") ? "femenino" : "masculino";
+        const response = await fetch(
+          `/api/resultados?tournament=${encodeURIComponent(tournamentId)}&category=${encodeURIComponent(category)}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          const results = Array.isArray(data.results) && data.results.length > 0 ? data.results : baseContent.results;
+          const staff = Array.isArray(data.staff) && data.staff.length > 0 ? data.staff : baseContent.staff;
+          const roster = Array.isArray(data.roster) && data.roster.length > 0 ? data.roster : baseContent.roster;
+          setContent({ results, staff, roster });
+          return;
         }
+      } catch (e) {
+        // Si falla, usa el fallback de configuración
       }
       
       setContent(baseContent);
@@ -158,10 +154,29 @@ export default function Masculino({ nav, active, onChange }) {
 
   const [tables, setTables] = useState({});
   const [bracketRows, setBracketRows] = useState(null);
+  const [bracketFootnote, setBracketFootnote] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const next = getNextMatch(fixture, new Date());
-  const flyerData = formatFlyerData(next);
+  const [flyerData, setFlyerData] = useState(() => {
+    const next = getNextMatch(fixture, new Date());
+    return formatFlyerData(next);
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch("/api/proximo-partido")
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted && data?.flyerData) {
+          setFlyerData(data.flyerData);
+        }
+      })
+      .catch((err) => console.warn("Aviso al cargar próximo partido dinámico:", err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // ===== Footnotes por torneo =====
   const ui = tournament?.ui || {};
@@ -185,6 +200,7 @@ export default function Masculino({ nav, active, onChange }) {
     async function loadTournamentTables() {
       setLoading(true);
       setBracketRows(null);
+      setBracketFootnote(null);
 
       // placeholders (null = cargando)
       if (tournament.format === "oficial") setTables({ liga: null, petit: null });
@@ -205,13 +221,17 @@ export default function Masculino({ nav, active, onChange }) {
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.repechaje.type)}`)
-              .then((j) => withTeamLogos(Array.isArray(j?.rows) ? j.rows : []))
-              .catch(() => []),
+              .then((j) => ({
+                rows: withTeamLogos(Array.isArray(j?.rows) ? j.rows : []),
+                footnote: j?.footnote || null,
+              }))
+              .catch(() => ({ rows: [], footnote: null })),
           ]);
 
           if (!cancelled) {
             setTables({ liga, petit });
-            setBracketRows(llaves);
+            setBracketRows(llaves.rows);
+            setBracketFootnote(llaves.footnote);
           }
           return;
         }
@@ -227,13 +247,17 @@ export default function Masculino({ nav, active, onChange }) {
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.playoffs.type)}`)
-              .then((j) => withTeamLogos(Array.isArray(j?.rows) ? j.rows : []))
-              .catch(() => []),
+              .then((j) => ({
+                rows: withTeamLogos(Array.isArray(j?.rows) ? j.rows : []),
+                footnote: j?.footnote || null,
+              }))
+              .catch(() => ({ rows: [], footnote: null })),
           ]);
 
           if (!cancelled) {
             setTables({ grupoA, grupoB });
-            setBracketRows(llaves);
+            setBracketRows(llaves.rows);
+            setBracketFootnote(llaves.footnote);
           }
           return;
         }
@@ -245,13 +269,17 @@ export default function Masculino({ nav, active, onChange }) {
             .catch(() => []),
 
           fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.playoffs.type)}`)
-            .then((j) => withTeamLogos(Array.isArray(j?.rows) ? j.rows : []))
-            .catch(() => []),
+            .then((j) => ({
+              rows: withTeamLogos(Array.isArray(j?.rows) ? j.rows : []),
+              footnote: j?.footnote || null,
+            }))
+            .catch(() => ({ rows: [], footnote: null })),
         ]);
 
         if (!cancelled) {
           setTables({ group });
-          setBracketRows(llaves);
+          setBracketRows(llaves.rows);
+          setBracketFootnote(llaves.footnote);
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -330,7 +358,7 @@ export default function Masculino({ nav, active, onChange }) {
                           rows={bracketRows}
                           title={tournament.ui.repechajeTitle}
                           phase="Fase Eliminatoria"
-                          footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
+                          footnote={bracketFootnote || getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
                           useShortNames
                         />
                       ) : (
@@ -338,7 +366,7 @@ export default function Masculino({ nav, active, onChange }) {
                           rows={bracketRows}
                           title={tournament.ui.repechajeTitle}
                           phase="Fase Eliminatoria"
-                          footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
+                          footnote={bracketFootnote || getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
                         />
                       )}
 
@@ -377,7 +405,7 @@ export default function Masculino({ nav, active, onChange }) {
                       rows={bracketRows}
                       title={tournament.ui.playoffsTitle}
                       phase="Fase Eliminatoria"
-                      footnote={getFootnote("playoffsFootnote", "Formato: semifinales y final.")}
+                      footnote={bracketFootnote || getFootnote("playoffsFootnote", "Formato: semifinales y final.")}
                       useShortNames
                     />
                   </div>
@@ -397,11 +425,11 @@ export default function Masculino({ nav, active, onChange }) {
                       rows={bracketRows}
                       title={tournament.ui.playoffsTitle}
                       phase="Playoffs"
-                      footnote={getFootnote(
+                      footnote={bracketFootnote || getFootnote(
                         "playoffsFootnote",
                         "La Supercopa Entre Ríos 2023 finalmente fue alzada por el Club Gimnasia y Esgrima (Concepción del Uruguay)."
                       )}
-                      useShortNames={false}
+                      useShortNames
                     />
                   </div>
                 )}

@@ -170,28 +170,26 @@ export default function Femenino({ nav, active, onChange }) {
     TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] }
   );
 
-  // Cargar resultados dinámicamente del API cuando sea oficial-2026
+  // Cargar resultados, cuerpo técnico y plantel dinámicamente desde Neon DB vía API
   useEffect(() => {
     async function loadResults() {
       const baseContent = TOURNAMENT_CONTENT[tournamentId] || { results: [], staff: [], roster: [] };
       
-      // Si es oficial-2026-fem, intenta cargar desde el API
-      if (tournamentId.includes("2026")) {
-        try {
-          const category = "femenino";
-          const response = await fetch(
-            `/api/resultados?tournament=${encodeURIComponent(tournamentId)}&category=${encodeURIComponent(category)}`
-          );
-          if (response.ok) {
-            const data = await response.json();
-            if (Array.isArray(data.results) && data.results.length > 0) {
-              setContent({ ...baseContent, results: data.results });
-              return;
-            }
-          }
-        } catch (e) {
-          // Si falla, usa el del config
+      try {
+        const category = "femenino";
+        const response = await fetch(
+          `/api/resultados?tournament=${encodeURIComponent(tournamentId)}&category=${encodeURIComponent(category)}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          const results = Array.isArray(data.results) && data.results.length > 0 ? data.results : baseContent.results;
+          const staff = Array.isArray(data.staff) && data.staff.length > 0 ? data.staff : baseContent.staff;
+          const roster = Array.isArray(data.roster) && data.roster.length > 0 ? data.roster : baseContent.roster;
+          setContent({ results, staff, roster });
+          return;
         }
+      } catch (e) {
+        // Si falla, usa el fallback de configuración
       }
       
       setContent(baseContent);
@@ -202,7 +200,9 @@ export default function Femenino({ nav, active, onChange }) {
 
   const [tables, setTables] = useState({});
   const [repechajeRows, setRepechajeRows] = useState(null);
+  const [repechajeFootnote, setRepechajeFootnote] = useState(null);
   const [petitRows, setPetitRows] = useState(null);
+  const [petitFootnote, setPetitFootnote] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // ===== Footnotes por torneo (igual que Masculino) =====
@@ -227,7 +227,9 @@ export default function Femenino({ nav, active, onChange }) {
     async function loadTournamentTables() {
       setLoading(true);
       setRepechajeRows(null);
+      setRepechajeFootnote(null);
       setPetitRows(null);
+      setPetitFootnote(null);
 
       // placeholders (null = cargando)
       if (tournament.format === "oficial") setTables({ liga: null });
@@ -242,19 +244,26 @@ export default function Femenino({ nav, active, onChange }) {
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.repechaje.type)}`)
-              .then((j) => withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : []))
-              .catch(() => []),
+              .then((j) => ({
+                rows: withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : []),
+                footnote: j?.footnote || null,
+              }))
+              .catch(() => ({ rows: [], footnote: null })),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.petit.type)}`)
-              .then((j) => withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : []))
-              .then((rows) => normalizePetitFinalSingleLeg(rows))
-              .catch(() => []),
+              .then((j) => ({
+                rows: normalizePetitFinalSingleLeg(withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : [])),
+                footnote: j?.footnote || null,
+              }))
+              .catch(() => ({ rows: [], footnote: null })),
           ]);
 
           if (!cancelled) {
             setTables({ liga });
-            setRepechajeRows(repe);
-            setPetitRows(petit);
+            setRepechajeRows(repe.rows);
+            setRepechajeFootnote(repe.footnote);
+            setPetitRows(petit.rows);
+            setPetitFootnote(petit.footnote);
           }
         }
       } finally {
@@ -326,7 +335,7 @@ export default function Femenino({ nav, active, onChange }) {
                       rows={repechajeRows}
                       title={tournamentId === "oficial-2026-fem" ? "Playoffs" : tournament.ui.repechajeTitle}
                       phase={tournament.ui.repechajePhase || "Fase Eliminatoria"}
-                      footnote={getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
+                      footnote={repechajeFootnote || getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
                     />
 
                     {tournamentId !== "oficial-2026-fem" && (
@@ -334,7 +343,7 @@ export default function Femenino({ nav, active, onChange }) {
                         rows={petitRows}
                         title={tournament.ui.petitTitle}
                         phase={tournament.ui.petitPhase}
-                        footnote={getFootnote("petitFootnote", "Formato: semifinales ida/vuelta y final única.")}
+                        footnote={petitFootnote || getFootnote("petitFootnote", "Formato: semifinales ida/vuelta y final única.")}
                       />
                     )}
                   </div>

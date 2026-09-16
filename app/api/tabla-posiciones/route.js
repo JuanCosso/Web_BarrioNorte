@@ -165,10 +165,154 @@ export async function GET(req) {
     const sheetUrl      = tournamentMap?.[type];
     const isBracket     = BRACKET_TYPE_RE.test(type);
 
+    // 1. Intentar consultar Neon DB primero si no es una llave/bracket
+    if (!isBracket) {
+      try {
+        const { prisma } = await import("../../../lib/prisma.js");
+        
+        let mappedSlug = "fase-regular";
+        const tLower = type.toLowerCase();
+        if (tLower.includes("grupo_a") || tLower.includes("grupo-a")) mappedSlug = "grupo-a";
+        else if (tLower.includes("grupo_b") || tLower.includes("grupo-b")) mappedSlug = "grupo-b";
+        else if (tLower.includes("petit_playoffs")) mappedSlug = "petit-playoffs";
+        else if (tLower.includes("petit")) mappedSlug = "petit";
+        else if (tLower.includes("repechaje")) mappedSlug = "repechaje";
+        else if (tLower.includes("playoffs")) mappedSlug = "playoffs";
+        else if (tLower.includes("finales")) mappedSlug = "finales";
+
+        const phase = await prisma.tournamentPhase.findFirst({
+          where: {
+            tournamentId: tournament,
+            OR: [
+              { slug: mappedSlug },
+              { name: { equals: type, mode: "insensitive" } },
+            ],
+          },
+          include: {
+            standings: {
+              include: { team: true },
+              orderBy: [{ pts: "desc" }, { dg: "desc" }, { gf: "desc" }],
+            },
+          },
+        });
+
+        if (phase && phase.standings.length > 0) {
+          const equipos = phase.standings.map((s) => ({
+            name: s.team.name,
+            shortName: s.team.shortName,
+            slug: s.team.slug,
+            logo: s.team.logoUrl || "/escudos/default.png",
+            pj: s.pj,
+            pg: s.pg,
+            pe: s.pe,
+            pp: s.pp,
+            gm: s.gf,
+            gc: s.gc,
+            dg: s.dg,
+            pts: s.pts,
+            pointAdjustment: s.pointAdjustment,
+            notes: s.notes,
+          }));
+          return NextResponse.json({ equipos, fromDb: true });
+        }
+      } catch (dbErr) {
+        console.warn("Aviso al consultar tabla en Neon:", dbErr.message);
+      }
+    } else {
+      // 1.b Consultar Neon DB para llaves/brackets (Repechaje, Playoffs, Finales)
+      try {
+        const { prisma } = await import("../../../lib/prisma.js");
+        let mappedSlug = "repechaje";
+        const tLower = type.toLowerCase();
+        if (tLower.includes("petit_playoffs")) mappedSlug = "petit-playoffs";
+        else if (tLower.includes("playoff")) mappedSlug = "playoffs";
+        else if (tLower.includes("finales") || tLower.includes("final")) mappedSlug = "finales";
+
+        const phase = await prisma.tournamentPhase.findFirst({
+          where: {
+            tournamentId: tournament,
+            OR: [
+              { slug: mappedSlug },
+              { name: { equals: type, mode: "insensitive" } },
+            ],
+          },
+        });
+
+        if (phase) {
+          const bracketMatches = await prisma.match.findMany({
+            where: {
+              tournamentId: tournament,
+              phaseId: phase.id,
+            },
+            include: { homeTeam: true, awayTeam: true },
+            orderBy: [{ roundNumber: "asc" }, { id: "asc" }],
+          });
+
+          if (bracketMatches.length > 0) {
+            const rows = [];
+            let footnote = "";
+            for (const m of bracketMatches) {
+              const isSeries = m.notes && m.notes.includes("SERIES_DATA:");
+              let seriesData = null;
+              if (isSeries) {
+                try {
+                  const parts = m.notes.split("SERIES_DATA:");
+                  if (!footnote) footnote = parts[0].trim();
+                  seriesData = JSON.parse(parts[1]);
+                } catch {}
+              } else if (!footnote && m.notes) {
+                footnote = m.notes.trim();
+              }
+
+              if (seriesData) {
+                rows.push({
+                  equipo: m.homeTeam.name,
+                  etapa: m.roundName,
+                  ida: String(seriesData.ida1 ?? ""),
+                  vuelta: String(seriesData.vuelta1 ?? ""),
+                  resultado: "",
+                  penales: m.penaltiesHome != null ? String(m.penaltiesHome) : "-",
+                });
+                rows.push({
+                  equipo: m.awayTeam.name,
+                  etapa: m.roundName,
+                  ida: String(seriesData.ida2 ?? ""),
+                  vuelta: String(seriesData.vuelta2 ?? ""),
+                  resultado: "",
+                  penales: m.penaltiesAway != null ? String(m.penaltiesAway) : "-",
+                });
+              } else {
+                rows.push({
+                  equipo: m.homeTeam.name,
+                  etapa: m.roundName,
+                  resultado: m.homeScore != null ? String(m.homeScore) : "",
+                  penales: m.penaltiesHome != null ? String(m.penaltiesHome) : "-",
+                  ida: "",
+                  vuelta: "",
+                });
+                rows.push({
+                  equipo: m.awayTeam.name,
+                  etapa: m.roundName,
+                  resultado: m.awayScore != null ? String(m.awayScore) : "",
+                  penales: m.penaltiesAway != null ? String(m.penaltiesAway) : "-",
+                  ida: "",
+                  vuelta: "",
+                });
+              }
+            }
+
+            return NextResponse.json({ rows, footnote: footnote || undefined, fromDb: true });
+          }
+        }
+      } catch (dbErr) {
+        console.warn("Aviso al consultar bracket en Neon:", dbErr.message);
+      }
+    }
+
     if (!sheetUrl) {
       const localData = readLocalJson(tournament, type);
       if (localData) {
-        if (isBracket) return NextResponse.json({ rows: localData.rows || [] });
+        if (isBracket) return NextResponse.json({ rows: localData.rows || [], footnote: localData.footnote || undefined });
         return NextResponse.json({ equipos: ordenarEquipos(localData.equipos || []) });
       }
       if (isBracket) return NextResponse.json({ rows: [] });

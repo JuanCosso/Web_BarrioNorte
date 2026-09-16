@@ -5,6 +5,11 @@
   --cabn-red-dark: #8e1616;
   --cabn-red-hover: #991b1b;
   --cabn-red-light: #ef4444;
+  --font-poppins: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body, .font-poppins {
+  font-family: var(--font-poppins);
 }
 
 @layer utilities {

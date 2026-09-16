@@ -1,44 +1,219 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
-model Order {
-  id            String   @id @default(cuid())
-  createdAt     DateTime @default(now())
+// ==========================================
+// 1. CLUBES Y RIVALES
+// ==========================================
+model Team {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  shortName   String
+  slug        String   @unique
+  logoUrl     String?
+  isLocalClub Boolean  @default(false)
+  aliases     String[]
 
-  status        String   @default("draft") // draft | paid | cancelled
-  currency      String   @default("ARS")
+  homeMatches Match[]       @relation("HomeTeam")
+  awayMatches Match[]       @relation("AwayTeam")
+  standings   StandingRow[]
 
-  buyerName     String
-  buyerPhone    String
-  buyerEmail    String?
-
-  delivery      String   // retiro | envio
-
-  subtotal      Int
-  shippingCost  Int
-  total         Int
-
-  paymentProvider String?
-  paymentStatus   String? // approved | pending | rejected | etc
-  paymentId       String?
-  preferenceId    String?
-
-  items         OrderItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model OrderItem {
-  id        String @id @default(cuid())
-  orderId   String
-  order     Order  @relation(fields: [orderId], references: [id])
-
-  productId   String
-  name        String
-  unitPrice   Int
-  quantity    Int
-  variantJson String?
+// ==========================================
+// 2. TEMPORADAS Y TORNEOS
+// ==========================================
+model Season {
+  id          String       @id
+  year        Int          @unique
+  tournaments Tournament[]
 }
+
+enum Category {
+  PRIMERA_MASCULINO
+  PRIMERA_FEMENINO
+  TERCERA_RESERVA
+  CUARTA
+  QUINTA
+  SEXTA
+  SEPTIMA
+  CAT_A
+  CAT_B
+  CAT_C
+  CAT_D
+}
+
+enum TournamentFormat {
+  LIGA_TRADICIONAL
+  ZONAS_Y_PLAYOFFS
+  COPA_ELIMINATORIA
+}
+
+enum MatchStatus {
+  SCHEDULED
+  FINISHED
+  POSTPONED
+  SUSPENDED
+}
+
+model Tournament {
+  id        String           @id
+  name      String
+  seasonId  String
+  season    Season           @relation(fields: [seasonId], references: [id])
+  category  Category         @default(PRIMERA_MASCULINO)
+  format    TournamentFormat @default(LIGA_TRADICIONAL)
+
+  phases    TournamentPhase[]
+  matches   Match[]
+  staff     TournamentStaff[]
+  roster    TournamentRoster[]
+
+  createdAt DateTime @default(now())
+}
+
+model TournamentPhase {
+  id           String        @id @default(cuid())
+  tournamentId String
+  tournament   Tournament    @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  name         String
+  slug         String
+  order        Int           @default(1)
+
+  matches      Match[]
+  standings    StandingRow[]
+}
+
+// ==========================================
+// 3. TABLA DE POSICIONES
+// ==========================================
+model StandingRow {
+  id              String          @id @default(cuid())
+  phaseId         String
+  phase           TournamentPhase @relation(fields: [phaseId], references: [id], onDelete: Cascade)
+  teamId          String
+  team            Team            @relation(fields: [teamId], references: [id])
+
+  pj              Int             @default(0)
+  pg              Int             @default(0)
+  pe              Int             @default(0)
+  pp              Int             @default(0)
+  gf              Int             @default(0)
+  gc              Int             @default(0)
+  dg              Int             @default(0)
+  pts             Int             @default(0)
+
+  pointAdjustment Int             @default(0)
+  notes           String?
+  position        Int?
+
+  @@unique([phaseId, teamId])
+}
+
+// ==========================================
+// 4. FIXTURE Y RESULTADOS
+// ==========================================
+model Match {
+  id           String           @id @default(cuid())
+  tournamentId String
+  tournament   Tournament       @relation(fields: [tournamentId], references: [id])
+  phaseId      String?
+  phase        TournamentPhase? @relation(fields: [phaseId], references: [id])
+
+  roundName    String
+  roundNumber  Int?
+  date         DateTime?
+  rawDate      String?
+
+  homeTeamId   String
+  homeTeam     Team             @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeamId   String
+  awayTeam     Team             @relation("AwayTeam", fields: [awayTeamId], references: [id])
+
+  homeScore    Int?
+  awayScore    Int?
+  penaltiesHome Int?
+  penaltiesAway Int?
+  status       MatchStatus      @default(SCHEDULED)
+
+  stadium      String?
+  notes        String?
+  competition  String?
+
+  @@unique([tournamentId, roundName, homeTeamId, awayTeamId])
+}
+
+// ==========================================
+// 5. PLANTELES Y CUERPOS TÉCNICOS
+// ==========================================
+model Person {
+  id          String             @id @default(cuid())
+  fullName    String             @unique
+  photoUrl    String?
+  birthDate   DateTime?
+
+  rosterRoles TournamentRoster[]
+  staffRoles  TournamentStaff[]
+}
+
+model TournamentRoster {
+  id           String     @id @default(cuid())
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  personId     String
+  person       Person     @relation(fields: [personId], references: [id])
+
+  position     String
+  jerseyNumber Int?
+}
+
+model TournamentStaff {
+  id           String     @id @default(cuid())
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  personId     String
+  person       Person     @relation(fields: [personId], references: [id])
+
+  role         String
+}
+
+// ==========================================
+// 6. NOTICIAS Y COMUNICADOS
+// ==========================================
+model News {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  summary     String
+  content     String?
+  publishedAt DateTime @default(now())
+  category    String
+  tags        String[]
+  featured    Boolean  @default(false)
+  imageUrl    String
+  source      String?
+  sourceUrl   String?
+
+  createdAt   DateTime @default(now())
+}
+
+// ==========================================
+// 7. AUDITORÍA DEL PIPELINE AUTOMATIZADO
+// ==========================================
+model IngestedSocialPost {
+  id              String   @id
+  sourceAccount   String
+  postUrl         String
+  caption         String?
+  mediaUrls       String[]
+  processedAt     DateTime @default(now())
+  status          String
+  aiExtractedData Json?
+}
+

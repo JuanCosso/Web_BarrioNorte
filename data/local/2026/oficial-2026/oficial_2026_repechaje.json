@@ -1,1 +1,53 @@
-{ "rows": [] }
+{
+  "rows": [
+    {
+      "equipo": "Libertad",
+      "etapa": "Semifinal 1",
+      "resultado": "5",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Quilmes",
+      "etapa": "Semifinal 1",
+      "resultado": "0",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Semifinal 2",
+      "resultado": "3",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "La Academia",
+      "etapa": "Semifinal 2",
+      "resultado": "0",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Libertad",
+      "etapa": "Final",
+      "resultado": "0",
+      "penales": "6",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "Barrio Norte",
+      "etapa": "Final",
+      "resultado": "0",
+      "penales": "7",
+      "ida": "",
+      "vuelta": ""
+    }
+  ],
+  "footnote": "Barrio Norte clasifica al Petit Torneo."
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import fixture from "../../data/fixture/masculino.json";
 import { getNextMatch, formatFlyerData } from "../../lib/fixture";
@@ -16,13 +17,33 @@ function formatDDMM(dateISO) {
 }
 
 export default function FlyerProximoPartido() {
-  // Próximo partido según fecha más cercana
-  const next = getNextMatch(fixture, new Date());
-  const flyerData = formatFlyerData(next);
+  // Próximo partido por defecto según fecha más cercana en local
+  const [flyerData, setFlyerData] = useState(() => {
+    const next = getNextMatch(fixture, new Date());
+    return formatFlyerData(next);
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch("/api/proximo-partido")
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted && data?.flyerData) {
+          setFlyerData(data.flyerData);
+        }
+      })
+      .catch((err) => console.warn("Aviso al cargar próximo partido dinámico:", err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   if (!flyerData) return null;
 
   const {
+    round,
+    competition,
     localName,
     visitanteName,
     stadium,
@@ -111,13 +132,18 @@ export default function FlyerProximoPartido() {
         </div>
 
         {/* Derecha: Info del partido */}
-{/* Derecha: Info del partido */}
-<div className="flex-1 flex justify-center sm:justify-end">
-  <div className="flex flex-col items-center sm:items-end text-center sm:text-right">
-    {/* Equipos arriba del estadio */}
-    <p className="text-white font-extrabold italic uppercase tracking-wide">
-      {localName} <span className="font-black text-red-600">vs</span> {visitanteName}
-    </p>
+        <div className="flex-1 flex justify-center sm:justify-end">
+          <div className="flex flex-col items-center sm:items-end text-center sm:text-right">
+            {round ? (
+              <span className="text-[11px] sm:text-xs font-extrabold tracking-[0.28em] text-red-600 uppercase">
+                {round}
+              </span>
+            ) : null}
+
+            {/* Equipos arriba del estadio */}
+            <p className="text-white font-extrabold italic uppercase tracking-wide">
+              {localName} <span className="font-black text-red-600">vs</span> {visitanteName}
+            </p>
 
     {/* Estadio */}
             <div className="mt-2 flex items-center gap-2">

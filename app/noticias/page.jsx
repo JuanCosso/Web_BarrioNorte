@@ -1,10 +1,10 @@
 // app/noticias/page.jsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import PublicidadNoticiasTop from "../../components/inicio/PublicidadNoticiasTop";
-import { noticias as noticiasData } from "../../data/noticias";
+import { noticias as initialNoticias } from "../../data/noticias";
 
 const ITEMS_INICIALES = 8;
 const ITEMS_POR_CARGA = 8;
@@ -39,12 +39,24 @@ function formatearFecha(isoDate) {
 // --- Página principal ---
 
 export default function NoticiasPage() {
+  const [noticiasList, setNoticiasList] = useState(initialNoticias);
   const [busqueda, setBusqueda] = useState("");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(CATEGORIA_TODAS);
   const [cantidadVisible, setCantidadVisible] = useState(ITEMS_INICIALES);
 
-  const categorias = obtenerCategorias(noticiasData);
-  const noticiasOrdenadas = ordenarNoticias(noticiasData);
+  useEffect(() => {
+    fetch("/api/noticias")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.noticias && Array.isArray(data.noticias) && data.noticias.length > 0) {
+          setNoticiasList(data.noticias);
+        }
+      })
+      .catch((e) => console.warn("Error cargando noticias desde API:", e.message));
+  }, []);
+
+  const categorias = obtenerCategorias(noticiasList);
+  const noticiasOrdenadas = ordenarNoticias(noticiasList);
 
   const handleBusquedaChange = (valor) => {
     setBusqueda(valor);

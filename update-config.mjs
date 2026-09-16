@@ -1,0 +1,283 @@
+import fs from 'fs';
+
+const userContent = `
+export const TOURNAMENT_CONTENT = {
+  "oficial-2021-22": {
+      results: [
+        // ── Primera rueda ────────────────────────────────────────────────────────
+        { round: "Fecha 1",  date: "19/09", condition: "Local",     rival: "Quilmes",          score: "6 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 2",  date: "26/09", condition: "Local",     rival: "Urquiza",           score: "3 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 3",  date: "26/09", condition: "Visitante", rival: "Juventud",          score: "0 - 3", competition: "Torneo Oficial" },
+        { round: "Fecha 4",  date: "10/10", condition: "Visitante",     rival: "El Progreso",       score: "0 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 5",  date: "24/10", condition: "Visitante", rival: "Bancario",          score: "0 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 6",  date: "31/10", condition: "Local",     rival: "Sportiva",          score: "3 - 3", competition: "Torneo Oficial" },
+        { round: "Fecha 7",  date: "07/11", condition: "Visitante", rival: "La Academia",       score: "2 - 4", competition: "Torneo Oficial" },
+        { round: "Fecha 8",  date: "28/11", condition: "Visitante",     rival: "Libertad",          score: "1 - 3", competition: "Torneo Oficial" }, // completar
+        { round: "Fecha 9",  date: "05/12", condition: "Visitante", rival: "Central",           score: "2 - 1", competition: "Torneo Oficial" },
+        // ── Segunda rueda ────────────────────────────────────────────────────────
+        { round: "Fecha 10", date: "12/12", condition: "Visitante",     rival: "Quilmes",           score: "1 - 3", competition: "Torneo Oficial" },
+        { round: "Fecha 11", date: "30/01", condition: "Visitante", rival: "Urquiza",           score: "1 - 1", competition: "Torneo Oficial" },
+        { round: "Fecha 12", date: "06/02", condition: "Local",     rival: "Juventud",          score: "3 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 13", date: "13/02", condition: "Visitante",     rival: "El Progreso",       score: "0 - 2", competition: "Torneo Oficial" },
+        { round: "Fecha 14", date: "20/02", condition: "Local",     rival: "Bancario",          score: "1 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 15", date: "13/03", condition: "Local",     rival: "Sportiva",          score: "2 - 1", competition: "Torneo Oficial" },
+        { round: "Fecha 16", date: "20/03", condition: "Local",     rival: "La Academia",       score: "1 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 17", date: "27/03", condition: "Visitante", rival: "Libertad",          score: "3 - 0", competition: "Torneo Oficial" },
+        { round: "Fecha 18", date: "10/04", condition: "Local",     rival: "Central",           score: "0 - 0", competition: "Torneo Oficial" },
+        // ── Playoffs ─────────────────────────────────────────────────────────────
+        { round: "Semifinal",       date: "17/04", condition: "Visitante", rival: "Sportiva", score: "0 - 0", competition: "Fase Final" },
+        { round: "Semifinal",    date: "24/04", condition: "Local",     rival: "Sportiva", score: "1 - 1", competition: "Fase Final" },
+        { round: "Final",           date: "01/05", condition: "Local",     rival: "Urquiza",  score: "3 - 2", competition: "Fase Final" },
+        { round: "Final",        date: "08/05", condition: "Visitante", rival: "Urquiza",  score: "2 - 1", competition: "Fase Final" },
+        { round: "Final (desempate)",     date: "15/05", condition: "Local",     rival: "Urquiza",  score: "3 - 0", competition: "Fase Final" },
+      ],
+      staff: [
+        // completar con el cuerpo técnico de esa temporada
+      ],
+      roster: [
+        // completar con el plantel de esa temporada
+      ],
+    },
+    "oficial-2022": {
+    results: [
+      // ── Fase de grupos (Zona B + interzonales) ───────────────────────────────
+      { round: "Fecha 1", date: "10/07", condition: "Visitante", rival: "La Academia",      score: "3 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 2", date: "17/07", condition: "Visitante", rival: "Central", score: "1 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 3", date: "24/07", condition: "Local",     rival: "El Progreso",       score: "1 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 4", date: "31/07", condition: "Local",     rival: "Libertad",          score: "2 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 5", date: "07/08", condition: "Local",     rival: "Quilmes",           score: "1 - 0", competition: "Torneo Oficial" },
+      // ── Playoffs ─────────────────────────────────────────────────────────────
+      { round: "Cuartos",     date: "21/08", condition: "Visitante", rival: "Sportiva", score: "2 - 1", competition: "Fase Final" },
+      { round: "Cuartos",  date: "28/08", condition: "Local",     rival: "Sportiva", score: "2 - 0", competition: "Fase Final" },
+      { round: "Semifinal",   date: "04/09", condition: "Visitante", rival: "Bancario",          score: "1 - 1", competition: "Fase Final" },
+      { round: "Semifinal",date: "11/09", condition: "Local",     rival: "Bancario",          score: "2 - 0", competition: "Fase Final" },
+      { round: "Final",       date: "18/09", condition: "Visitante", rival: "Urquiza",           score: "0 - 1", competition: "Fase Final" },
+      { round: "Final",    date: "25/09", condition: "Local",     rival: "Urquiza",           score: "1 - 0", competition: "Fase Final" },
+    ],
+    staff: [],
+    roster: [],
+  },
+  "oficial-2025": {
+    results: [
+      { round: "Fecha 1", date: "06/04", condition: "Local", rival: "Bancario", score: "2 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 2", date: "13/04", condition: "Local", rival: "La Academia", score: "0 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 3", date: "20/04", condition: "Visitante", rival: "Urquiza", score: "3 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 4", date: "27/04", condition: "Local", rival: "Central", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 5", date: "04/05", condition: "Visitante", rival: "Sportiva", score: "3 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 6", date: "11/05", condition: "Local", rival: "Libertad", score: "2 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 7", date: "25/05", condition: "Visitante", rival: "Quilmes", score: "1 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 8", date: "01/06", condition: "Local", rival: "Juventud", score: "0 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 9", date: "08/06", condition: "Visitante", rival: "El Progreso", score: "1 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 10", date: "06/06", condition: "Visitante", rival: "Bancario", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 11", date: "22/06", condition: "Visitante", rival: "La Academia", score: "0 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 12", date: "29/06", condition: "Local", rival: "Urquiza", score: "2 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 13", date: "05/07", condition: "Visitante", rival: "Central", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 14", date: "13/07", condition: "Local", rival: "Sportiva", score: "2 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 15", date: "20/07", condition: "Visitante", rival: "Libertad", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 16", date: "03/08", condition: "Local", rival: "Quilmes", score: "2 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 17", date: "10/08", condition: "Visitante", rival: "Juventud", score: "3 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 18", date: "17/08", condition: "Local", rival: "El Progreso", score: "5 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 1", date: "07/09", condition: "Visitante", rival: "Sportiva", score: "2 - 1", competition: "Petit Torneo" },
+      { round: "Fecha 2", date: "14/09", condition: "Local", rival: "La Academia", score: "3 - 3", competition: "Petit Torneo" },
+      { round: "Fecha 3", date: "21/09", condition: "Visitante", rival: "Juventud", score: "2 - 3", competition: "Petit Torneo" },
+      { round: "Fecha 4", date: "28/09", condition: "Local", rival: "Sportiva", score: "0 - 1", competition: "Petit Torneo" },
+      { round: "Fecha 5", date: "12/10", condition: "Visitante", rival: "La Academia", score: "1 - 0", competition: "Petit Torneo" },
+      { round: "Fecha 6", date: "19/10", condition: "Local", rival: "Juventud", score: "Susp.", competition: "Petit Torneo" },
+    ],
+    staff: [
+      { name: "Roberto García", role: "Director Técnico" },
+      { name: "Silvio Ponce", role: "Ayudante de campo" },
+      { name: "Victorio Silguero", role: "Ayudante de campo" },
+    ],
+    roster: [
+      { name: "Jugador 1", role: "Arquero" },
+      { name: "Jugador 2", role: "Defensor" },
+      { name: "Jugador 3", role: "Mediocampista" },
+      { name: "Jugador 4", role: "Delantero" },
+    ],
+  },
+  "oficial-2024": { 
+    results: [
+      { round: "Fecha 1", date: "12/05", condition: "Visitante", rival: "Urquiza", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 2", date: "19/05", condition: "Local", rival: "Libertad", score: "3 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 3", date: "26/05", condition: "Local", rival: "Sportiva", score: "0 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 4", date: "02/06", condition: "Visitante", rival: "Bancario", score: "1 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 5", date: "09/06", condition: "Visitante", rival: "Quilmes", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 6", date: "16/06", condition: "Local", rival: "El Progreso", score: "3 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 7", date: "23/06", condition: "Visitante", rival: "La Academia", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 8", date: "30/06", condition: "Visitante", rival: "Juventud", score: "2 - 3", competition: "Torneo Oficial" },
+      { round: "Fecha 9", date: "07/07", condition: "Local", rival: "Central", score: "0 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 10", date: "14/07", condition: "Local", rival: "Urquiza", score: "2 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 11", date: "21/07", condition: "Visitante", rival: "Libertad", score: "1 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 12", date: "28/07", condition: "Visitante", rival: "Sportiva", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 13", date: "04/08", condition: "Local", rival: "Bancario", score: "4 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 14", date: "11/08", condition: "Local", rival: "Quilmes", score: "3 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 15", date: "18/08", condition: "Visitante", rival: "El Progreso", score: "1 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 16", date: "25/08", condition: "Local", rival: "La Academia", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 17", date: "08/09", condition: "Local", rival: "Juventud", score: "5 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 18", date: "15/09", condition: "Visitante", rival: "Central", score: "2 - 2", competition: "Torneo Oficial" },
+      { round: "Semifinal", date: "18/09", condition: "Local", rival: "El Progreso", score: "1 - 0", competition: "Repechaje" },
+      { round: "Final", date: "22/09", condition: "Local", rival: "Quilmes", score: "2 - 0", competition: "Repechaje" },
+      { round: "Fecha 1", date: "06/10", condition: "Visitante", rival: "Libertad", score: "1 - 0", competition: "Petit Torneo" },
+      { round: "Fecha 2", date: "20/10", condition: "Local", rival: "Urquiza", score: "3 - 2", competition: "Petit Torneo" },
+      { round: "Fecha 3", date: "27/10", condition: "Visitante", rival: "Sportiva", score: "1 - 1", competition: "Petit Torneo" },
+      { round: "Fecha 4", date: "03/11", condition: "Local", rival: "Libertad", score: "1 - 1", competition: "Petit Torneo" },
+      { round: "Fecha 5", date: "10/11", condition: "Visitante", rival: "Urquiza", score: "0 - 2", competition: "Petit Torneo" },
+      { round: "Fecha 6", date: "18/11", condition: "Local", rival: "Sportiva", score: "4 - 1", competition: "Petit Torneo" },
+    ],
+    staff: [
+      { name: "Roberto García", role: "Director Técnico" },
+      { name: "Silvio Ponce", role: "Ayudante de campo" },
+      { name: "Victorio Silguero", role: "Ayudante de campo" },
+    ],
+    roster: [
+      { name: "Jugador 1", role: "Arquero" },
+      { name: "Jugador 2", role: "Defensor" },
+      { name: "Jugador 3", role: "Mediocampista" },
+      { name: "Jugador 4", role: "Delantero" },
+    ],
+  },
+  "preparacion-2024": {
+    results: [
+      { round: "Fecha 1", date: "17/01", condition: "Local", rival: "Urquiza", score: "0 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 2", date: "22/01", condition: "Visitante", rival: "Juventud", score: "0 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 3", date: "30/01", condition: "Local", rival: "Quilmes", score: "1 - 0", competition: "Torneo Preparación" },
+      { round: "Fecha 4", date: "05/02", condition: "Visitante", rival: "El Progreso", score: "4 - 1", competition: "Torneo Preparación" },
+      { round: "Semifinal", date: "14/02", condition: "Local", rival: "Sportiva", score: "1 - 1 (3-2)", competition: "Fase Final" },
+      { round: "Final", date: "16/02", condition: "Visitante", rival: "Central", score: "0 - 0", competition: "Fase Final" },
+    ],
+    staff: [
+      { name: "Roberto García", role: "Director Técnico" },
+      { name: "Silvio Ponce", role: "Ayudante de campo" },
+      { name: "Victorio Silguero", role: "Ayudante de campo" },
+    ],
+    roster: [
+      { name: "Jugador 1", role: "Arquero" },
+      { name: "Jugador 2", role: "Defensor" },
+      { name: "Jugador 3", role: "Mediocampista" },
+      { name: "Jugador 4", role: "Delantero" },
+    ],
+  },
+  "oficial-2023": {
+    results: [
+      { round: "Fecha 1", date: "16/04", condition: "Visitante", rival: "Libertad", score: "3 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 2", date: "23/04", condition: "Local", rival: "Urquiza", score: "3 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 3", date: "30/04", condition: "Local", rival: "La Academia", score: "2 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 4", date: "14/05", condition: "Visitante", rival: "El Progreso", score: "0 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 5", date: "01/06", condition: "Local", rival: "Central", score: "2 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 6", date: "01/06", condition: "Visitante", rival: "Juventud", score: "1 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 7", date: "01/06", condition: "Local", rival: "Quilmes", score: "0 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 8", date: "01/06", condition: "Visitante", rival: "Sportiva", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 9", date: "02/07", condition: "Visitante", rival: "Bancario", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 10", date: "09/07", condition: "Local", rival: "Libertad", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 11", date: "23/07", condition: "Visitante", rival: "Urquiza", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 12", date: "30/07", condition: "Visitante", rival: "La Academia", score: "1 - 5", competition: "Torneo Oficial" },
+      { round: "Fecha 13", date: "06/08", condition: "Local", rival: "El Progreso", score: "1 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 14", date: "20/08", condition: "Visitante", rival: "Central", score: "2 - 0", competition: "Torneo Oficial" },
+      { round: "Fecha 15", date: "27/08", condition: "Local", rival: "Juventud", score: "2 - 4", competition: "Torneo Oficial" },
+      { round: "Fecha 16", date: "10/09", condition: "Visitante", rival: "Quilmes", score: "0 - 1", competition: "Torneo Oficial" },
+      { round: "Fecha 17", date: "17/09", condition: "Local", rival: "Sportiva", score: "0 - 2", competition: "Torneo Oficial" },
+      { round: "Fecha 18", date: "23/09", condition: "Local", rival: "Bancario", score: "1 - 0", competition: "Torneo Oficial" },
+      { round: "Semifinal", date: "27/09", condition: "Visitante", rival: "Urquiza", score: "1 - 1 (4-5)", competition: "Repechaje" },
+      { round: "Final", date: "01/10", condition: "Visitante", rival: "Gualeguay Central", score: "0 - 0 (9-10)", competition: "Repechaje" },
+    ],
+    staff: [
+      { name: "Cristian Ariel Mallarino", role: "Director Técnico" },
+      { name: "Desconocido", role: "Ayudante de campo" },
+    ],
+    roster: [
+      { name: "Jugador 1", role: "Arquero" },
+      { name: "Jugador 2", role: "Defensor" },
+      { name: "Jugador 3", role: "Mediocampista" },
+      { name: "Jugador 4", role: "Delantero" },
+    ],
+  },
+  "supercopa-entre-rios-2023": {
+    results: [
+      { round: "Fecha 1", date: "04/12", condition: "Local", rival: "Juventud Unida", score: "2 - 1", competition: "Supercopa Entre Ríos" },
+      { round: "Fecha 2", date: "11/12", condition: "Local", rival: "Central", score: "3 - 2", competition: "Supercopa Entre Ríos" },
+      { round: "Fecha 3", date: "17/12", condition: "Visitante", rival: "Deportivo Urdinarrain", score: "1 - 0", competition: "Supercopa Entre Ríos" },
+      { round: "Fecha 4", date: "08/01", condition: "Visitante", rival: "Juventud Unida", score: "2 - 0", competition: "Supercopa Entre Ríos" },
+      { round: "Fecha 5", date: "15/01", condition: "Visitante", rival: "Central", score: "0 - 2", competition: "Supercopa Entre Ríos" },
+      { round: "Fecha 6", date: "22/01", condition: "Local", rival: "Deportivo Urdinarrain", score: "1 - 0", competition: "Supercopa Entre Ríos" },
+      { round: "Ronda 2", date: "05/02", condition: "Visitante", rival: "Ferrocarril (Chajarí)", score: "1 - 1", competition: "Supercopa Entre Ríos" },
+      { round: "Ronda 2", date: "12/02", condition: "Local", rival: "Ferrocarril (Chajarí)", score: "1 - 0", competition: "Supercopa Entre Ríos" },
+      { round: "Ronda 3", date: "19/02", condition: "Visitante", rival: "Libertad (Concordia)", score: "2 - 1", competition: "Supercopa Entre Ríos" },
+      { round: "Ronda 3", date: "26/02", condition: "Local", rival: "Libertad (Concordia)", score: "1 - 2", competition: "Supercopa Entre Ríos" },
+    ],
+    staff: [
+      { name: "Martín Caminos", role: "Director Técnico" },
+      { name: "Leandro Villabona", role: "Director Técnico" },
+    ],
+    roster: [
+      { name: "Jugador 1", role: "Arquero" },
+      { name: "Jugador 2", role: "Defensor" },
+      { name: "Jugador 3", role: "Mediocampista" },
+      { name: "Jugador 4", role: "Delantero" },
+    ],
+  },
+  "preparacion-2025": { 
+    results: [
+      { round: "Fecha 1", date: "08/01", condition: "Visitante", rival: "Central", score: "1 - 2", competition: "Torneo Preparación" },
+      { round: "Fecha 2", date: "10/01", condition: "Local", rival: "La Academia", score: "0 - 0", competition: "Torneo Preparación" },
+      { round: "Fecha 4", date: "21/01", condition: "Visitante", rival: "Libertad", score: "4 - 3", competition: "Torneo Preparación" },
+      { round: "Fecha 5", date: "05/02", condition: "Local", rival: "Juventud", score: "Susp.", competition: "Torneo Preparación" },
+    ],
+    staff: [
+      { name: "Roberto García", role: "Director Técnico" },
+      { name: "Silvio Ponce", role: "Ayudante de campo" },
+      { name: "Victorio Silguero", role: "Ayudante de campo" },
+    ],
+    roster: [
+      { name: "Jugador 1", role: "Arquero" },
+      { name: "Jugador 2", role: "Defensor" },
+      { name: "Jugador 3", role: "Mediocampista" },
+      { name: "Jugador 4", role: "Delantero" },
+    ], 
+  },
+  "preparacion-2026": {     
+    results: [
+      { round: "Fecha 1", date: "28/01", condition: "Local", rival: "La Academia", score: "3 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 3", date: "04/02", condition: "Visitante", rival: "Central", score: "0 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 4", date: "09/02", condition: "Visitante", rival: "Bancario", score: "0 - 1", competition: "Torneo Preparación" },
+      { round: "Fecha 4", date: "13/02", condition: "Visitante", rival: "Juventud", score: "1 - 4", competition: "Torneo Preparación" },
+      { round: "Semifinal", date: "25/02", condition: "Local", rival: "Sportiva", score: "1 - 2", competition: "Fase Final" },
+    ],  
+    staff: [
+      { name: "Darío Sánchez", role: "Director Técnico" },
+    ],
+    roster: [],
+  },
+  "oficial-2026": {
+  results: [
+    { round: "Fecha 1", date: "01/06", condition: "Visitante", rival: "Bancario", score: "0 - 0", competition: "Torneo Oficial" },
+    { round: "Fecha 2", date: "08/06", condition: "Local", rival: "Libertad", score: "0 - 2", competition: "Torneo Oficial" },
+    { round: "Fecha 3", date: "15/06", condition: "Visitante", rival: "La Academia", score: "0 - 2", competition: "Torneo Oficial" },
+    { round: "Fecha 4", date: "22/06", condition: "Local", rival: "Urquiza", score: "1 - 1", competition: "Torneo Oficial" },
+    { round: "Fecha 5", date: "29/06", condition: "Visitante", rival: "El Progreso", score: "0 - 9", competition: "Torneo Oficial" },
+    { round: "Fecha 6", date: "06/07", condition: "Local", rival: "Gualeguay Central", score: "1 - 1", competition: "Torneo Oficial" },
+    { round: "Fecha 7", date: "13/07", condition: "Visitante", rival: "Juventud", score: "1 - 0", competition: "Torneo Oficial" },
+    { round: "Fecha 8", date: "20/07", condition: "Local", rival: "Quilmes", score: "3 - 1", competition: "Torneo Oficial" },
+    { round: "Fecha 9", date: "27/07", condition: "Visitante", rival: "Sociedad Sportiva", score: "1 - 2", competition: "Torneo Oficial" },
+    { round: "Fecha 10", date: "03/08", condition: "Local", rival: "Bancario", score: "0 - 1", competition: "Torneo Oficial" },
+    { round: "Fecha 11", date: "10/08", condition: "Visitante", rival: "Libertad", score: "2 - 5", competition: "Torneo Oficial" },
+    { round: "Fecha 12", date: "17/08", condition: "Local", rival: "La Academia", score: "2 - 0", competition: "Torneo Oficial" },
+    { round: "Fecha 13", date: "24/08", condition: "Visitante", rival: "Urquiza", score: "3 - 0", competition: "Torneo Oficial" },
+    { round: "Fecha 14", date: "31/08", condition: "Local", rival: "El Progreso", score: "4 - 0", competition: "Torneo Oficial" },
+    { round: "Fecha 15", date: "07/09", condition: "Visitante", rival: "Gualeguay Central", score: "0 - 1", competition: "Torneo Oficial" },
+    { round: "Fecha 16", date: "14/09", condition: "Local", rival: "Juventud", score: "0 - 0", competition: "Torneo Oficial" },
+    { round: "Fecha 17", date: "21/09", condition: "Visitante", rival: "Quilmes", score: "1 - 1", competition: "Torneo Oficial" },
+    { round: "Fecha 18", date: "28/09", condition: "Local", rival: "Sociedad Sportiva", score: "0 - 1", competition: "Torneo Oficial" },
+  ],
+  staff: [
+    { name: "Darío Sánchez", role: "Director Técnico" },
+  ],
+  roster: [],
+},
+};
+`;
+const path = 'components/disciplinas/futbol/masculino/masculino.config.js';
+const code = fs.readFileSync(path, 'utf8');
+const before = code.substring(0, code.indexOf('export const TOURNAMENT_CONTENT = {'));
+fs.writeFileSync(path, before + userContent);
+console.log('updated config');
