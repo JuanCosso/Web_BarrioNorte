@@ -16,13 +16,18 @@ const stadiumImages = [
   },
   {
     src: "/estadio/img_01.jpg",
-    title: "Tribunas Norte y Cabinas",
-    description: "Perspectiva lateral con la tribuna principal colmada.",
+    title: "Tribuna Norte",
+    description: "Sector visitante en el estadio",
   },
   {
     src: "/estadio/img_02.jpg",
-    title: "Vista lateral sur",
-    description: "El estadio preparado para una nueva jornada de fútbol local.",
+    title: "Tribuna Sur y Este",
+    description: "Sector local en el estadio",
+  },
+  {
+    src: "/estadio/img_10.jpg",
+    title: "Tribuna Enrique Vecchio",
+    description: "Sector local con la cabina de transmisión",
   },
   {
     src: "/estadio/img_00.jpg",
@@ -31,8 +36,8 @@ const stadiumImages = [
   },
   {
     src: "/estadio/img_04.jpg",
-    title: "Cabinas de transmisión",
-    description: "Espacio destinado a los medios de comunicación y prensa.",
+    title: "Nuestra casa",
+    description: "El lugar donde siempre nos permitimos soñar en grande",
   },
 ];
 
@@ -220,7 +225,7 @@ export default function EstadioPage() {
                 <span className="text-[#B71C1C] font-black text-lg">›</span> Reconstrucción (2010)
               </h3>
               <p>
-                El estadio sufrió graves daños en su estructura tras el temporal de 2010. Con el esfuerzo, dedicación y unión de toda la masa societaria y vecinos de la ciudad, se reconstruyeron las instalaciones para ponerlo de pie con más fuerza.
+                El estadio sufrió graves daños tras la cola de tornado que golpeó la ciudad en el año 2010, pero con esfuerzo, dedicación y unión, tanto de socios como vecinos, se pudo volver a poner en condiciones.
               </p>
             </div>
             <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
@@ -228,7 +233,7 @@ export default function EstadioPage() {
                 <span className="text-[#B71C1C] font-black text-lg">›</span> Tribuna Visitante (2025)
               </h3>
               <p>
-                En 2025 se inauguró la <strong className="text-gray-900">nueva tribuna visitante</strong>, convirtiendo a la cancha de Barrio Norte en la única de toda la Liga Departamental que ofrece este confort, comodidad y seguridad para recibir a las parcialidades visitantes.
+                Hoy en día se destaca por ser el primer equipo de la ciudad que incluyó tribunas para los visitantes, ofreciendo un espacio propio y seguro.
               </p>
             </div>
             <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
@@ -236,7 +241,7 @@ export default function EstadioPage() {
                 <span className="text-[#B71C1C] font-black text-lg">›</span> Tribunas Locales (2026)
               </h3>
               <p>
-                En 2026 se finalizó la construcción de las <strong className="text-gray-900">nuevas tribunas locales</strong>, ampliando la capacidad del recinto a 2.000 personas y dotando a la institución de una infraestructura moderna para toda la familia norteña.
+                En 2026 finalizaron las obras de las tribunas sur y este para terminar de proclamar la cantidad actual de 2.000 espectadores en el estadio.
               </p>
             </div>
           </div>

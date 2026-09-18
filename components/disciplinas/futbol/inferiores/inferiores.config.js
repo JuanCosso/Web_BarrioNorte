@@ -8,7 +8,7 @@ export const HERO = {
   subtitle: "Inferiores",
   tagline: "Información de las categorías inferiores.",
   hideTagline: false,
-  imageSrc: "/disciplinas/futbol/inferiores/banner.png",
+  imageSrc: "/disciplinas/futbol/inferiores/banner_v_26.png",
   pills: ["Tablas", "Contacto"],
   hidePills: true,
 };

@@ -8,7 +8,7 @@ export const HERO = {
   subtitle: "Primera Masculina",
   tagline: "Infomación de Barrio Norte actualizada.",
   hideTagline: false,
-  imageSrc: "/disciplinas/futbol/masculino/banner.jpg",
+  imageSrc: "/disciplinas/futbol/masculino/banner_v1_26.jpg",
   pills: ["Fixture", "Resultados", "Tabla"],
   hidePills: true,
 };
@@ -316,7 +316,6 @@ export const TEAM_LOGOS = {
 
 /* ========= CONTENIDO POR TORNEO (esto es lo que vas a editar) ========= */
 
-
 export const TOURNAMENT_CONTENT = {
   "oficial-2021-22": {
       results: [
@@ -412,6 +411,8 @@ export const TOURNAMENT_CONTENT = {
       { name: "Jugador 4", role: "Delantero" },
     ],
   },
+
+  // Completá estos cuando tengas la info:
   "oficial-2024": { 
     results: [
       { round: "Fecha 1", date: "12/05", condition: "Visitante", rival: "Urquiza", score: "0 - 1", competition: "Torneo Oficial" },
@@ -474,6 +475,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Jugador 4", role: "Delantero" },
     ],
   },
+
   "oficial-2023": {
     results: [
       { round: "Fecha 1", date: "16/04", condition: "Visitante", rival: "Libertad", score: "3 - 1", competition: "Torneo Oficial" },
@@ -508,6 +510,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Jugador 4", role: "Delantero" },
     ],
   },
+
   "supercopa-entre-rios-2023": {
     results: [
       { round: "Fecha 1", date: "04/12", condition: "Local", rival: "Juventud Unida", score: "2 - 1", competition: "Supercopa Entre Ríos" },
@@ -532,6 +535,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Jugador 4", role: "Delantero" },
     ],
   },
+
   "preparacion-2025": { 
     results: [
       { round: "Fecha 1", date: "08/01", condition: "Visitante", rival: "Central", score: "1 - 2", competition: "Torneo Preparación" },
@@ -565,26 +569,7 @@ export const TOURNAMENT_CONTENT = {
     roster: [],
   },
   "oficial-2026": {
-  results: [
-    { round: "Fecha 1", date: "01/06", condition: "Visitante", rival: "Bancario", score: "0 - 0", competition: "Torneo Oficial" },
-    { round: "Fecha 2", date: "08/06", condition: "Local", rival: "Libertad", score: "0 - 2", competition: "Torneo Oficial" },
-    { round: "Fecha 3", date: "15/06", condition: "Visitante", rival: "La Academia", score: "0 - 2", competition: "Torneo Oficial" },
-    { round: "Fecha 4", date: "22/06", condition: "Local", rival: "Urquiza", score: "1 - 1", competition: "Torneo Oficial" },
-    { round: "Fecha 5", date: "29/06", condition: "Visitante", rival: "El Progreso", score: "0 - 9", competition: "Torneo Oficial" },
-    { round: "Fecha 6", date: "06/07", condition: "Local", rival: "Gualeguay Central", score: "1 - 1", competition: "Torneo Oficial" },
-    { round: "Fecha 7", date: "13/07", condition: "Visitante", rival: "Juventud", score: "1 - 0", competition: "Torneo Oficial" },
-    { round: "Fecha 8", date: "20/07", condition: "Local", rival: "Quilmes", score: "3 - 1", competition: "Torneo Oficial" },
-    { round: "Fecha 9", date: "27/07", condition: "Visitante", rival: "Sociedad Sportiva", score: "1 - 2", competition: "Torneo Oficial" },
-    { round: "Fecha 10", date: "03/08", condition: "Local", rival: "Bancario", score: "0 - 1", competition: "Torneo Oficial" },
-    { round: "Fecha 11", date: "10/08", condition: "Visitante", rival: "Libertad", score: "2 - 5", competition: "Torneo Oficial" },
-    { round: "Fecha 12", date: "17/08", condition: "Local", rival: "La Academia", score: "2 - 0", competition: "Torneo Oficial" },
-    { round: "Fecha 13", date: "24/08", condition: "Visitante", rival: "Urquiza", score: "3 - 0", competition: "Torneo Oficial" },
-    { round: "Fecha 14", date: "31/08", condition: "Local", rival: "El Progreso", score: "4 - 0", competition: "Torneo Oficial" },
-    { round: "Fecha 15", date: "07/09", condition: "Visitante", rival: "Gualeguay Central", score: "0 - 1", competition: "Torneo Oficial" },
-    { round: "Fecha 16", date: "14/09", condition: "Local", rival: "Juventud", score: "0 - 0", competition: "Torneo Oficial" },
-    { round: "Fecha 17", date: "21/09", condition: "Visitante", rival: "Quilmes", score: "1 - 1", competition: "Torneo Oficial" },
-    { round: "Fecha 18", date: "28/09", condition: "Local", rival: "Sociedad Sportiva", score: "0 - 1", competition: "Torneo Oficial" },
-  ],
+  results: [],
   staff: [
     { name: "Darío Sánchez", role: "Director Técnico" },
   ],

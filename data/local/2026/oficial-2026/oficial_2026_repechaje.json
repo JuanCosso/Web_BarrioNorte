@@ -1,6 +1,22 @@
 {
   "rows": [
     {
+      "equipo": "Barrio Norte",
+      "etapa": "Semifinal",
+      "resultado": "3",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
+      "equipo": "La Academia",
+      "etapa": "Semifinal",
+      "resultado": "0",
+      "penales": "-",
+      "ida": "",
+      "vuelta": ""
+    },
+    {
       "equipo": "Libertad",
       "etapa": "Semifinal 1",
       "resultado": "5",
@@ -11,22 +27,6 @@
     {
       "equipo": "Quilmes",
       "etapa": "Semifinal 1",
-      "resultado": "0",
-      "penales": "-",
-      "ida": "",
-      "vuelta": ""
-    },
-    {
-      "equipo": "Barrio Norte",
-      "etapa": "Semifinal 2",
-      "resultado": "3",
-      "penales": "-",
-      "ida": "",
-      "vuelta": ""
-    },
-    {
-      "equipo": "La Academia",
-      "etapa": "Semifinal 2",
       "resultado": "0",
       "penales": "-",
       "ida": "",

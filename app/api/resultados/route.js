@@ -5,10 +5,22 @@ import path from "path";
 
 export const dynamic = "force-dynamic";
 
-// Helper para ordenamiento estrictamente cronológico y por fase/fecha
 function sortMatches(matches) {
   return [...matches].sort((a, b) => {
-    // 1. Orden por fase del torneo (Fase Regular -> Repechaje -> Petit Torneo)
+    // 1. Prioridad principal: orden cronológico si ambos tienen fecha de disputa
+    if (a.date && b.date) {
+      const timeA = new Date(a.date).getTime();
+      const timeB = new Date(b.date).getTime();
+      if (!isNaN(timeA) && !isNaN(timeB) && timeA !== timeB) {
+        return timeA - timeB;
+      }
+    } else if (a.date && !b.date) {
+      return -1;
+    } else if (!a.date && b.date) {
+      return 1;
+    }
+
+    // 2. Orden por fase del torneo (Fase Regular -> Repechaje -> Petit Torneo)
     const phaseOrderA = a.phase?.order ?? 0;
     const phaseOrderB = b.phase?.order ?? 0;
     if (phaseOrderA !== phaseOrderB) {
@@ -28,24 +40,11 @@ function sortMatches(matches) {
     const wB = getPhaseWeight(b.roundName);
     if (wA !== wB) return wA - wB;
 
-    // 2. Número de fecha
+    // 3. Si son la misma fase/etapa, ordenar por número de fecha
     const numA = a.roundNumber ?? (a.roundName?.match(/\d+/) ? parseInt(a.roundName.match(/\d+/)[0], 10) : null);
     const numB = b.roundNumber ?? (b.roundName?.match(/\d+/) ? parseInt(b.roundName.match(/\d+/)[0], 10) : null);
     if (numA !== null && numB !== null && numA !== numB) {
       return numA - numB;
-    }
-
-    // 3. Orden cronológico como desempate si ambos tienen fecha de disputa
-    if (a.date && b.date) {
-      const timeA = new Date(a.date).getTime();
-      const timeB = new Date(b.date).getTime();
-      if (!isNaN(timeA) && !isNaN(timeB) && timeA !== timeB) {
-        return timeA - timeB;
-      }
-    } else if (a.date && !b.date) {
-      return -1;
-    } else if (!a.date && b.date) {
-      return 1;
     }
 
     return (a.id || "").localeCompare(b.id || "");
@@ -68,6 +67,10 @@ export async function GET(req) {
             OR: [
               { homeTeam: { isLocalClub: true } },
               { awayTeam: { isLocalClub: true } },
+              { homeTeam: { name: { contains: "Barrio Norte", mode: "insensitive" } } },
+              { awayTeam: { name: { contains: "Barrio Norte", mode: "insensitive" } } },
+              { homeTeam: { name: { contains: "CABN", mode: "insensitive" } } },
+              { awayTeam: { name: { contains: "CABN", mode: "insensitive" } } },
             ],
           },
           include: { homeTeam: true, awayTeam: true, phase: true },
@@ -97,8 +100,9 @@ export async function GET(req) {
 
       if (matchesRaw.length > 0 || staff.length > 0 || roster.length > 0) {
         const sortedMatches = sortMatches(matchesRaw);
+
         const results = sortedMatches.map((m) => {
-          const isHome = m.homeTeam.isLocalClub;
+          const isHome = m.homeTeam.isLocalClub || m.homeTeam.name.toLowerCase().includes("barrio") || m.homeTeam.name.toLowerCase().includes("cabn");
           const rivalTeam = isHome ? m.awayTeam : m.homeTeam;
           const rival = rivalTeam.shortName || rivalTeam.name;
           let score = "-";
@@ -154,7 +158,30 @@ export async function GET(req) {
           };
         });
 
-        return NextResponse.json({ results, staff, roster, fromDb: true });
+        let finalResults = results;
+
+        if (finalResults.length === 0) {
+          const year = (tournament.match(/(\d{4})/) || [])[1] || "misc";
+          const cwd  = process.cwd();
+          const candidates = [
+            path.join(cwd, "data", "local", year, tournament, `${category}-results.json`),
+            path.join(cwd, "data", "local", tournament, `${category}-results.json`),
+          ];
+          for (const localPath of candidates) {
+            try {
+              const raw = fs.readFileSync(localPath, "utf-8");
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed)) {
+                finalResults = parsed;
+                break;
+              }
+            } catch {
+              // ignore
+            }
+          }
+        }
+
+        return NextResponse.json({ results: finalResults, staff, roster, fromDb: true });
       }
     } catch (dbErr) {
       console.warn("Aviso al consultar resultados en Neon:", dbErr.message);

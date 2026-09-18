@@ -21,6 +21,8 @@ export async function GET() {
           OR: [
             { homeTeam: { isLocalClub: true } },
             { awayTeam: { isLocalClub: true } },
+            { homeTeam: { name: { contains: "Barrio Norte", mode: "insensitive" } } },
+            { awayTeam: { name: { contains: "Barrio Norte", mode: "insensitive" } } },
           ],
           status: { in: ["SCHEDULED", "POSTPONED"] },
           date: { gte: today },

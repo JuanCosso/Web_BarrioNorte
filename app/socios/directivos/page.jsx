@@ -14,10 +14,10 @@ const PRESIDENTE = {
 };
 
 const EJECUTIVOS = [
-  { role: "Vicepresidente", name: "Pablo O. Denardi" },
-  { role: "Secretario", name: "Alexis E. González" },
-  { role: "Prosecretaria", name: "Maite M. Vecchio" },
-  { role: "Tesorero", name: "Cristian A. Mallarino" },
+  { role: "Vicepresidente", name: "Pablo O. Denardi", imgSrc: "/directivos/denardi.jpg" },
+  { role: "Secretario", name: "Alexis E. González", imgSrc: "/directivos/gonzalez.png" },
+  { role: "Prosecretaria", name: "Maite M. Vecchio", imgSrc: "/directivos/maite vecchio.jpg" },
+  { role: "Tesorero", name: "Cristian A. Mallarino", imgSrc: "/directivos/mallarino.png" },
   { role: "Protesorero", name: "Lisandro R. Garibotti" },
 ];
 
@@ -48,13 +48,19 @@ function initials(name) {
   return (a + b).toUpperCase();
 }
 
-function ExecutiveCard({ role, name }) {
+function ExecutiveCard({ role, name, imgSrc }) {
   return (
     <article className="rounded-2xl border border-gray-200 bg-white p-5 shadow-xs transition-all hover:shadow-md hover:border-red-200">
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-sm font-black text-[#B71C1C] flex-shrink-0 shadow-xs">
-          {initials(name)}
-        </div>
+        {imgSrc ? (
+          <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-gray-200 flex-shrink-0 shadow-xs">
+            <Image src={imgSrc} alt={name} fill className="object-cover" />
+          </div>
+        ) : (
+          <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-sm font-black text-[#B71C1C] flex-shrink-0 shadow-xs">
+            {initials(name)}
+          </div>
+        )}
         <div className="min-w-0">
           <span className="inline-block text-[11px] font-extrabold uppercase tracking-wider text-[#B71C1C]">
             {role}
@@ -68,7 +74,9 @@ function ExecutiveCard({ role, name }) {
   );
 }
 
-function CommitteeSection({ title, subtitle, items }) {
+function CommitteeSection({ title, subtitle, items, cols = 2 }) {
+  const gridColsClass = cols === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2";
+
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xs">
       <div className="border-b border-gray-100 pb-3 mb-4">
@@ -76,7 +84,7 @@ function CommitteeSection({ title, subtitle, items }) {
         {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
       </div>
 
-      <ul className="grid gap-2.5 sm:grid-cols-2">
+      <ul className={`grid gap-2.5 ${gridColsClass}`}>
         {items.map((person) => (
           <li
             key={person}
@@ -128,9 +136,6 @@ export default function DirectivosPage() {
                 <h2 className="text-2xl sm:text-3xl font-black text-gray-900">
                   {PRESIDENTE.name}
                 </h2>
-                <p className="text-sm text-gray-600 max-w-xl">
-                  Al frente de la conducción de Barrio Norte, promoviendo el crecimiento deportivo, social y patrimonial de nuestra institución en Gualeguay.
-                </p>
                 <div className="pt-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
                   Período 2024 — 2026
                 </div>
@@ -141,16 +146,9 @@ export default function DirectivosPage() {
 
         {/* MESA EJECUTIVA */}
         <section>
-          <div className="mb-4">
-            <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#B71C1C]">
-              CONDUCCIÓN
-            </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900">Mesa Ejecutiva</h2>
-          </div>
-
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {EJECUTIVOS.map((ej) => (
-              <ExecutiveCard key={ej.role} role={ej.role} name={ej.name} />
+              <ExecutiveCard key={ej.role} role={ej.role} name={ej.name} imgSrc={ej.imgSrc} />
             ))}
           </div>
         </section>
@@ -178,6 +176,7 @@ export default function DirectivosPage() {
               title="Revisores de Cuentas"
               subtitle="Comisión fiscalizadora y control patrimonial"
               items={REVISORES}
+              cols={3}
             />
           </div>
         </section>
