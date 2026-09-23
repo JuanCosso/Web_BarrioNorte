@@ -31,8 +31,11 @@ function enriquecer(equipos) {
 
 // "liga"    → top 3 verde, 4–7 amarillo  (masculino 2025/2026)
 // "fem2026" → top 4 verde, sin amarillo  (femenino 2026)
+// "top4"    → top 4 verde, sin amarillo
 function clasePosicion(pos, scheme = "liga") {
-  if (scheme === "fem2026") {
+  if (scheme === "none") return "";
+  
+  if (scheme === "fem2026" || scheme === "top4") {
     return pos <= 4 ? "text-green-600 font-semibold" : "";
   }
   // default liga
@@ -41,13 +44,13 @@ function clasePosicion(pos, scheme = "liga") {
   return "";
 }
 
-export default function TablaLigaInicio({ equiposRaw, title, badge, footnote, positionColorScheme = "liga" }) {
+export default function TablaLigaInicio({ equiposRaw, title, badge, footnote, positionColorScheme = "liga", phaseName = "Fase regular" }) {
   const equipos = enriquecer(equiposRaw);
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+      <div className="flex items-center justify-between mb-3 gap-2 flex-wrap pr-8">
         <div className="flex items-center gap-2">
           <p className="text-sm font-semibold text-gray-800">{title}</p>
           {badge && (
@@ -56,7 +59,7 @@ export default function TablaLigaInicio({ equiposRaw, title, badge, footnote, po
             </span>
           )}
         </div>
-        <span className="text-xs text-gray-500">Fase regular</span>
+        <span className="text-xs text-gray-500">{phaseName}</span>
       </div>
 
       {equipos.length === 0 ? (

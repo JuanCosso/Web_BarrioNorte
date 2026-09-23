@@ -36,7 +36,7 @@ const CONTACT = {
     "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Bochas%20en%20Barrio%20Norte",
   facebookHref: "https://www.facebook.com/p/Club-Atletico-Barrio-Norte-Gualeguay-100063591160216/",
   whatsappLabel: "Consultar por WhatsApp",
-  facebookLabel: "Facebook Oficial",
+  facebookLabel: "Facebook",
 };
 
 const ACHIEVEMENTS = [
@@ -170,7 +170,7 @@ export default function Bochas() {
                 Competencias, Categorías y Campeonatos
               </h3>
               <p>
-                Nuestros representantes compiten en certámenes zonales e interasociaciones en modalidades Individual, Parejas y Tríos, habiendo obtenido consagraciones destacadas como el título provincial de Roberto Paz y el doble campeonato aniversario del club.
+                Nuestros representantes compiten en certámenes zonales e interasociaciones en modalidades Individual, Parejas y Tríos.
               </p>
               <p>
                 A lo largo del año se disputan torneos comerciales e internos que convocan a aficionados de toda la región, consolidando a Barrio Norte como una plaza de referencia indiscutida en la disciplina.

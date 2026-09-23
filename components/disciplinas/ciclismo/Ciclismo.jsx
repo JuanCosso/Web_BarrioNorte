@@ -36,7 +36,7 @@ const CONTACT = {
     "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Ciclismo%20en%20Barrio%20Norte",
   facebookHref: "https://www.facebook.com/p/Club-Atletico-Barrio-Norte-Gualeguay-100063591160216/",
   whatsappLabel: "Consultar por WhatsApp",
-  facebookLabel: "Facebook Oficial",
+  facebookLabel: "Facebook",
 };
 
 const ACHIEVEMENTS = [
@@ -87,7 +87,7 @@ export default function Ciclismo() {
         <section className="relative overflow-hidden rounded-3xl bg-neutral-900 text-white shadow-lg">
           <div className="absolute inset-0">
             <Image
-              src="/disciplinas/ciclismo/foto_00.jpg"
+              src="/disciplinas/ciclismo/ciclista_2025.jpg"
               alt="Ciclismo Barrio Norte"
               fill
               priority

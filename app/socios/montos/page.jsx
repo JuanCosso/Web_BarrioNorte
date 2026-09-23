@@ -17,7 +17,6 @@ const PLANS = [
       "Carnet de socio digital y físico oficial",
       "Descuentos exclusivos en comercios adheridos",
       "Ingreso libre a partidos de local sin recargo",
-      "Voz y voto en asambleas institucionales",
     ],
   },
   {
@@ -67,7 +66,6 @@ export default function SociosMontosPage() {
     apellido: "",
     dni: "",
     email: "",
-    whatsapp: "",
     plan: defaultPlanId,
     mensaje: "",
     consentimiento: false,
@@ -111,7 +109,6 @@ export default function SociosMontosPage() {
       `📌 Plan: ${planTitle}`,
       `👤 Nombre completo: ${form.nombre} ${form.apellido}`.trim(),
       `📄 DNI: ${form.dni}`,
-      `📱 WhatsApp: ${form.whatsapp}`,
       `✉️ Email: ${form.email}`,
       form.mensaje ? `💬 Mensaje extra: ${form.mensaje}` : null,
       "",
@@ -154,7 +151,7 @@ export default function SociosMontosPage() {
         </div>
       </header>
 
-      <div className="container mx-auto max-w-6xl px-4 pt-8 sm:pt-10 space-y-10">
+      <div className="container mx-auto max-w-6xl px-4 pt-8 sm:pt-10 space-y-8">
         {/* PLANES DE SOCIOS */}
         <section>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6">
@@ -174,7 +171,7 @@ export default function SociosMontosPage() {
               return (
                 <article
                   key={plan.id}
-                  className={`relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm transition-all ${
+                  className={`relative flex flex-col rounded-2xl border bg-white p-5 shadow-sm transition-all ${
                     active
                       ? "border-[#B71C1C] ring-2 ring-[#B71C1C]/25 shadow-md"
                       : "border-gray-200 hover:border-gray-300"
@@ -195,7 +192,7 @@ export default function SociosMontosPage() {
 
                   <p className="mt-4 text-sm text-gray-600">{plan.description}</p>
 
-                  <div className="my-6 border-t border-gray-100" />
+                  <div className="my-4 border-t border-gray-100" />
 
                   <ul className="space-y-3 text-sm text-gray-700 flex-1">
                     {plan.includes.map((item) => (
@@ -228,7 +225,7 @@ export default function SociosMontosPage() {
         </section>
 
         {/* SIMULADOR DE CARNET DIGITAL + FORMULARIO */}
-        <section ref={formRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <section ref={formRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* COLUMNA IZQUIERDA: CARNET DIGITAL INTERACTIVO */}
           <div className="lg:col-span-5 space-y-6">
             <div>
@@ -328,7 +325,7 @@ export default function SociosMontosPage() {
           </div>
 
           {/* COLUMNA DERECHA: FORMULARIO DE PRE-ALTA */}
-          <div className="lg:col-span-7 bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm">
+          <div className="lg:col-span-7 bg-white rounded-2xl border border-gray-200 p-5 sm:p-6 shadow-sm">
             <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900">
               Formulario de Solicitud
             </h2>
@@ -384,32 +381,18 @@ export default function SociosMontosPage() {
 
                 <div>
                   <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    WhatsApp de Contacto *
+                    Correo Electrónico *
                   </label>
                   <input
-                    name="whatsapp"
-                    value={form.whatsapp}
+                    type="email"
+                    name="email"
+                    value={form.email}
                     onChange={onChange}
                     required
                     className="mt-1.5 w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#B71C1C] focus:bg-white focus:ring-2 focus:ring-[#B71C1C]/20 transition-all"
-                    placeholder="Ej: +54 9 3444 123456"
+                    placeholder="tu@email.com"
                   />
                 </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                  Correo Electrónico *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={onChange}
-                  required
-                  className="mt-1.5 w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#B71C1C] focus:bg-white focus:ring-2 focus:ring-[#B71C1C]/20 transition-all"
-                  placeholder="tu@email.com"
-                />
               </div>
 
               <div>
@@ -492,7 +475,7 @@ export default function SociosMontosPage() {
         </section>
 
         {/* BENEFICIOS: COMERCIOS ADHERIDOS */}
-        <section className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm">
+        <section className="bg-white rounded-2xl border border-gray-200 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6">
             <div>
               <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#B71C1C]">

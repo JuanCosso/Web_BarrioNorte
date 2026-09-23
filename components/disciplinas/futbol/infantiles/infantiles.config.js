@@ -15,10 +15,9 @@ export const HERO = {
 };
 
 export const CONTACT = {
-  whatsappHref:
-    "https://wa.me/5490000000000?text=Hola%20quiero%20sumar%20a%20mi%20hijo%20a%20Infantiles%20de%20Barrio%20Norte",
-  whatsappLabel: "Asociate hoy ",
-  instagramHref: "https://www.instagram.com/barrionortegualeguay/?hl=es",
+  asociateHref: "/socios/montos",
+  asociateLabel: "Asociate hoy",
+  instagramHref: "https://www.instagram.com/escuelitadefutbolbarrionorte/",
   instagramLabel: "Instagram",
 };
 
@@ -158,14 +157,6 @@ export const TOURNAMENTS_BY_CATEGORY = {
       ligaType: "inf_cat_d_2025",
       finalesType: "inf_finales_cat_d_2025",
       ui: {finalesFootnote: "Barrio Norte se consagra campéon del Torneo Oficial 2025 en Categoría D (2017)."}
-    }),
-    torneoOficial({
-      categoryId: "cat_d",
-      year: 2026,
-      division: "Categoría D",
-      ligaType: "inf_cat_d_2026",
-      finalesType: "inf_finales_cat_d_2026",
-      ui: { finalesFootnote: "Torneo {label} por definirse." },
     }),
   ],
 };

@@ -1,5 +1,6 @@
 import ListaNoticias from "./ListaNoticias";
 import TablaLigaInicio from "./TablaLigaInicio";
+import TablaLigaMasculinoCarousel from "./TablaLigaMasculinoCarousel";
 import UltimosResultados2026 from "./UltimosResultados2026";
 import PublicidadBono from "./PublicidadBono";
 import Link from "next/link";
@@ -7,12 +8,12 @@ import { prisma } from "../../lib/prisma";
 import fallbackMascData from "../../data/local/2026/oficial-2026/oficial_2026_liga.json";
 import fallbackFemData from "../../data/local/2026/oficial-2026-fem/fem_oficial_2026_liga.json";
 
-async function getStandings(tournamentId) {
+async function getStandings(tournamentId, slug = "fase-regular") {
   try {
     const phase = await prisma.tournamentPhase.findFirst({
       where: {
         tournamentId,
-        slug: "fase-regular",
+        slug,
       },
       include: {
         standings: {
@@ -42,11 +43,12 @@ async function getStandings(tournamentId) {
 }
 
 export default async function NoticiasYPosiciones() {
-  const dbMasc = await getStandings("oficial-2026");
-  const dbFem  = await getStandings("oficial-2026-fem");
+  const dbMascRegular = await getStandings("oficial-2026", "fase-regular");
+  const dbMascPetit   = await getStandings("oficial-2026", "petit");
+  const dbFem         = await getStandings("oficial-2026-fem", "fase-regular");
 
-  const equiposMasc = dbMasc || fallbackMascData.equipos;
-  const equiposFem  = dbFem  || fallbackFemData.equipos;
+  const equiposMascRegular = dbMascRegular || fallbackMascData.equipos;
+  const equiposFem         = dbFem         || fallbackFemData.equipos;
 
   return (
     <section className="w-full bg-gray-50 py-8 md:py-10">
@@ -72,11 +74,9 @@ export default async function NoticiasYPosiciones() {
             Tablas de posiciones
           </h2>
           <div className="grid gap-6 lg:grid-cols-2 items-start">
-            <TablaLigaInicio
-              equiposRaw={equiposMasc}
-              title="Primera División"
-              badge="Masculino"
-              footnote="Posiciones Torneo Oficial 2026."
+            <TablaLigaMasculinoCarousel 
+              equiposMascRegular={equiposMascRegular} 
+              equiposMascPetit={dbMascPetit} 
             />
             <TablaLigaInicio
               equiposRaw={equiposFem}

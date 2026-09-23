@@ -128,7 +128,6 @@ const SHEETS = {
   "cat_a-oficial-2026": { inf_cat_a_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2026_URL, inf_finales_cat_a_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2026_URL },
   "cat_b-oficial-2026": { inf_cat_b_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2026_URL, inf_finales_cat_b_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2026_URL },
   "cat_c-oficial-2026": { inf_cat_c_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_C_2026_URL, inf_finales_cat_c_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2026_URL },
-  "cat_d-oficial-2026": { inf_cat_d_2026: process.env.NEXT_PUBLIC_SHEET_INF_CAT_D_2026_URL, inf_finales_cat_d_2026: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2026_URL },
   // Aliases con guion
   "cat-a-oficial-2025": { inf_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_A_2025_URL, inf_finales_cat_a_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_A_2025_URL },
   "cat-b-oficial-2025": { inf_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_CAT_B_2025_URL, inf_finales_cat_b_2025: process.env.NEXT_PUBLIC_SHEET_INF_FINALES_CAT_B_2025_URL },

@@ -33,9 +33,9 @@ function IconTrophy(props) {
 const CONTACT = {
   whatsappHref:
     "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Gimnasia%20Ritmica%20en%20Barrio%20Norte",
-  instagramHref: "https://www.instagram.com/barrionortegualeguay/",
+  instagramHref: "https://www.instagram.com/ritmicabarrionorte/",
   whatsappLabel: "Consultar por WhatsApp",
-  instagramLabel: "Instagram Oficial",
+  instagramLabel: "Instagram",
 };
 
 const ACHIEVEMENTS = [
@@ -172,10 +172,10 @@ export default function GimnasiaRitmica() {
                 Categorías, Niveles Federados y Torneos Nacionales
               </h3>
               <p>
-                Contamos con grupos estructurados por edades y etapas: Nivel Iniciación (Escuelita para niñas desde temprana edad), Grupos Formativos y Plantel de Competición Federada.
+                Contamos con grupos estructurados por edades y etapas: Nivel de iniciación (Escuelita para niñas desde temprana edad), grupos formativos y plantel de competición federada.
               </p>
               <p>
-                Nuestras gimnastas representan con enorme suceso a Barrio Norte en selectivos entrerrianos y en los Campeonatos Nacionales de Clubes, destacándose por su técnica y elegancia en modalidades individual, dúos y conjuntos.
+                Nuestras gimnastas representan con enorme suceso a Barrio Norte en selectivos entrerrianos y en los campeonatos nacionales de clubes, destacándose por su técnica y elegancia en modalidades individual, dúos y conjuntos.
               </p>
             </div>
           </div>

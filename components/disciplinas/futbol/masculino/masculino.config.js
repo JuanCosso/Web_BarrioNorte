@@ -14,9 +14,8 @@ export const HERO = {
 };
 
 export const CONTACT = {
-  whatsappHref:
-    "https://wa.me/5490000000000?text=Hola%20quiero%20info%20de%20F%C3%BAtbol%20Masculino%20en%20Barrio%20Norte",
-  whatsappLabel: "Asociate hoy",
+  asociateHref: "/socios/montos",
+  asociateLabel: "Asociate hoy",
   instagramHref: "https://www.instagram.com/barrionortegualeguay/?hl=es",
   instagramLabel: "Instagram",
   facebookHref: "https://www.facebook.com/profile.php?id=100063591160216",

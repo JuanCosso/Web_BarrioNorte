@@ -33,7 +33,7 @@ const CONTACT = {
     "https://wa.me/5490000000000?text=Hola%20quiero%20sumarme%20a%20Tenis%20en%20Barrio%20Norte",
   whatsappLabel: "Consultar por WhatsApp",
   facebookHref: "https://www.facebook.com/barrionortetenis/",
-  facebookLabel: "Facebook de Tenis",
+  facebookLabel: "Facebook",
 };
 
 const ORG = {
@@ -156,7 +156,7 @@ export default function Tenis() {
                 El tenis es una de las actividades con mayor vigencia y arraigo en Barrio Norte. El club cuenta con canchas reglamentarias de polvo de ladrillo dotadas de iluminación artificial de primer nivel, lo que posibilita su uso ininterrumpido a lo largo de todo el año, tanto en horarios diurnos como nocturnos.
               </p>
               <p>
-                Nuestra propuesta está pensada tanto para quienes buscan iniciarse en el deporte desde la infancia como para jóvenes y adultos que desean perfeccionar su técnica, competir o simplemente disfrutar de un partido recreativo en un entorno familiar y de camaradería.
+                Nuestra propuesta está pensada tanto para quienes buscan iniciarse en el deporte desde la infancia como para jóvenes y adultos que desean perfeccionar su técnica, competir o simplemente disfrutar de un partido recreativo.
               </p>
             </div>
 
@@ -165,7 +165,7 @@ export default function Tenis() {
                 Entrenamientos, Escuelita y Torneos
               </h3>
               <p>
-                La Subcomisión de Tenis coordina los diferentes grupos formativos: Escuelita Infantil (con metodología adaptada para el aprendizaje lúdico de los fundamentos), nivel intermedio para adolescentes y entrenamientos específicos para adultos de todas las edades.
+                La Subcomisión de Tenis coordina los diferentes grupos formativos: Escuelita Infantil, nivel intermedio para adolescentes y entrenamientos específicos para adultos de todas las edades.
               </p>
               <p>
                 A lo largo del año se organizan torneos internos de singles y dobles que reúnen a tenistas locales y de ciudades vecinas, además de fomentar la participación de nuestros representantes en certámenes provinciales y federados.

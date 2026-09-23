@@ -20,7 +20,6 @@ import septimaData from "@/data/local/2026/septima-oficial-2026/inf_septima_2026
 import catAData from "@/data/local/2026/cat_a-oficial-2026/inf_cat_a_2026.json";
 import catBData from "@/data/local/2026/cat_b-oficial-2026/inf_cat_b_2026.json";
 import catCData from "@/data/local/2026/cat_c-oficial-2026/inf_cat_c_2026.json";
-import catDData from "@/data/local/2026/cat_d-oficial-2026/inf_cat_d_2026.json";
 
 const CATEGORIAS = {
 
@@ -109,14 +108,6 @@ const CATEGORIAS = {
     scheme:      "top4",
     greenLegend: "Playoffs",
     equipos:     catCData.equipos,
-  },
-  cat_d: {
-    division:    "Categoría D (2018)",
-    badge:       "Infantiles",
-    tournament:  "Torneo Oficial 2026",
-    scheme:      "top4",
-    greenLegend: "Playoffs",
-    equipos:     catDData.equipos,
   },
 };
 

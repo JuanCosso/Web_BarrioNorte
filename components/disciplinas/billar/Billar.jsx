@@ -20,10 +20,23 @@ function IconTrophy(props) {
   );
 }
 
+function IconFacebook(props) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5" {...props}>
+      <path
+        fill="currentColor"
+        d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.4-.1-2.7-.1-2.7 0-4.6 1.6-4.6 4.7V11H7v3h2.8v8h3.7Z"
+      />
+    </svg>
+  );
+}
+
 const CONTACT = {
   whatsappHref:
     "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Billar%20en%20Barrio%20Norte",
   whatsappLabel: "Consultar por WhatsApp",
+  facebookHref: "https://www.facebook.com/profile.php?id=61564529162562",
+  facebookLabel: "Facebook",
 };
 
 const ACHIEVEMENTS = [
@@ -96,7 +109,7 @@ export default function Billar() {
                 Nuestras mesas en el salón social son punto de encuentro para apasionados del billar, con campeones entrerrianos y partidas recreativas permanentes.
               </p>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap gap-3">
                 <a
                   href={CONTACT.whatsappHref}
                   target="_blank"
@@ -106,12 +119,21 @@ export default function Billar() {
                   <IconWhatsApp />
                   {CONTACT.whatsappLabel}
                 </a>
+                <a
+                  href={CONTACT.facebookHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-bold text-white shadow-md hover:bg-white/20 transition-all hover:scale-105"
+                >
+                  <IconFacebook />
+                  {CONTACT.facebookLabel}
+                </a>
               </div>
             </div>
 
             <div className="relative w-32 h-36 sm:w-40 sm:h-44 flex-shrink-0 drop-shadow-2xl mx-auto md:mx-0">
               <Image
-                src="/escudos/BarrioNorte_V3.png"
+                src="/logos/Billar.png"
                 alt="Logo Billar Barrio Norte"
                 fill
                 className="object-contain"
@@ -135,7 +157,7 @@ export default function Billar() {
                 Precisión, Geometría y Tradición de Salón
               </h3>
               <p>
-                El billar en sus variantes de Cinco Quillas y Pool constituye una de las actividades de mayor prestigio y arraigo en Barrio Norte. En el tradicional salón junto a la cantina social se erigen nuestras mesas profesionales de paño importado, donde cada tirada conjuga física, geometría, concentración absoluta y temple táctico.
+                El billar en sus diferentes variantes como también el pool constituyen una de las actividades para realizar en Barrio Norte. En el tradicional salón junto a la cantina social se erigen nuestras mesas profesionales de paño importado.
               </p>
               <p>
                 Este espacio funciona como un punto de reunión emblemático de socios de todas las edades, donde se respeta el silencio y la cortesía deportiva que demanda el arte del taco.

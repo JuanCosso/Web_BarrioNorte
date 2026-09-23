@@ -181,10 +181,6 @@ const SHEETS_ENV = {
     inf_cat_c_2026:        "NEXT_PUBLIC_SHEET_INF_CAT_C_2026_URL",
     inf_finales_cat_c_2026:"NEXT_PUBLIC_SHEET_INF_FINALES_CAT_C_2026_URL",
   },
-  "cat_d-oficial-2026": {
-    inf_cat_d_2026:        "NEXT_PUBLIC_SHEET_INF_CAT_D_2026_URL",
-    inf_finales_cat_d_2026:"NEXT_PUBLIC_SHEET_INF_FINALES_CAT_D_2026_URL",
-  },
 };
 
 // ─────────────────────────────────────────────
