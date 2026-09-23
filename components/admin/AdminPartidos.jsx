@@ -21,21 +21,10 @@ function getArgentinaISODate(dateVal) {
 export default function AdminPartidos({ context, selectedYear = "2026", onSelectYear }) {
   const { teams = [], tournaments = [] } = context || {};
 
-  // Filtrar exclusivamente torneos de Primera División (masculino y femenino)
+  // Filtrar exclusivamente torneos de Primera División (masculino y femenino)  // Filtro de torneos para el select (ahora permitimos todos para poder ver inferiores)
   const isPrimera = (t) => {
-    const cat = (t.category || "").toUpperCase();
-    const id = (t.id || "").toLowerCase();
-    if (cat === "PRIMERA_MASCULINO" || cat === "PRIMERA_FEMENINO") return true;
-    if (
-      id.includes("tercera") ||
-      id.includes("cuarta") ||
-      id.includes("quinta") ||
-      id.includes("sexta") ||
-      id.includes("septima") ||
-      id.includes("cat_")
-    ) {
-      return false;
-    }
+    // Si querés ocultar algunos específicos a futuro podés agregarlos acá
+    // Por ahora, dejamos pasar a todos para que puedas gestionar "Sexta", "Séptima", etc.
     return true;
   };
 

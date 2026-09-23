@@ -232,6 +232,7 @@ export async function GET(req) {
             tournamentId: tournament,
             OR: [
               { slug: mappedSlug },
+              { slug: "playoffs" }, // Fix: Frontend type is "inf_finales_..." but DB phase might be "playoffs"
               { name: { equals: type, mode: "insensitive" } },
             ],
           },
