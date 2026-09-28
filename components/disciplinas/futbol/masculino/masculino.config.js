@@ -403,12 +403,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Silvio Ponce", role: "Ayudante de campo" },
       { name: "Victorio Silguero", role: "Ayudante de campo" },
     ],
-    roster: [
-      { name: "Jugador 1", role: "Arquero" },
-      { name: "Jugador 2", role: "Defensor" },
-      { name: "Jugador 3", role: "Mediocampista" },
-      { name: "Jugador 4", role: "Delantero" },
-    ],
+    roster: [],
   },
 
   // Completá estos cuando tengas la info:
@@ -446,12 +441,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Silvio Ponce", role: "Ayudante de campo" },
       { name: "Victorio Silguero", role: "Ayudante de campo" },
     ],
-    roster: [
-      { name: "Jugador 1", role: "Arquero" },
-      { name: "Jugador 2", role: "Defensor" },
-      { name: "Jugador 3", role: "Mediocampista" },
-      { name: "Jugador 4", role: "Delantero" },
-    ],
+    roster: [],
   },
   "preparacion-2024": {
     results: [
@@ -467,12 +457,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Silvio Ponce", role: "Ayudante de campo" },
       { name: "Victorio Silguero", role: "Ayudante de campo" },
     ],
-    roster: [
-      { name: "Jugador 1", role: "Arquero" },
-      { name: "Jugador 2", role: "Defensor" },
-      { name: "Jugador 3", role: "Mediocampista" },
-      { name: "Jugador 4", role: "Delantero" },
-    ],
+    roster: [],
   },
 
   "oficial-2023": {
@@ -502,12 +487,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Cristian Ariel Mallarino", role: "Director Técnico" },
       { name: "Desconocido", role: "Ayudante de campo" },
     ],
-    roster: [
-      { name: "Jugador 1", role: "Arquero" },
-      { name: "Jugador 2", role: "Defensor" },
-      { name: "Jugador 3", role: "Mediocampista" },
-      { name: "Jugador 4", role: "Delantero" },
-    ],
+    roster: [],
   },
 
   "supercopa-entre-rios-2023": {
@@ -527,12 +507,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Martín Caminos", role: "Director Técnico" },
       { name: "Leandro Villabona", role: "Director Técnico" },
     ],
-    roster: [
-      { name: "Jugador 1", role: "Arquero" },
-      { name: "Jugador 2", role: "Defensor" },
-      { name: "Jugador 3", role: "Mediocampista" },
-      { name: "Jugador 4", role: "Delantero" },
-    ],
+    roster: [],
   },
 
   "preparacion-2025": { 
@@ -547,12 +522,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Silvio Ponce", role: "Ayudante de campo" },
       { name: "Victorio Silguero", role: "Ayudante de campo" },
     ],
-    roster: [
-      { name: "Jugador 1", role: "Arquero" },
-      { name: "Jugador 2", role: "Defensor" },
-      { name: "Jugador 3", role: "Mediocampista" },
-      { name: "Jugador 4", role: "Delantero" },
-    ], 
+    roster: [], 
   },
   "preparacion-2026": {     
     results: [
@@ -575,3 +545,4 @@ export const TOURNAMENT_CONTENT = {
   roster: [],
 },
 };
+

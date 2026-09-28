@@ -7,7 +7,7 @@ export default function EscudosGrid({ escudos, onOpenZoom }) {
     <section aria-labelledby="museo-escudos">
       <div className="mb-6">
         <h2 id="museo-escudos" className="text-xs font-bold uppercase tracking-[0.2em] text-red-600 mb-1">
-          Escudos históricos
+          Escudos
         </h2>
         <p className="text-2xl font-extrabold text-gray-900">La evolución de nuestro escudo</p>
       </div>

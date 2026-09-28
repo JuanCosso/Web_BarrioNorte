@@ -16,18 +16,28 @@ const stadiumImages = [
   },
   {
     src: "/estadio/img_01.jpg",
-    title: "Tribuna Norte",
+    title: "Vista Norte",
     description: "Sector visitante en el estadio",
   },
   {
     src: "/estadio/img_02.jpg",
-    title: "Tribuna Sur y Este",
+    title: "Vista Sur y Este",
     description: "Sector local en el estadio",
   },
   {
     src: "/estadio/img_10.jpg",
     title: "Tribuna Enrique Vecchio",
-    description: "Sector local con la cabina de transmisión",
+    description: "Sector local en el estadio con cabina de transmisión, inaugurada en 2017.",
+  },
+  {
+    src: "/estadio/tribuna sur.jpg",
+    title: "Tribuna sur",
+    description: "Inaugurada en el año 2026.",
+  },
+  {
+    src: "/estadio/tribuna este.jpg",
+    title: "Tribuna este",
+    description: "Inaugurada en el año 2026.",
   },
   {
     src: "/estadio/img_00.jpg",

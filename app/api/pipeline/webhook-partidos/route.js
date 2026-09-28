@@ -104,6 +104,7 @@ export async function POST(req) {
         });
         results.push({ match: newMatch.id, status: "CREATED" });
       }
+    }
     // (Bloque de sincronización JSON eliminado: /api/admin/cruces ya lee desde Prisma dinámicamente)
 
     try {

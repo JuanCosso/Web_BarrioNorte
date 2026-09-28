@@ -165,12 +165,7 @@ export const TOURNAMENT_CONTENT = {
       { name: "Roberto García", role: "Director Técnico" },
       { name: "Silvio Ponce", role: "Ayudante de campo" },
     ],
-    roster: [
-      { name: "Jugadora 1", role: "Arquero" },
-      { name: "Jugadora 2", role: "Defensor" },
-      { name: "Jugadora 3", role: "Mediocampista" },
-      { name: "Jugadora 4", role: "Delantero" },
-    ],
+    roster: [],
   },
   "oficial-2026-fem": {
     // ⚠️ ELIMINADO EL CÓDIGO CON "fs" Y "path" QUE ROMPÍA TODO

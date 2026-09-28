@@ -253,7 +253,7 @@ export default function HistorialSection() {
       {/* Encabezado idéntico a EscudosGrid */}
       <div className="mb-6">
         <h2 id="museo-historial" className="text-xs font-bold uppercase tracking-[0.2em] text-red-600 mb-1">
-          Historial de enfrentamientos
+          Historial
         </h2>
         <p className="text-2xl font-extrabold text-gray-900">
           Nuestros rivales, partido a partido

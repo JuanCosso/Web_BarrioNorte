@@ -15,6 +15,7 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
   const activeList = items.length > 0 ? items : item ? [item] : [];
   const initialIndex = item ? activeList.findIndex((x) => x?.id === item?.id) : 0;
   const [currentIndex, setCurrentIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
+  const [showInfo, setShowInfo] = useState(false);
 
   // Sincronizar índice cuando cambia el item prop
   useEffect(() => {
@@ -111,7 +112,7 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
               MUSEO CABN
             </p>
             <p className="hidden sm:block text-xs font-medium text-gray-300 truncate">
-              {isEscudo ? "Evolución Heráldica e Identidad" : "Colección Histórica de Camisetas"}
+              {isEscudo ? "La evolución de nuestro escudo" : "Colección histórica de camisetas"}
             </p>
           </div>
         </div>
@@ -137,8 +138,19 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
       {/* 2. ÁREA CENTRAL: ESCENARIO PRINCIPAL + PANEL LATERAL RESPONSIVE */}
       <div className="relative flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
         
-        {/* 2A. ESCENARIO DE LA PRENDA (EN MÓVIL ALTO FIJO, EN DESKTOP FLEX-1) */}
-        <main className="relative w-full h-[45vh] sm:h-[50vh] lg:h-full lg:flex-1 flex items-center justify-center p-2 sm:p-6 lg:p-8 flex-shrink-0 lg:flex-shrink overflow-hidden">
+        {/* 2A. ESCENARIO DE LA PRENDA */}
+        <main className={`relative w-full lg:h-full lg:flex-1 flex items-center justify-center p-2 sm:p-6 lg:p-8 flex-shrink-0 lg:flex-shrink overflow-hidden ${showInfo ? 'h-[45vh] sm:h-[50vh]' : 'flex-1 h-full'}`}>
+          
+          {/* Botón Info (Móvil) */}
+          <button 
+            type="button" 
+            onClick={() => setShowInfo(!showInfo)}
+            aria-label="Alternar información"
+            className={`lg:hidden absolute bottom-3 right-3 sm:bottom-5 sm:right-5 z-30 w-10 h-10 rounded-full border flex items-center justify-center transition-all ${showInfo ? 'bg-[#B71C1C] border-[#B71C1C] text-white shadow-lg' : 'bg-black/60 border-white/15 text-white/90 backdrop-blur-sm'}`}
+          >
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </button>
+
           {/* Flecha Anterior */}
           {activeList.length > 1 && (
             <button
@@ -185,13 +197,13 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
           )}
         </main>
 
-        {/* 2B. PANEL DE INFORMACIÓN (SCROLLABLE Y ADAPTABLE) */}
-        <aside className="w-full lg:w-[380px] xl:w-[420px] flex-1 lg:flex-initial border-t lg:border-t-0 lg:border-l border-white/10 bg-neutral-950/80 lg:bg-white/[0.03] backdrop-blur-md p-4 sm:p-6 flex flex-col justify-start lg:justify-center overflow-y-auto z-20 min-h-0">
+        {/* 2B. PANEL DE INFORMACIÓN */}
+        <aside className={`w-full lg:w-[380px] xl:w-[420px] flex-1 lg:flex-initial border-t lg:border-t-0 lg:border-l border-white/10 bg-neutral-950/80 lg:bg-white/[0.03] backdrop-blur-md p-4 sm:p-6 flex-col justify-start lg:justify-center overflow-y-auto z-20 min-h-0 ${showInfo ? 'flex' : 'hidden lg:flex'}`}>
           <div className="space-y-3 sm:space-y-4 max-w-md mx-auto lg:mx-0 w-full">
             {/* Temporada, Tipo y Marca */}
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#B71C1C]">
-                {isEscudo ? "EMBLEMA HISTÓRICO" : "INDUMENTARIA OFICIAL"}
+                {isEscudo ? "ESCUDO" : "INDUMENTARIA OFICIAL"}
               </span>
               <div className="flex items-center gap-2.5 mt-0.5 sm:mt-1 flex-wrap">
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white">
@@ -205,7 +217,7 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
               </div>
               {current?.titulo && current.titulo !== "-" && (
                 <p className="text-[11px] sm:text-xs text-gray-400 mt-1 font-medium">
-                  Confección / Marca: <span className="text-gray-200 font-bold">{current.titulo}</span>
+                  Marca: <span className="text-gray-200 font-bold">{current.titulo}</span>
                 </p>
               )}
             </div>
@@ -214,7 +226,7 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
             {hasTrophies && (
               <div className="pt-2.5 border-t border-white/10">
                 <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-1.5 flex items-center gap-1.5">
-                  <IconTrophy /> Campeonatos con esta casaca
+                  <IconTrophy /> Títulos
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {current.hitos.map((h, i) => (
@@ -234,7 +246,7 @@ export default function ZoomModal({ open, item, items = [], onClose }) {
             {(current?.historia || current?.descripcion) && (
               <div className="pt-2.5 border-t border-white/10">
                 <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                  {isEscudo ? "Reseña del emblema" : "Historia y detalles"}
+                  {isEscudo ? "Resumen" : "Historia y detalles"}
                 </p>
                 <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">
                   {current?.historia || current?.descripcion}

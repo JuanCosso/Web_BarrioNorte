@@ -68,20 +68,12 @@ export default async function ListaNoticias() {
           >
             {/* Imagen pequeña */}
             <div className="relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-lg md:h-24 md:w-32">
-              {noticia.imagen && noticia.imagen.startsWith("/") ? (
-                // Imagen local → usa next/image optimizado
+              {noticia.imagen ? (
                 <Image
                   src={noticia.imagen}
                   alt={noticia.titulo}
                   fill
                   className="object-cover"
-                />
-              ) : noticia.imagen ? (
-                // Imagen externa (Instagram, etc.) → img estándar sin restricciones
-                <img
-                  src={noticia.imagen}
-                  alt={noticia.titulo}
-                  className="h-full w-full object-cover"
                 />
               ) : null}
             </div>

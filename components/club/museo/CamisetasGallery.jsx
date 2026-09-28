@@ -26,9 +26,9 @@ export default function CamisetasGallery({ camisetas, onOpenZoom }) {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
         <div>
           <h2 id="museo-camisetas" className="text-xs font-bold uppercase tracking-[0.2em] text-red-600 mb-1">
-            Camisetas históricas
+            Camisetas
           </h2>
-          <p className="text-2xl font-extrabold text-gray-900">Todas las indumentarias del club</p>
+          <p className="text-2xl font-extrabold text-gray-900">Colección histórica de camisetas</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
