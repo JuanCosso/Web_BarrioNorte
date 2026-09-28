@@ -1,4 +1,5 @@
 [functions]
+  node_bundler = "esbuild"
   included_files = [
     "!node_modules/@prisma/engines/**",
     "!.next/cache/**"
