@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     qualities: [25, 50, 75, 100],
     remotePatterns: [
-      // los que ya tenías, más estos:
+      // los que ya tenias, mas estos:
       {
         protocol: "https",
         hostname: "**.cdninstagram.com",
@@ -18,7 +18,20 @@ const nextConfig = {
       },
     ],
   },
-  // resto de tu config existente sin tocar
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" }
+        ],
+      },
+    ];
+  },
 };
 
-export default nextConfig;  // ← ES module, no module.exports
+export default nextConfig;
