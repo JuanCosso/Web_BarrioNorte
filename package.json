@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "backup": "node scripts/backup-data.mjs"
@@ -30,3 +30,4 @@
     "tailwindcss": "^4"
   }
 }
+
