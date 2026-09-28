@@ -16,6 +16,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "instagram.fros8-1.fna.fbcdn.net",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
   async headers() {
