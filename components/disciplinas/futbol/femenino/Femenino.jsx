@@ -25,6 +25,7 @@ import {
   PeopleCard,
   TournamentSelector,
 } from "./FemeninoUI";
+import { TablaFinalesIdaVueltaCard } from "../inferiores/InferioresUI";
 
 const TOUR_PARAM = "tour";
 
@@ -252,7 +253,7 @@ export default function Femenino({ nav, active, onChange }) {
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.petit.type)}`)
               .then((j) => ({
-                rows: normalizePetitFinalSingleLeg(withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : [])),
+                rows: tournament.id === "oficial-2026-fem" ? withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : []) : normalizePetitFinalSingleLeg(withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : [])),
                 footnote: j?.footnote || null,
               }))
               .catch(() => ({ rows: [], footnote: null })),
@@ -331,20 +332,28 @@ export default function Femenino({ nav, active, onChange }) {
                   </div>
 
                   <div className="space-y-4 min-w-0">
-                    <TablaLlavesCard
-                      rows={repechajeRows}
-                      title={tournamentId === "oficial-2026-fem" ? "Playoffs" : tournament.ui.repechajeTitle}
-                      phase={tournament.ui.repechajePhase || "Fase Eliminatoria"}
-                      footnote={repechajeFootnote || getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
-                    />
-
-                    {tournamentId !== "oficial-2026-fem" && (
-                      <TablaPetitLikeRepechaje
+                    {tournamentId === "oficial-2026-fem" ? (
+                      <TablaFinalesIdaVueltaCard
                         rows={petitRows}
-                        title={tournament.ui.petitTitle}
-                        phase={tournament.ui.petitPhase}
-                        footnote={petitFootnote || getFootnote("petitFootnote", "Formato: semifinales ida/vuelta y final única.")}
+                        title="Playoffs"
+                        phase="Fase Eliminatoria"
+                        footnote={petitFootnote || getFootnote("petitFootnote", "Formato: semifinales y final a ida y vuelta.")}
                       />
+                    ) : (
+                      <>
+                        <TablaLlavesCard
+                          rows={repechajeRows}
+                          title={tournament.ui.repechajeTitle}
+                          phase={tournament.ui.repechajePhase || "Fase Eliminatoria"}
+                          footnote={repechajeFootnote || getFootnote("repechajeFootnote", "Formato: semifinales y final.")}
+                        />
+                        <TablaPetitLikeRepechaje
+                          rows={petitRows}
+                          title={tournament.ui.petitTitle}
+                          phase={tournament.ui.petitPhase}
+                          footnote={petitFootnote || getFootnote("petitFootnote", "Formato: semifinales ida/vuelta y final única.")}
+                        />
+                      </>
                     )}
                   </div>
                 </div>

@@ -72,6 +72,26 @@ export async function POST(req) {
       );
     }
 
+
+    // Deduplicación para posts de Instagram con carrusel (mismo post, misma categoría)
+    if (sourceUrl && sourceUrl.includes('instagram.com/p/')) {
+      const baseUrl = sourceUrl.split('?')[0];
+      const yesterday = new Date();
+      yesterday.setHours(yesterday.getHours() - 24);
+
+      const recentNews = await prisma.news.findFirst({
+        where: {
+          category: category,
+          sourceUrl: { startsWith: baseUrl },
+          createdAt: { gte: yesterday }
+        }
+      });
+
+      if (recentNews) {
+        console.log('Deduplicado: noticia ignorada por ser del mismo post de IG y categoria:', baseUrl, category);
+        return NextResponse.json({ success: true, deduplicated: true, news: recentNews });
+      }
+    }
     let slug = body.slug ? generateSlug(body.slug) : generateSlug(title);
     // Verificar colisión de slug
     const existing = await prisma.news.findUnique({ where: { slug } });
