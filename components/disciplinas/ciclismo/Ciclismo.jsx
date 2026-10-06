@@ -1,5 +1,6 @@
 // components/disciplinas/ciclismo/Ciclismo.jsx
 import Image from "next/image";
+import PublicidadDisciplinaBanner from "../PublicidadDisciplinaBanner";
 
 function IconWhatsApp(props) {
   return (
@@ -239,6 +240,9 @@ export default function Ciclismo() {
             </div>
           </section>
         )}
+
+        {/* ESPACIO DE PUBLICIDAD / SPONSOR DISCIPLINAS */}
+        <PublicidadDisciplinaBanner disciplina="Ciclismo" />
 
         {/* GALERÍA */}
         <section>

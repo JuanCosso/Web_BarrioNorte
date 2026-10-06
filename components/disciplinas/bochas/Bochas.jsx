@@ -1,5 +1,6 @@
 // components/disciplinas/bochas/Bochas.jsx
 import Image from "next/image";
+import PublicidadDisciplinaBanner from "../PublicidadDisciplinaBanner";
 
 function IconWhatsApp(props) {
   return (
@@ -239,6 +240,9 @@ export default function Bochas() {
             </div>
           </section>
         )}
+
+        {/* ESPACIO DE PUBLICIDAD / SPONSOR DISCIPLINAS */}
+        <PublicidadDisciplinaBanner disciplina="Bochas" />
 
         {/* GALERÍA */}
         <section>

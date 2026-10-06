@@ -94,6 +94,16 @@ export default function Footer() {
                   Gracias a quienes acompañan al Club Atlético Barrio Norte.
                 </p>
               </div>
+              <a
+                href="https://wa.me/5493444123456?text=Hola,%20me%20interesa%20sumar%20mi%20marca%20como%20sponsor%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-full border border-dashed border-red-500/80 bg-red-950/40 px-3.5 py-1.5 text-xs font-semibold text-red-300 hover:bg-red-900/60 hover:text-white transition-colors"
+                title="Consultar para sumar tu comercio o empresa como sponsor"
+              >
+                <span>Tu Marca Acá</span>
+                <span className="text-gray-400">· Sé Sponsor Oficial →</span>
+              </a>
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">

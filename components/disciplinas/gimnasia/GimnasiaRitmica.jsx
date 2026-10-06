@@ -1,5 +1,6 @@
 // components/disciplinas/gimnasia/GimnasiaRitmica.jsx
 import Image from "next/image";
+import PublicidadDisciplinaBanner from "../PublicidadDisciplinaBanner";
 
 const BRAND_RED = "#B71C1C";
 const DISCIPLINE_LOGO_SRC = "/logos/Ritmica.png";
@@ -241,6 +242,9 @@ export default function GimnasiaRitmica() {
             </div>
           </section>
         )}
+
+        {/* ESPACIO DE PUBLICIDAD / SPONSOR DISCIPLINAS */}
+        <PublicidadDisciplinaBanner disciplina="Gimnasia Rítmica" />
 
         {/* GALERÍA */}
         {GALLERY.length > 0 && (

@@ -1,5 +1,6 @@
 // components/disciplinas/tenis/Tenis.jsx
 import Image from "next/image";
+import PublicidadDisciplinaBanner from "../PublicidadDisciplinaBanner";
 
 const BRAND_RED = "#B71C1C";
 const DISCIPLINE_LOGO_SRC = "/logos/tenisv3.png";
@@ -234,6 +235,9 @@ export default function Tenis() {
             </div>
           </section>
         )}
+
+        {/* ESPACIO DE PUBLICIDAD / SPONSOR DISCIPLINAS */}
+        <PublicidadDisciplinaBanner disciplina="Tenis" />
 
         {/* GALERÍA DE FOTOS */}
         {GALLERY.length > 0 && (

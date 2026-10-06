@@ -1,5 +1,6 @@
 // components/disciplinas/billar/Billar.jsx
 import Image from "next/image";
+import PublicidadDisciplinaBanner from "../PublicidadDisciplinaBanner";
 
 function IconWhatsApp(props) {
   return (
@@ -238,6 +239,9 @@ export default function Billar() {
             </div>
           </section>
         )}
+
+        {/* ESPACIO DE PUBLICIDAD / SPONSOR DISCIPLINAS */}
+        <PublicidadDisciplinaBanner disciplina="Billar" />
 
         {/* GALERÍA */}
         <section>
