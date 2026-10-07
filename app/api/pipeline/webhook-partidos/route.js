@@ -4,6 +4,140 @@ import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
+// Recalcular posiciones automáticamente tras insertar o actualizar partidos
+async function recalcularPosiciones(tournamentId, phaseId) {
+  if (!tournamentId || !phaseId) return;
+  try {
+    const matches = await prisma.match.findMany({
+      where: {
+        tournamentId,
+        phaseId,
+        status: "FINISHED",
+        homeScore: { not: null },
+        awayScore: { not: null },
+      },
+      include: {
+        homeTeam: true,
+        awayTeam: true,
+      },
+    });
+
+    if (matches.length === 0) return;
+
+    const statsByTeam = new Map();
+    const getOrCreate = (team) => {
+      if (!statsByTeam.has(team.id)) {
+        statsByTeam.set(team.id, {
+          teamId: team.id,
+          teamName: team.name,
+          pj: 0,
+          pg: 0,
+          pe: 0,
+          pp: 0,
+          gf: 0,
+          gc: 0,
+          dg: 0,
+          pts: 0,
+          pointAdjustment: 0,
+        });
+      }
+      return statsByTeam.get(team.id);
+    };
+
+    for (const m of matches) {
+      const home = getOrCreate(m.homeTeam);
+      const away = getOrCreate(m.awayTeam);
+
+      const hG = m.homeScore ?? 0;
+      const aG = m.awayScore ?? 0;
+
+      home.pj++;
+      away.pj++;
+      home.gf += hG;
+      home.gc += aG;
+      away.gf += aG;
+      away.gc += hG;
+
+      if (hG > aG) {
+        home.pg++;
+        home.pts += 3;
+        away.pp++;
+      } else if (hG < aG) {
+        away.pg++;
+        away.pts += 3;
+        home.pp++;
+      } else {
+        home.pe++;
+        home.pts += 1;
+        away.pe++;
+        away.pts += 1;
+      }
+    }
+
+    const existingRows = await prisma.standingRow.findMany({
+      where: { phaseId },
+    });
+    const adjustmentMap = new Map(existingRows.map((r) => [r.teamId, r.pointAdjustment || 0]));
+
+    const computedList = Array.from(statsByTeam.values()).map((row) => {
+      const adj = adjustmentMap.get(row.teamId) || 0;
+      return {
+        ...row,
+        dg: row.gf - row.gc,
+        pts: row.pts + adj,
+        pointAdjustment: adj,
+      };
+    });
+
+    computedList.sort((a, b) => {
+      if (b.pts !== a.pts) return b.pts - a.pts;
+      if (b.dg !== a.dg) return b.dg - a.dg;
+      if (b.gf !== a.gf) return b.gf - a.gf;
+      return b.pg - a.pg;
+    });
+
+    for (let i = 0; i < computedList.length; i++) {
+      const row = computedList[i];
+      const position = i + 1;
+
+      await prisma.standingRow.upsert({
+        where: {
+          phaseId_teamId: {
+            phaseId,
+            teamId: row.teamId,
+          },
+        },
+        update: {
+          pj: row.pj,
+          pg: row.pg,
+          pe: row.pe,
+          pp: row.pp,
+          gf: row.gf,
+          gc: row.gc,
+          dg: row.dg,
+          pts: row.pts,
+          position,
+        },
+        create: {
+          phaseId,
+          teamId: row.teamId,
+          pj: row.pj,
+          pg: row.pg,
+          pe: row.pe,
+          pp: row.pp,
+          gf: row.gf,
+          gc: row.gc,
+          dg: row.dg,
+          pts: row.pts,
+          position,
+        },
+      });
+    }
+  } catch (err) {
+    console.warn("Aviso al recalcular posiciones desde webhook:", err.message);
+  }
+}
+
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -27,6 +161,14 @@ export async function POST(req) {
       if (phase) phaseId = phase.id;
     }
 
+    if (!phaseId) {
+      const defaultPhase = await prisma.tournamentPhase.findFirst({
+        where: { tournamentId },
+        orderBy: { order: "asc" }
+      });
+      if (defaultPhase) phaseId = defaultPhase.id;
+    }
+
     const results = [];
 
     // Cargar todos los equipos para mapear por alias
@@ -41,6 +183,8 @@ export async function POST(req) {
       return team ? team.id : null;
     };
 
+    const isKnockout = phaseSlug && (phaseSlug.includes("playoff") || phaseSlug.includes("petit") || phaseSlug.includes("final"));
+
     // 1. Guardar en Prisma (Fase Regular y Base de Datos General)
     for (const p of partidos) {
       const homeId = findTeamId(p.local.equipo);
@@ -52,7 +196,6 @@ export async function POST(req) {
       }
 
       // Si es fase de eliminación, forzamos formato ida y vuelta
-      const isKnockout = phaseSlug && (phaseSlug.includes("playoff") || phaseSlug.includes("petit") || phaseSlug.includes("final"));
       let notesData = undefined;
       
       if (isKnockout) {
@@ -83,7 +226,7 @@ export async function POST(req) {
           data: {
             homeScore: p.local.goles !== null ? parseInt(p.local.goles, 10) : existingMatch.homeScore,
             awayScore: p.visitante.goles !== null ? parseInt(p.visitante.goles, 10) : existingMatch.awayScore,
-            notes: notesData || existingMatch.notes // Actualizamos las notas si es knockout
+            notes: notesData || existingMatch.notes
           }
         });
         results.push({ match: existingMatch.id, status: "UPDATED" });
@@ -99,13 +242,17 @@ export async function POST(req) {
             homeScore: p.local.goles !== null ? parseInt(p.local.goles, 10) : null,
             awayScore: p.visitante.goles !== null ? parseInt(p.visitante.goles, 10) : null,
             status: (p.local.goles !== null && p.visitante.goles !== null) ? "FINISHED" : "SCHEDULED",
-            notes: notesData // Inyectamos el formato de cruces directamente en la base de datos
+            notes: notesData
           }
         });
         results.push({ match: newMatch.id, status: "CREATED" });
       }
     }
-    // (Bloque de sincronización JSON eliminado: /api/admin/cruces ya lee desde Prisma dinámicamente)
+
+    // Si es fase regular o de puntos, recalcular tabla de posiciones automáticamente
+    if (phaseId && !isKnockout) {
+      await recalcularPosiciones(tournamentId, phaseId);
+    }
 
     try {
       revalidatePath("/");
@@ -113,7 +260,7 @@ export async function POST(req) {
       revalidatePath("/admin");
     } catch (e) {}
 
-    return NextResponse.json({ success: true, results });
+    return NextResponse.json({ success: true, results, standingsRecalculated: Boolean(phaseId && !isKnockout) });
 
   } catch (error) {
     console.error("Error webhook partidos:", error);
