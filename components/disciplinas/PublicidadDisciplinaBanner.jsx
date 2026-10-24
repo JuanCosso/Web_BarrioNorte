@@ -1,6 +1,6 @@
 // components/disciplinas/PublicidadDisciplinaBanner.jsx
 const WHATSAPP_URL =
-  "https://wa.me/5493444123456?text=Hola,%20me%20interesa%20auspiciar%20las%20disciplinas%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte";
+  "https://wa.me/5493444620469?text=Hola,%20me%20interesa%20auspiciar%20las%20disciplinas%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte";
 
 export default function PublicidadDisciplinaBanner({ disciplina = "esta disciplina" }) {
   return (

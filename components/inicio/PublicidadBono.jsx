@@ -1,15 +1,11 @@
 // components/inicio/PublicidadBono.jsx
 import Image from "next/image";
-
-const INSTAGRAM_BONO_URL =
-  "https://www.instagram.com/p/DLsAmYUuz5R/?img_index=1";
+import Link from "next/link";
 
 export default function PublicidadBono() {
   return (
-    <a
-      href={INSTAGRAM_BONO_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      href="/socios/bono-2027"
       className="
         block group w-full
         max-w-xs mx-auto              /* tamaño más chico en pantallas pequeñas */
@@ -27,7 +23,7 @@ export default function PublicidadBono() {
         {/* Imagen: sin efecto de zoom */}
         <div className="relative w-full aspect-[3/4] md:aspect-[4/5]">
           <Image
-            src="/inicio/bono_2026.png"
+            src="/inicio/bono_2027.jpg"
             alt="Bono contribución Club Atlético Barrio Norte"
             fill
             className="object-cover"
@@ -44,6 +40,6 @@ export default function PublicidadBono() {
           </p>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

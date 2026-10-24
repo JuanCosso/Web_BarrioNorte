@@ -14,7 +14,7 @@ export const HERO = {
 };
 
 export const CONTACT = {
-  asociateHref: "/socios/montos",
+  asociateHref: "/socios/inscripcion",
   asociateLabel: "Asociate hoy",
   instagramHref: "https://www.instagram.com/barrionortegualeguay/?hl=es",
   instagramLabel: "Instagram",

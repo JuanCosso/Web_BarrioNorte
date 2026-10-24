@@ -15,7 +15,7 @@ export const HERO = {
 };
 
 export const CONTACT = {
-  asociateHref: "/socios/montos",
+  asociateHref: "/socios/inscripcion",
   asociateLabel: "Asociate hoy",
   instagramHref: "https://www.instagram.com/escuelitadefutbolbarrionorte/",
   instagramLabel: "Instagram",
@@ -49,7 +49,7 @@ export const JOIN_AD = {
   scheduleValue: "Consultá los horarios",
   ctaLabel: "Quiero sumarme",
   ctaHref:
-    "https://wa.me/5490000000000?text=Hola%20quiero%20sumar%20a%20mi%20hijo%20a%20Infantiles%20de%20Barrio%20Norte",
+    "https://wa.me/5493444620469?text=Hola%20quiero%20sumar%20a%20mi%20hijo%20a%20Infantiles%20de%20Barrio%20Norte",
   centerImageSrc: "/escudos/BarrioNorte_V1.png",
   // note: "Te respondemos por WhatsApp.",
 };

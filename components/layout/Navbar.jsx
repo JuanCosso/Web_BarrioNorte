@@ -19,9 +19,10 @@ const navigation = [
   },
   {
     name: "Socios",
-    href: "/socios/montos",
+    href: "/socios/inscripcion",
     submenu: [
-      { name: "Asociarme", href: "/socios/montos" },
+      { name: "Asociarme", href: "/socios/inscripcion" },
+      { name: "Bono 2027", href: "/socios/bono-2027" },
       { name: "Directivos", href: "/socios/directivos" },
     ],
   },

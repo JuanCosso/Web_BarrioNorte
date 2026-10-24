@@ -1,5 +1,5 @@
 const WHATSAPP_URL =
-  "https://wa.me/5493444123456?text=Hola,%20me%20interesa%20consultar%20por%20un%20espacio%20publicitario%20en%20la%20web%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte";
+  "https://wa.me/5493444620469?text=Hola,%20me%20interesa%20consultar%20por%20un%20espacio%20publicitario%20en%20la%20web%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte";
 
 export default function PublicidadInicioSuperior() {
   const espacios = [

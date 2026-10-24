@@ -33,7 +33,7 @@ function IconTrophy(props) {
 
 const CONTACT = {
   whatsappHref:
-    "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Gimnasia%20Ritmica%20en%20Barrio%20Norte",
+    "https://wa.me/5493444620469?text=Hola%20quiero%20sumarme%20a%20Gimnasia%20Ritmica%20en%20Barrio%20Norte",
   instagramHref: "https://www.instagram.com/ritmicabarrionorte/",
   whatsappLabel: "Consultar por WhatsApp",
   instagramLabel: "Instagram",

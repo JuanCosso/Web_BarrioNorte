@@ -11,8 +11,6 @@ const cinzel = Cinzel({
 });
 
 /* ========= DATOS ========= */
-const HERO_BG = "/samba-vera/fondo_loop.gif";
-
 const HISTORY = `
 Samba Verá es la fuerza que nace del barrio, una tormenta de percusión y danza que no pide permiso. 
 Nacimos para romper el silencio, integrando la pasión por la samba con una puesta en escena que desafía lo establecido.
@@ -266,16 +264,6 @@ export default function SambaVeraFinal() {
       {/* CAMBIO: se eliminó border-b (línea inferior) */}
       <header className="relative min-h-[90vh] flex flex-col items-center justify-center pb-10">
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <Image
-            src={HERO_BG}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            quality={70}
-            className="object-cover object-center opacity-45"
-          />
-
           <div className="absolute inset-0 bg-black/60" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#220a0a] via-[#0a0202] to-black opacity-90" />
           <div className="absolute inset-0 sv-grain opacity-20 pointer-events-none" />

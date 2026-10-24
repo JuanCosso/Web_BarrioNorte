@@ -8,16 +8,26 @@ import Link from "next/link";
 const slides = [
   {
     id: 1,
+    src: "/inicio/casa.png",
+    alt: "Bono Contribución 2027 - Tené tu casa",
+    title: "CON NUESTRO BONO",
+    highlight: "TENÉ TU CASA",
+    button: "VER MÁS PREMIOS",
+    link: "/socios/bono-2027",
+    layout: "center_bono",
+  },
+  {
+    id: 2,
     src: "/inicio/imagen-1.webp",
     alt: "Campaña de socios",
     title: "SUMATE A LA",
     highlight: "FAMILIA NORTEÑA",
     button: "ASOCIATE",
-    link: "/socios/montos",
+    link: "/socios/inscripcion",
     layout: "center_socios",
   },
   {
-    id: 2,
+    id: 3,
     src: "/inicio/fondo_2026.jpg",
     alt: "Samba Verá - Avanza y Arraza",
     title: "SOMOS",
@@ -27,7 +37,7 @@ const slides = [
     layout: "center_samba",
   },
   {
-    id: 3,
+    id: 4,
     src: "/inicio/imagen-3.webp",
     alt: "Museo Histórico - La piel del Norte",
     title: "LA PIEL DEL NORTE",
@@ -147,6 +157,23 @@ export default function HeroSlider() {
                 <p className="mt-2 sm:mt-4 text-xs sm:text-lg md:text-2xl font-bold uppercase tracking-[0.3em] text-gray-200 drop-shadow-lg">
                   {slide.subtitle}
                 </p>
+                {slide.button && (
+                  <div className="mt-6 sm:mt-8 flex justify-center">
+                    <Link href={slide.link || "#"} className={ctaButtonClass}>
+                      {slide.button}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* --- DISEÑO 4: BONO CONTRIBUCIÓN 2027 --- */}
+            {slide.layout === "center_bono" && (
+              <div className="w-full text-center animate-fadeIn flex flex-col items-center justify-center max-w-5xl mx-auto px-4">
+                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-tight italic drop-shadow-2xl text-white">
+                  {slide.title} <br />
+                  <span className="text-red-600 block whitespace-nowrap">{slide.highlight}</span>
+                </h2>
                 {slide.button && (
                   <div className="mt-6 sm:mt-8 flex justify-center">
                     <Link href={slide.link || "#"} className={ctaButtonClass}>

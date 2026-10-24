@@ -6,6 +6,7 @@ import AdminNoticias from "../../components/admin/AdminNoticias";
 import AdminPartidos from "../../components/admin/AdminPartidos";
 import AdminPosiciones from "../../components/admin/AdminPosiciones";
 import AdminPlantel from "../../components/admin/AdminPlantel";
+import AdminBono from "../../components/admin/AdminBono";
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("noticias");
@@ -87,6 +88,7 @@ export default function AdminDashboardPage() {
     { id: "partidos", label: "Partidos y Resultados", icon: "⚽" },
     { id: "posiciones", label: "Tablas de Posiciones", icon: "📊" },
     { id: "plantel", label: "Cuerpo Técnico y Plantel", icon: "👥" },
+    { id: "bono", label: "Bono 2027", icon: "🎟️" },
     { id: "fases", label: "Fases y Torneos", icon: "⚙️" },
   ];
 
@@ -176,6 +178,7 @@ export default function AdminDashboardPage() {
                 onSelectYear={setSelectedYear}
               />
             )}
+            {activeTab === "bono" && <AdminBono />}
             {activeTab === "fases" && (
               <div className="space-y-6">
                 <div className="bg-neutral-900/80 border border-neutral-800 p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

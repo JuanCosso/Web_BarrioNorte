@@ -34,7 +34,7 @@ function IconFacebook(props) {
 
 const CONTACT = {
   whatsappHref:
-    "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Billar%20en%20Barrio%20Norte",
+    "https://wa.me/5493444620469?text=Hola%20quiero%20sumarme%20a%20Billar%20en%20Barrio%20Norte",
   whatsappLabel: "Consultar por WhatsApp",
   facebookHref: "https://www.facebook.com/profile.php?id=61564529162562",
   facebookLabel: "Facebook",

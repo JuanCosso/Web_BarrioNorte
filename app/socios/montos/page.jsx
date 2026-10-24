@@ -129,7 +129,7 @@ export default function SociosMontosPage() {
       return;
     }
 
-    const number = process.env.NEXT_PUBLIC_WHATSAPP_SOCIOS || "5493444123456";
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_SOCIOS || "5493444620469";
     const text = buildWhatsappMessage();
     const url = `https://wa.me/${number}?text=${text}`;
 

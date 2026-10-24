@@ -62,7 +62,7 @@ export default function NotFound() {
               Fútbol
             </Link>
             <span>•</span>
-            <Link href="/socios/montos" className="hover:text-[#B71C1C] underline">
+            <Link href="/socios/inscripcion" className="hover:text-[#B71C1C] underline">
               Asociate
             </Link>
           </div>

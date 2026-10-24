@@ -95,7 +95,7 @@ export default function Footer() {
                 </p>
               </div>
               <a
-                href="https://wa.me/5493444123456?text=Hola,%20me%20interesa%20sumar%20mi%20marca%20como%20sponsor%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte"
+                href="https://wa.me/5493444620469?text=Hola,%20me%20interesa%20sumar%20mi%20marca%20como%20sponsor%20del%20Club%20Atl%C3%A9tico%20Barrio%20Norte"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-full border border-dashed border-red-500/80 bg-red-950/40 px-3.5 py-1.5 text-xs font-semibold text-red-300 hover:bg-red-900/60 hover:text-white transition-colors"
@@ -199,12 +199,12 @@ export default function Footer() {
                     WhatsApp
                   </span>
                   <a
-                    href="https://wa.me/5493444123456"
+                    href="https://wa.me/5493444620469"
                     className="hover:text-white hover:underline transition-colors"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    +54 9 3444 123456
+                    +54 9 3444 620469
                   </a>
                 </li>
               </ul>
@@ -236,7 +236,7 @@ export default function Footer() {
                 </div>
 
                 <Link
-                  href="/socios/montos"
+                  href="/socios/inscripcion"
                   className="text-xs sm:text-sm font-semibold text-white hover:text-red-400 hover:underline transition-colors"
                 >
                   Asociate al Norte →

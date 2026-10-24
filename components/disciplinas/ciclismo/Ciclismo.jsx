@@ -34,7 +34,7 @@ function IconTrophy(props) {
 
 const CONTACT = {
   whatsappHref:
-    "https://wa.me/5493444123456?text=Hola%20quiero%20sumarme%20a%20Ciclismo%20en%20Barrio%20Norte",
+    "https://wa.me/5493444620469?text=Hola%20quiero%20sumarme%20a%20Ciclismo%20en%20Barrio%20Norte",
   facebookHref: "https://www.facebook.com/p/Club-Atletico-Barrio-Norte-Gualeguay-100063591160216/",
   whatsappLabel: "Consultar por WhatsApp",
   facebookLabel: "Facebook",

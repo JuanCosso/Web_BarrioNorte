@@ -218,4 +218,10 @@ model IngestedSocialPost {
   aiExtractedData Json?
 }
 
+model BonoNumberGroup {
+  id      Int      @id
+  numbers String[]
+  sold    Boolean  @default(false)
+  hidden  Boolean  @default(false)
+}
 

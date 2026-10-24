@@ -31,7 +31,7 @@ function IconTrophy(props) {
 
 const CONTACT = {
   whatsappHref:
-    "https://wa.me/5490000000000?text=Hola%20quiero%20sumarme%20a%20Tenis%20en%20Barrio%20Norte",
+    "https://wa.me/5493444620469?text=Hola%20quiero%20sumarme%20a%20Tenis%20en%20Barrio%20Norte",
   whatsappLabel: "Consultar por WhatsApp",
   facebookHref: "https://www.facebook.com/barrionortetenis/",
   facebookLabel: "Facebook",
