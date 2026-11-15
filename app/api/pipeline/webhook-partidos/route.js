@@ -249,10 +249,11 @@ export async function POST(req) {
       }
     }
 
-    // Si es fase regular o de puntos, recalcular tabla de posiciones automáticamente
-    if (phaseId && !isKnockout) {
-      await recalcularPosiciones(tournamentId, phaseId);
-    }
+    // Desactivado recalcularPosiciones automático para proteger las tablas de posiciones oficiales
+    // curadas manualmente o sembradas en la DB contra cargas parciales de partidos.
+    // if (phaseId && !isKnockout) {
+    //   await recalcularPosiciones(tournamentId, phaseId);
+    // }
 
     try {
       revalidatePath("/");

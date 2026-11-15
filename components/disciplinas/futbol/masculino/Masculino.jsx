@@ -155,6 +155,7 @@ export default function Masculino({ nav, active, onChange }) {
   const [tables, setTables] = useState({});
   const [bracketRows, setBracketRows] = useState(null);
   const [bracketFootnote, setBracketFootnote] = useState(null);
+  const [petitFootnote, setPetitFootnote] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [flyerData, setFlyerData] = useState(() => {
@@ -201,6 +202,7 @@ export default function Masculino({ nav, active, onChange }) {
       setLoading(true);
       setBracketRows(null);
       setBracketFootnote(null);
+      setPetitFootnote(null);
 
       // placeholders (null = cargando)
       if (tournament.format === "oficial") setTables({ liga: null, petit: null });
@@ -217,8 +219,11 @@ export default function Masculino({ nav, active, onChange }) {
               .catch(() => []),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.petit.type)}`)
-              .then((j) => enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []))
-              .catch(() => []),
+              .then((j) => ({
+                equipos: enrichTeamData(Array.isArray(j?.equipos) ? j.equipos : []),
+                footnote: j?.footnote || null,
+              }))
+              .catch(() => ({ equipos: [], footnote: null })),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.repechaje.type)}`)
               .then((j) => ({
@@ -229,7 +234,8 @@ export default function Masculino({ nav, active, onChange }) {
           ]);
 
           if (!cancelled) {
-            setTables({ liga, petit });
+            setTables({ liga, petit: petit.equipos });
+            setPetitFootnote(petit.footnote);
             setBracketRows(llaves.rows);
             setBracketFootnote(llaves.footnote);
           }
@@ -375,7 +381,7 @@ export default function Masculino({ nav, active, onChange }) {
                           title={tournament.ui.petitTitle}
                           phase={tournament.ui.petitPhase}
                           equipos={tables.petit}
-                          footnote={getFootnote("petitFootnote", `Petit Torneo (${tournament.label}).`)}
+                          footnote={petitFootnote || getFootnote("petitFootnote", `Petit Torneo (${tournament.label}).`)}
                         />
                       ) : null}
                     </div>

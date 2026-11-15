@@ -2,93 +2,102 @@
   "equipos": [
     {
       "name": "Urquiza",
-      "pj": 8,
-      "pg": 7,
-      "pe": 1,
+      "pj": 16,
+      "pg": 11,
+      "pe": 5,
       "pp": 0,
-      "gm": 18,
+      "gm": 31,
       "gc": 0,
-      "dg": 18
+      "dg": 31,
+      "pts": 38
     },
     {
       "name": "El Progreso",
-      "pj": 7,
-      "pg": 6,
-      "pe": 0,
+      "pj": 16,
+      "pg": 8,
+      "pe": 7,
       "pp": 1,
-      "gm": 16,
-      "gc": 4,
-      "dg": 12
+      "gm": 25,
+      "gc": 9,
+      "dg": 16,
+      "pts": 31
     },
     {
       "name": "Gualeguay Central",
-      "pj": 7,
-      "pg": 5,
-      "pe": 1,
-      "pp": 1,
-      "gm": 18,
-      "gc": 5,
-      "dg": 13
-    },
-    {
-      "name": "Libertad",
-      "pj": 7,
-      "pg": 3,
-      "pe": 1,
+      "pj": 16,
+      "pg": 8,
+      "pe": 5,
       "pp": 3,
-      "gm": 6,
-      "gc": 6,
-      "dg": 0
+      "gm": 29,
+      "gc": 14,
+      "dg": 15,
+      "pts": 29
     },
     {
       "name": "Bancario",
-      "pj": 7,
-      "pg": 3,
-      "pe": 0,
+      "pj": 16,
+      "pg": 8,
+      "pe": 4,
       "pp": 4,
-      "gm": 10,
-      "gc": 12,
-      "dg": -2
+      "gm": 24,
+      "gc": 15,
+      "dg": 9,
+      "pts": 28
+    },
+    {
+      "name": "Libertad",
+      "pj": 16,
+      "pg": 7,
+      "pe": 4,
+      "pp": 5,
+      "gm": 15,
+      "gc": 14,
+      "dg": 1,
+      "pts": 25
     },
     {
       "name": "Sociedad Sportiva",
-      "pj": 7,
-      "pg": 2,
-      "pe": 1,
-      "pp": 4,
-      "gm": 6,
-      "gc": 8,
-      "dg": -2
+      "pj": 16,
+      "pg": 4,
+      "pe": 6,
+      "pp": 6,
+      "gm": 14,
+      "gc": 16,
+      "dg": -2,
+      "pts": 18
     },
     {
-      "name": "Aldea Asuncion",
-      "pj": 7,
-      "pg": 2,
-      "pe": 1,
-      "pp": 4,
-      "gm": 5,
-      "gc": 13,
-      "dg": -8
+      "name": "Aldea Asunción",
+      "pj": 16,
+      "pg": 4,
+      "pe": 4,
+      "pp": 8,
+      "gm": 15,
+      "gc": 23,
+      "dg": -8,
+      "pts": 16
     },
     {
       "name": "Barrio Norte",
-      "pj": 7,
+      "pj": 16,
       "pg": 0,
-      "pe": 2,
-      "pp": 5,
-      "gm": 3,
-      "gc": 16,
-      "dg": -13
+      "pe": 5,
+      "pp": 11,
+      "gm": 6,
+      "gc": 31,
+      "dg": -25,
+      "pts": 5
     },
     {
       "name": "Quilmes",
-      "pj": 7,
+      "pj": 16,
       "pg": 0,
-      "pe": 1,
-      "pp": 6,
-      "gm": 1,
-      "gc": 19,
-      "dg": -18
+      "pe": 4,
+      "pp": 12,
+      "gm": 4,
+      "gc": 41,
+      "dg": -37,
+      "pts": 4
     }
   ]
 }

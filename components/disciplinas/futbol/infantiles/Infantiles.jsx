@@ -211,6 +211,7 @@ export default function Infantiles({ nav, active, onChange }) {
 
   const [liga, setLiga] = useState(null);
   const [finalesRows, setFinalesRows] = useState(null);
+  const [finalesFootnote, setFinalesFootnote] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -221,6 +222,7 @@ export default function Infantiles({ nav, active, onChange }) {
       setLoading(true);
       setLiga(null);
       setFinalesRows(null);
+      setFinalesFootnote(null);
 
       const bust = process.env.NODE_ENV === "development" ? `&_ts=${Date.now()}` : "";
       const base = `/api/tabla-posiciones?tournament=${encodeURIComponent(tournament.id)}${bust}`;
@@ -232,13 +234,17 @@ export default function Infantiles({ nav, active, onChange }) {
             .catch(() => []),
 
           fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.finales.type)}`)
-            .then((j) => withTeamLogosFinales(Array.isArray(j?.rows) ? j.rows : []))
-            .catch(() => []),
+            .then((j) => ({
+              rows: withTeamLogosFinales(Array.isArray(j?.rows) ? j.rows : []),
+              footnote: j?.footnote || null,
+            }))
+            .catch(() => ({ rows: [], footnote: null })),
         ]);
 
         if (!cancelled) {
           setLiga(ligaResp);
-          setFinalesRows(finalesResp);
+          setFinalesRows(finalesResp.rows);
+          setFinalesFootnote(finalesResp.footnote);
         }
       } finally {
         if (!cancelled) setLoading(false);

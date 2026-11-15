@@ -226,6 +226,7 @@ export default function Inferiores({ nav, active, onChange }) {
 
   const [liga, setLiga] = useState(null);
   const [finalesRows, setFinalesRows] = useState(null);
+  const [finalesFootnote, setFinalesFootnote] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // Resetear datos inmediatamente cuando cambia la categoría para evitar jitter
@@ -250,13 +251,17 @@ export default function Inferiores({ nav, active, onChange }) {
             .catch(() => []),
 
           fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.finales.type)}`)
-            .then((j) => withTeamLogosFinales(Array.isArray(j?.rows) ? j.rows : []))
-            .catch(() => []),
+            .then((j) => ({
+              rows: withTeamLogosFinales(Array.isArray(j?.rows) ? j.rows : []),
+              footnote: j?.footnote || null,
+            }))
+            .catch(() => ({ rows: [], footnote: null })),
         ]);
 
         if (!cancelled) {
           setLiga(ligaResp);
-          setFinalesRows(finalesResp);
+          setFinalesRows(finalesResp.rows);
+          setFinalesFootnote(finalesResp.footnote);
           setLoading(false);
         }
       } catch (err) {
@@ -319,7 +324,7 @@ export default function Inferiores({ nav, active, onChange }) {
                       rows={finalesRows}
                       title={getUiText("finalesTitle", "Semifinales y Final")}
                       phase={getUiText("finalesPhase", "Ida y vuelta")}
-                      footnote={getUiText("finalesFootnote", "Serie ida y vuelta: define el global.")}
+                      footnote={finalesFootnote || getUiText("finalesFootnote", "Serie ida y vuelta: define el global.")}
                       useShortNames
                     />
                   </div>

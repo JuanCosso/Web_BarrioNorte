@@ -1,9 +1,24 @@
 // app/api/admin/posiciones/route.js
+import fs from "fs";
+import path from "path";
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../../../lib/prisma.js";
 
 export const dynamic = "force-dynamic";
+
+function getTableCandidateFiles(tournamentId, phaseSlug) {
+  const year = (tournamentId.match(/(\d{4})/) || [])[1] || "misc";
+  const cwd = process.cwd();
+  return [
+    path.join(cwd, "data", "local", year, tournamentId, `${phaseSlug}.json`),
+    path.join(cwd, "data", "local", year, tournamentId, `oficial_${year}_${phaseSlug}.json`),
+    path.join(cwd, "data", "local", year, tournamentId, `fem_oficial_${year}_${phaseSlug}.json`),
+    path.join(cwd, "data", "local", year, tournamentId, phaseSlug === "fase-regular" ? `oficial_${year}_liga.json` : `${phaseSlug}.json`),
+    path.join(cwd, "data", "local", year, tournamentId, phaseSlug === "fase-regular" ? `fem_oficial_${year}_liga.json` : `${phaseSlug}.json`),
+    path.join(cwd, "data", "local", tournamentId, `${phaseSlug}.json`),
+  ];
+}
 
 // 1. OBTENER TABLA DE POSICIONES
 export async function GET(req) {
@@ -25,7 +40,7 @@ export async function GET(req) {
     }
 
     if (!phase) {
-      return NextResponse.json({ rows: [], phase: null });
+      return NextResponse.json({ rows: [], phase: null, footnote: "" });
     }
 
     const rows = await prisma.standingRow.findMany({
@@ -44,7 +59,21 @@ export async function GET(req) {
       position: idx + 1,
     }));
 
-    return NextResponse.json({ rows: orderedRows, phase });
+    let footnote = "";
+    const candidates = getTableCandidateFiles(tournamentId, phaseSlug);
+    for (const p of candidates) {
+      if (fs.existsSync(p)) {
+        try {
+          const json = JSON.parse(fs.readFileSync(p, "utf-8"));
+          if (json.footnote) {
+            footnote = json.footnote;
+            break;
+          }
+        } catch {}
+      }
+    }
+
+    return NextResponse.json({ rows: orderedRows, phase, footnote });
   } catch (error) {
     console.error("Error al obtener tabla:", error);
     return NextResponse.json(
@@ -58,7 +87,7 @@ export async function GET(req) {
 export async function PUT(req) {
   try {
     const body = await req.json();
-    const { phaseId, rows } = body;
+    const { phaseId, rows, footnote, tournamentId, phaseSlug } = body;
 
     if (!phaseId || !Array.isArray(rows)) {
       return NextResponse.json(
@@ -124,6 +153,31 @@ export async function PUT(req) {
       });
 
       results.push(updated);
+    }
+
+    if (footnote !== undefined && tournamentId && phaseSlug) {
+      try {
+        const candidates = getTableCandidateFiles(tournamentId, phaseSlug);
+        let targetFile = candidates[0];
+        for (const p of candidates) {
+          if (fs.existsSync(p)) {
+            targetFile = p;
+            break;
+          }
+        }
+        let fileData = {};
+        if (fs.existsSync(targetFile)) {
+          try {
+            fileData = JSON.parse(fs.readFileSync(targetFile, "utf-8"));
+          } catch {}
+        }
+        fileData.footnote = footnote ? footnote.trim() : undefined;
+        const dir = path.dirname(targetFile);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(targetFile, JSON.stringify(fileData, null, 2), "utf-8");
+      } catch (fErr) {
+        console.warn("Aviso al guardar footnote de tabla en JSON:", fErr.message);
+      }
     }
 
     try {

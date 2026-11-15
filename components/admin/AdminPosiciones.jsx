@@ -3,6 +3,32 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
+function getTournamentCategoryGroup(t) {
+  const id = (t?.id || "").toLowerCase();
+  if (t?.category === "PRIMERA_FEMENINO" || id.includes("fem")) return "Fútbol Femenino";
+  if (id.includes("cuarta") || id.includes("quinta") || id.includes("sexta") || id.includes("septima") || id.includes("tercera")) {
+    return "Divisiones Inferiores";
+  }
+  if (id.includes("cat_") || id.includes("cat-")) return "Fútbol Infantil";
+  return "Primera División Masculino";
+}
+
+function formatTournamentLabel(t) {
+  const id = (t?.id || "").toLowerCase();
+  if (id === "oficial-2026") return "Torneo Oficial 2026 (Primera)";
+  if (id === "preparacion-2026") return "Torneo Preparación 2026 (Primera)";
+  if (id === "oficial-2026-fem") return "Torneo Oficial 2026 (Femenino)";
+  if (id === "oficial-2025") return "Torneo Oficial 2025 (Primera)";
+  if (id === "preparacion-2025") return "Torneo Preparación 2025 (Primera)";
+  if (id === "oficial-2025-fem") return "Torneo Oficial 2025 (Femenino)";
+  if (id.includes("cuarta")) return `Cuarta División (Sub-17) - ${t.seasonId || ""}`;
+  if (id.includes("quinta")) return `Quinta División (Sub-15) - ${t.seasonId || ""}`;
+  if (id.includes("sexta")) return `Sexta División (Sub-13) - ${t.seasonId || ""}`;
+  if (id.includes("septima")) return `Séptima División (Sub-11) - ${t.seasonId || ""}`;
+  if (id.includes("tercera")) return `Tercera División (Reserva) - ${t.seasonId || ""}`;
+  return t?.name || id;
+}
+
 export default function AdminPosiciones({ context, selectedYear = "2026", onSelectYear }) {
   const { teams = [], tournaments = [] } = context || {};
 
@@ -16,6 +42,13 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
     activeYear === "ALL"
       ? tournaments
       : tournaments.filter((t) => t.seasonId === activeYear);
+
+  const groupedTournaments = filteredTournaments.reduce((acc, t) => {
+    const grp = getTournamentCategoryGroup(t);
+    if (!acc[grp]) acc[grp] = [];
+    acc[grp].push(t);
+    return acc;
+  }, {});
 
   const [selectedTournament, setSelectedTournament] = useState(
     filteredTournaments[0]?.id || tournaments[0]?.id || "oficial-2026"
@@ -43,6 +76,7 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
   const [incrementalMatches, setIncrementalMatches] = useState([{ homeTeamId: "", homeScore: "", awayScore: "", awayTeamId: "" }]);
   const [toast, setToast] = useState(null);
   const [selectedTeamToAdd, setSelectedTeamToAdd] = useState("");
+  const [tableFootnote, setTableFootnote] = useState("");
 
   // Estados de Cruces Eliminatorios / Bracket
   const [duels, setDuels] = useState([]);
@@ -86,6 +120,7 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
       );
       const data = await res.json();
       setPhaseData(data.phase);
+      setTableFootnote(data.footnote || "");
       if (data.rows) {
         const sorted = [...data.rows].sort((a, b) => {
           if (b.pts !== a.pts) return b.pts - a.pts;
@@ -299,6 +334,9 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phaseId: phaseData.id,
+          tournamentId: selectedTournament,
+          phaseSlug: selectedPhaseSlug,
+          footnote: tableFootnote,
           rows: rows.map((r, i) => ({
             teamId: r.teamId,
             position: i + 1,
@@ -523,10 +561,14 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
               onChange={(e) => setSelectedTournament(e.target.value)}
               className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-red-600 font-bold"
             >
-              {filteredTournaments.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.name}
-                </option>
+              {Object.entries(groupedTournaments).map(([groupName, tours]) => (
+                <optgroup key={groupName} label={`── ${groupName} ──`} className="bg-neutral-900 text-neutral-400 font-black">
+                  {tours.map((t) => (
+                    <option key={t.id} value={t.id} className="text-white bg-neutral-950 font-medium">
+                      {formatTournamentLabel(t)}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </div>
@@ -541,11 +583,14 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
               onChange={(e) => setSelectedPhaseSlug(e.target.value)}
               className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-red-600 font-bold"
             >
-              {phases.map((p) => (
-                <option key={p.id} value={p.slug}>
-                  {p.name} {p.slug === "repechaje" ? "(Repechaje)" : p.slug === "playoffs" ? "(Playoffs)" : p.slug === "finales" ? "(Ida/Vuelta)" : ""}
-                </option>
-              ))}
+              {phases.map((p) => {
+                const isElim = p.slug === "repechaje" || p.slug === "playoffs" || p.slug === "petit-playoffs" || p.slug === "finales";
+                return (
+                  <option key={p.id} value={p.slug}>
+                    {p.name} {isElim ? "🏆 [Cruces]" : "📊 [Tabla]"}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -1138,6 +1183,37 @@ export default function AdminPosiciones({ context, selectedYear = "2026", onSele
               </div>
             </div>
           )}
+
+          {/* Nota al pie de la tabla de posiciones */}
+          <div className="bg-neutral-900/80 border border-neutral-800 rounded-2xl p-5 space-y-2">
+            <label className="block text-xs font-black uppercase text-neutral-300">
+              Nota al pie de la tabla / Consagración o Clasificación:
+            </label>
+            <input
+              type="text"
+              value={tableFootnote}
+              onChange={(e) => setTableFootnote(e.target.value)}
+              placeholder='ej: "La Academia se consagra campeón del Torneo Oficial 2026." o "Los cuatro primeros clasifican al Petit Torneo."'
+              className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-red-600 focus:outline-none font-medium"
+            />
+            <p className="text-[11px] text-neutral-500">
+              Este texto se mostrará directamente debajo de la tabla de posiciones en la web pública.
+            </p>
+          </div>
+
+          {/* Acciones inferiores de la tabla */}
+          <div className="flex items-center justify-between pt-2">
+            <div className="text-xs text-neutral-500 font-medium">
+              Asegúrate de presionar <strong className="text-neutral-300">"Guardar Tabla"</strong> para aplicar los cambios a la web.
+            </div>
+            <button
+              onClick={handleSaveTable}
+              disabled={saving}
+              className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg disabled:opacity-50 flex items-center gap-2"
+            >
+              {saving ? "Guardando..." : "Guardar Tabla de Posiciones"}
+            </button>
+          </div>
         </div>
       )}
 

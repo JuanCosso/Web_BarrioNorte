@@ -18,33 +18,57 @@ function getArgentinaISODate(dateVal) {
   return fmt.format(d);
 }
 
+function getTournamentCategoryGroup(t) {
+  const id = (t?.id || "").toLowerCase();
+  if (t?.category === "PRIMERA_FEMENINO" || id.includes("fem")) return "Fútbol Femenino";
+  if (id.includes("cuarta") || id.includes("quinta") || id.includes("sexta") || id.includes("septima") || id.includes("tercera")) {
+    return "Divisiones Inferiores";
+  }
+  if (id.includes("cat_") || id.includes("cat-")) return "Fútbol Infantil";
+  return "Primera División Masculino";
+}
+
+function formatTournamentLabel(t) {
+  const id = (t?.id || "").toLowerCase();
+  if (id === "oficial-2026") return "Torneo Oficial 2026 (Primera)";
+  if (id === "preparacion-2026") return "Torneo Preparación 2026 (Primera)";
+  if (id === "oficial-2026-fem") return "Torneo Oficial 2026 (Femenino)";
+  if (id === "oficial-2025") return "Torneo Oficial 2025 (Primera)";
+  if (id === "preparacion-2025") return "Torneo Preparación 2025 (Primera)";
+  if (id === "oficial-2025-fem") return "Torneo Oficial 2025 (Femenino)";
+  if (id.includes("cuarta")) return `Cuarta División (Sub-17) - ${t.seasonId || ""}`;
+  if (id.includes("quinta")) return `Quinta División (Sub-15) - ${t.seasonId || ""}`;
+  if (id.includes("sexta")) return `Sexta División (Sub-13) - ${t.seasonId || ""}`;
+  if (id.includes("septima")) return `Séptima División (Sub-11) - ${t.seasonId || ""}`;
+  if (id.includes("tercera")) return `Tercera División (Reserva) - ${t.seasonId || ""}`;
+  return t?.name || id;
+}
+
 export default function AdminPartidos({ context, selectedYear = "2026", onSelectYear }) {
   const { teams = [], tournaments = [] } = context || {};
 
-  // Filtrar exclusivamente torneos de Primera División (masculino y femenino)  // Filtro de torneos para el select (ahora permitimos todos para poder ver inferiores)
-  const isPrimera = (t) => {
-    // Si querés ocultar algunos específicos a futuro podés agregarlos acá
-    // Por ahora, dejamos pasar a todos para que puedas gestionar "Sexta", "Séptima", etc.
-    return true;
-  };
-
-  const primeraTournaments = tournaments.filter(isPrimera);
-
-  // Años disponibles en base de datos para Primera
+  // Años disponibles en base de datos
   const availableYears = Array.from(
-    new Set(primeraTournaments.map((t) => t.seasonId).filter(Boolean))
+    new Set(tournaments.map((t) => t.seasonId).filter(Boolean))
   ).sort().reverse();
 
   const activeYear = selectedYear || (availableYears[0] || "2026");
 
-  // Torneos filtrados por año (solo Primera)
+  // Torneos filtrados por año
   const filteredTournaments =
     activeYear === "ALL"
-      ? primeraTournaments
-      : primeraTournaments.filter((t) => t.seasonId === activeYear);
+      ? tournaments
+      : tournaments.filter((t) => t.seasonId === activeYear);
+
+  const groupedTournaments = filteredTournaments.reduce((acc, t) => {
+    const grp = getTournamentCategoryGroup(t);
+    if (!acc[grp]) acc[grp] = [];
+    acc[grp].push(t);
+    return acc;
+  }, {});
 
   const [selectedTournament, setSelectedTournament] = useState(
-    filteredTournaments[0]?.id || primeraTournaments[0]?.id || "oficial-2026"
+    filteredTournaments[0]?.id || tournaments[0]?.id || "oficial-2026"
   );
   const [selectedPhase, setSelectedPhase] = useState("TODAS");
   const [selectedRound, setSelectedRound] = useState("TODAS");
@@ -381,17 +405,21 @@ export default function AdminPartidos({ context, selectedYear = "2026", onSelect
           {/* Torneo */}
           <div>
             <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1 tracking-wider">
-              Torneo (Primera)
+              Torneo y Categoría
             </label>
             <select
               value={selectedTournament}
               onChange={(e) => setSelectedTournament(e.target.value)}
               className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-red-600 font-bold"
             >
-              {filteredTournaments.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.name}
-                </option>
+              {Object.entries(groupedTournaments).map(([groupName, tours]) => (
+                <optgroup key={groupName} label={`── ${groupName} ──`} className="bg-neutral-900 text-neutral-400 font-black">
+                  {tours.map((t) => (
+                    <option key={t.id} value={t.id} className="text-white bg-neutral-950 font-medium">
+                      {formatTournamentLabel(t)}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </div>

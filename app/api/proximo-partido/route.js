@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import fixture from "../../../data/fixture/masculino.json";
 import { getNextMatch, formatFlyerData } from "../../../lib/fixture";
 
-export const dynamic = "force-dynamic";
+// Revalida la respuesta cada 10 minutos (600s). Evita el cold start de Neon DB en cada visita.
+export const revalidate = 600;
 
 export async function GET() {
   try {
@@ -85,7 +86,14 @@ export async function GET() {
           fromDb: true,
         };
 
-        return NextResponse.json({ flyerData });
+        return NextResponse.json(
+          { flyerData },
+          {
+            headers: {
+              "Cache-Control": "public, s-maxage=600, stale-while-revalidate=1200",
+            },
+          }
+        );
       }
     } catch (dbErr) {
       console.warn("Aviso al consultar próximo partido en Neon:", dbErr.message);
@@ -95,10 +103,24 @@ export async function GET() {
     const localNext = getNextMatch(fixture, new Date());
     const flyerData = formatFlyerData(localNext);
 
-    return NextResponse.json({ flyerData, fromDb: false });
+    return NextResponse.json(
+      { flyerData, fromDb: false },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=60",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error en api/proximo-partido:", error);
     const localNext = getNextMatch(fixture, new Date());
-    return NextResponse.json({ flyerData: formatFlyerData(localNext), fromDb: false });
+    return NextResponse.json(
+      { flyerData: formatFlyerData(localNext), fromDb: false },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=60",
+        },
+      }
+    );
   }
 }

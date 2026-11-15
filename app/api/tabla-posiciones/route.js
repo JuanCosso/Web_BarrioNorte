@@ -212,7 +212,9 @@ export async function GET(req) {
             pointAdjustment: s.pointAdjustment,
             notes: s.notes,
           }));
-          return NextResponse.json({ equipos, fromDb: true });
+          const localFallback = readLocalJson(tournament, type);
+          const footnote = localFallback?.footnote || undefined;
+          return NextResponse.json({ equipos, footnote, fromDb: true });
         }
       } catch (dbErr) {
         console.warn("Aviso al consultar tabla en Neon:", dbErr.message);
@@ -252,16 +254,29 @@ export async function GET(req) {
             const rows = [];
             let footnote = "";
             for (const m of bracketMatches) {
+              if (m.notes) {
+                const parts = m.notes.split("SERIES_DATA:");
+                const candidate = parts[0].trim();
+                if (candidate) {
+                  footnote = candidate;
+                  break;
+                }
+              }
+            }
+            if (!footnote) {
+              const localFallback = readLocalJson(tournament, type);
+              if (localFallback?.footnote) {
+                footnote = localFallback.footnote;
+              }
+            }
+            for (const m of bracketMatches) {
               const isSeries = m.notes && m.notes.includes("SERIES_DATA:");
               let seriesData = null;
               if (isSeries) {
                 try {
                   const parts = m.notes.split("SERIES_DATA:");
-                  if (!footnote) footnote = parts[0].trim();
                   seriesData = JSON.parse(parts[1]);
                 } catch {}
-              } else if (!footnote && m.notes) {
-                footnote = m.notes.trim();
               }
 
               if (seriesData) {
@@ -313,7 +328,7 @@ export async function GET(req) {
       const localData = readLocalJson(tournament, type);
       if (localData) {
         if (isBracket) return NextResponse.json({ rows: localData.rows || [], footnote: localData.footnote || undefined });
-        return NextResponse.json({ equipos: ordenarEquipos(localData.equipos || []) });
+        return NextResponse.json({ equipos: ordenarEquipos(localData.equipos || []), footnote: localData.footnote || undefined });
       }
       if (isBracket) return NextResponse.json({ rows: [] });
       return NextResponse.json({ equipos: [] });

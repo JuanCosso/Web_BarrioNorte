@@ -223,7 +223,24 @@ export async function GET(req) {
           };
         });
 
-        const footnote = dbMatches[0]?.notes ? dbMatches[0].notes.split("SERIES_DATA:")[0].trim() : "";
+        let footnote = "";
+        for (const m of dbMatches) {
+          if (m.notes) {
+            const candidate = m.notes.split("SERIES_DATA:")[0].trim();
+            if (candidate) {
+              footnote = candidate;
+              break;
+            }
+          }
+        }
+
+        if (!footnote) {
+          const candidates = getCandidateFilePaths(tournamentId, phaseSlug);
+          const jsonResult = readJsonFile(candidates);
+          if (jsonResult?.data?.footnote) {
+            footnote = jsonResult.data.footnote;
+          }
+        }
 
         return NextResponse.json({
           duels,
@@ -336,58 +353,80 @@ export async function PUT(req) {
 
     // 1. Guardar en Neon DB mediante transacción
     await prisma.$transaction(async (tx) => {
-      // Eliminar partidos anteriores de esta fase
-      await tx.match.deleteMany({
-        where: {
-          tournamentId,
-          phaseId: phase.id,
-        },
-      });
-
-      // Crear cada duelo como partido
-      for (let idx = 0; idx < duels.length; idx++) {
-        const d = duels[idx];
-        if (!d.equipo1 || !d.equipo2) continue;
-
-        const homeTeam = await getTeam(d.equipo1);
-        const awayTeam = await getTeam(d.equipo2);
-
-        if (!homeTeam || !awayTeam) continue;
-
-        const penHome = d.penales1 && d.penales1 !== "-" ? parseInt(d.penales1, 10) : null;
-        const penAway = d.penales2 && d.penales2 !== "-" ? parseInt(d.penales2, 10) : null;
-
-        let notes = footnote ? footnote.trim() : "";
-        if (d.format === "series") {
-          const seriesPayload = {
-            ida1: d.ida1,
-            ida2: d.ida2,
-            vuelta1: d.vuelta1,
-            vuelta2: d.vuelta2,
-          };
-          notes = `${notes} SERIES_DATA:${JSON.stringify(seriesPayload)}`;
-        }
-
-        const score1 = d.format === "series" ? (parseInt(d.ida1, 10) || 0) + (parseInt(d.vuelta1, 10) || 0) : (parseInt(d.score1, 10) || 0);
-        const score2 = d.format === "series" ? (parseInt(d.ida2, 10) || 0) + (parseInt(d.vuelta2, 10) || 0) : (parseInt(d.score2, 10) || 0);
-
-        await tx.match.create({
-          data: {
+      if (duels.length > 0) {
+        // Eliminar partidos anteriores de esta fase si hay nuevos duelos
+        await tx.match.deleteMany({
+          where: {
             tournamentId,
             phaseId: phase.id,
-            roundName: d.etapa || `Duelo ${idx + 1}`,
-            roundNumber: idx + 1,
-            homeTeamId: homeTeam.id,
-            awayTeamId: awayTeam.id,
-            homeScore: score1,
-            awayScore: score2,
-            penaltiesHome: isNaN(penHome) ? null : penHome,
-            penaltiesAway: isNaN(penAway) ? null : penAway,
-            status: "FINISHED",
-            notes: notes || null,
-            competition: phase.name,
           },
         });
+
+        // Crear cada duelo como partido
+        for (let idx = 0; idx < duels.length; idx++) {
+          const d = duels[idx];
+          if (!d.equipo1 || !d.equipo2) continue;
+
+          const homeTeam = await getTeam(d.equipo1);
+          const awayTeam = await getTeam(d.equipo2);
+
+          if (!homeTeam || !awayTeam) continue;
+
+          const penHome = d.penales1 && d.penales1 !== "-" ? parseInt(d.penales1, 10) : null;
+          const penAway = d.penales2 && d.penales2 !== "-" ? parseInt(d.penales2, 10) : null;
+
+          const cleanFootnote = footnote ? footnote.trim() : "";
+          let notes = cleanFootnote;
+          if (d.format === "series") {
+            const seriesPayload = {
+              ida1: d.ida1,
+              ida2: d.ida2,
+              vuelta1: d.vuelta1,
+              vuelta2: d.vuelta2,
+            };
+            notes = cleanFootnote
+              ? `${cleanFootnote} SERIES_DATA:${JSON.stringify(seriesPayload)}`
+              : `SERIES_DATA:${JSON.stringify(seriesPayload)}`;
+          }
+
+          const score1 = d.format === "series" ? (parseInt(d.ida1, 10) || 0) + (parseInt(d.vuelta1, 10) || 0) : (parseInt(d.score1, 10) || 0);
+          const score2 = d.format === "series" ? (parseInt(d.ida2, 10) || 0) + (parseInt(d.vuelta2, 10) || 0) : (parseInt(d.score2, 10) || 0);
+
+          await tx.match.create({
+            data: {
+              tournamentId,
+              phaseId: phase.id,
+              roundName: d.etapa || `Duelo ${idx + 1}`,
+              roundNumber: idx + 1,
+              homeTeamId: homeTeam.id,
+              awayTeamId: awayTeam.id,
+              homeScore: score1,
+              awayScore: score2,
+              penaltiesHome: isNaN(penHome) ? null : penHome,
+              penaltiesAway: isNaN(penAway) ? null : penAway,
+              status: "FINISHED",
+              notes: notes || null,
+              competition: phase.name,
+            },
+          });
+        }
+      } else if (footnote) {
+        // Si no se pasaron duelos pero se cambió la nota, actualizar la nota en los partidos existentes
+        const existingMatches = await tx.match.findMany({
+          where: { tournamentId, phaseId: phase.id },
+        });
+        for (const m of existingMatches) {
+          const cleanFootnote = footnote.trim();
+          let newNotes = cleanFootnote;
+          if (m.notes && m.notes.includes("SERIES_DATA:")) {
+            const seriesPart = m.notes.split("SERIES_DATA:")[1];
+            newNotes = `${cleanFootnote} SERIES_DATA:${seriesPart}`;
+          }
+          await tx.match.update({
+            where: { id: m.id },
+            data: { notes: newNotes },
+          });
+        }
       }
     });
 
@@ -403,7 +442,18 @@ export async function PUT(req) {
       }
 
       const rows = duelsToRows(duels);
-      const fileData = { rows, footnote: footnote ? footnote.trim() : undefined };
+      let existingRows = [];
+      try {
+        if (fs.existsSync(targetFile)) {
+          const parsed = JSON.parse(fs.readFileSync(targetFile, "utf-8"));
+          if (Array.isArray(parsed?.rows)) existingRows = parsed.rows;
+        }
+      } catch {}
+
+      const fileData = {
+        rows: rows.length > 0 ? rows : existingRows,
+        footnote: footnote ? footnote.trim() : undefined,
+      };
 
       const dir = path.dirname(targetFile);
       if (!fs.existsSync(dir)) {

@@ -244,12 +244,14 @@ export default function Femenino({ nav, active, onChange }) {
               .then((j) => withTeamLogosEquipos(Array.isArray(j?.equipos) ? j.equipos : []))
               .catch(() => []),
 
-            fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.repechaje.type)}`)
-              .then((j) => ({
-                rows: withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : []),
-                footnote: j?.footnote || null,
-              }))
-              .catch(() => ({ rows: [], footnote: null })),
+            tournament.tables.repechaje?.type
+              ? fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.repechaje.type)}`)
+                  .then((j) => ({
+                    rows: withTeamLogosRows(Array.isArray(j?.rows) ? j.rows : []),
+                    footnote: j?.footnote || null,
+                  }))
+                  .catch(() => ({ rows: [], footnote: null }))
+              : Promise.resolve({ rows: [], footnote: null }),
 
             fetchJSON(`${base}&type=${encodeURIComponent(tournament.tables.petit.type)}`)
               .then((j) => ({
@@ -283,7 +285,8 @@ export default function Femenino({ nav, active, onChange }) {
     if (loading) return false;
 
     if (tournament.format === "oficial") {
-      return Array.isArray(tables.liga) && Array.isArray(repechajeRows) && Array.isArray(petitRows);
+      const repeOk = tournament.id === "oficial-2026-fem" ? true : Array.isArray(repechajeRows);
+      return Array.isArray(tables.liga) && repeOk && Array.isArray(petitRows);
     }
 
     return false;
